@@ -1,14 +1,25 @@
 #include <driverChoice.h>
 #include "../include/menu.hpp"
 
-irr::gui::IGUIEnvironment *editGui(irr::gui::IGUIEnvironment *guienv)
+irr::gui::IGUIEnvironment *editGui(irr::gui::IGUIEnvironment *guienv, irr::IrrlichtDevice *device)
 {
-    guienv->addButton(irr::core::rect<irr::s32>(10, 240, 110, 272), 0,
-                      GUI_BUTTON1, L"QUIT", L"Exits Program");
-    guienv->addStaticText(L"Logging ListBox:", irr::core::rect<irr::s32>(50,
-                                                                         110, 250, 130), true);
-    guienv->addEditBox(L"Editable Text",
-                       irr::core::rect<irr::s32>(350, 80, 550, 100));
+    irr::core::dimension2d<irr::u32> dimensions = device->getVideoDriver()->getScreenSize();
+    int size_y = (int)(dimensions.Height * 0.05);
+    int size_x = (int)(dimensions.Width * 0.8);
+    int begin_x = (int)(dimensions.Width * 0.1);
+
+    guienv->addStaticText(L"BOMBERMAN", irr::core::rect<irr::s32>(begin_x,
+                     size_y, begin_x + size_x, size_y * 6), true);
+    guienv->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 7, begin_x + size_x,
+        size_y * 10), 0, GUI_BUTTON_NEW, L"NEW", L"Create New Game");
+    guienv->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 11, begin_x + size_x,
+        size_y * 14), 0, GUI_BUTTON_LOAD, L"LOAD", L"Load Previous Game");
+    guienv->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 15, begin_x + size_x,
+        size_y * 18), 0, GUI_BUTTON_QUIT, L"QUIT", L"Exit Program");
+//    guienv->addStaticText(L"Logging ListBox:", irr::core::rect<irr::s32>(50,
+//                                                                         110, 250, 130), true);
+//    guienv->addEditBox(L"Editable Text",
+//                       irr::core::rect<irr::s32>(350, 80, 550, 100));
     return guienv;
 }
 
@@ -21,17 +32,17 @@ SAppContext createContext()
     device->setWindowCaption(L"Best Bomberman");
     device->setResizable(true);
     irr::gui::IGUIEnvironment *guienv = device->getGUIEnvironment();
-    guienv = editGui(guienv);
+    guienv = editGui(guienv, device);
 
-    irr::gui::IGUISkin *skin = guienv->getSkin();
-    skin->setFont(guienv->getBuiltInFont(), irr::gui::EGDF_TOOLTIP);
-    irr::gui::IGUIListBox *listbox = guienv->addListBox
-        (irr::core::rect<irr::s32>(50, 140, 250, 210));
+//    irr::gui::IGUISkin *skin = guienv->getSkin();
+//    skin->setFont(guienv->getBuiltInFont(), irr::gui::EGDF_TOOLTIP);
+//    irr::gui::IGUIListBox *listbox = guienv->addListBox
+//        (irr::core::rect<irr::s32>(50, 140, 250, 210));
 
     SAppContext context;
     context.device = device;
     context.counter = 0;
-    context.listbox = listbox;
+//    context.listbox = listbox;
     return context;
 }
 

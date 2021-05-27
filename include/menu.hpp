@@ -11,6 +11,6 @@
 #include "EventHandling.hpp"
 
 SAppContext createContext();
-irr::gui::IGUIEnvironment *editGui(irr::gui::IGUIEnvironment *guienv);
+irr::gui::IGUIEnvironment *editGui(irr::gui::IGUIEnvironment *guienv, irr::IrrlichtDevice *device);
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_MENU_HPP
