@@ -11,4 +11,4 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/include
 )
 link_libraries(Irrlicht)
-add_executable(bomberman ${sources})
+add_executable(bomberman ${sources} include/EventHandling.hpp include/button_enum.hpp include/AppContext.hpp src/help_functions.cpp include/help_functions.hpp include/menu.hpp)
