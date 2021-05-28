@@ -29,19 +29,19 @@ void Floor::draw_floor(int x, int y) {
 
 void Floor::generate_template()
 {
-    _template = { //height
-            "#############",
-            "# B         #",
-            "#           #",
-            "#           #",
-            "#           #",
-            "#           #",
-            "#           #",
-            "#           #",
-            "#           #",
-            "#           #",
-            "#############",
-    };
+//    _template = { //height
+//            "#############",
+//            "# B         #",
+//            "#           #",
+//            "#           #",
+//            "#           #",
+//            "#           #",
+//            "#           #",
+//            "#           #",
+//            "#           #",
+//            "#           #",
+//            "#############",
+//    };
 }
 
 void Floor::create_map() {
@@ -72,8 +72,8 @@ void Floor::create_map() {
             }*/
             cord.x = x;
             cord.y = y;
-            _new_map[i] = std::make_pair(type, cord);
-            _map[x][y] = type;
+            _new_map.push_back(std::make_pair(type, cord));
+//            _map[x][y] = type;
             i++;
         }
     }
