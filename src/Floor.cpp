@@ -29,25 +29,23 @@ void Floor::draw_floor(int x, int y) {
 
 void Floor::generate_template()
 {
-//    _template = { //height
-//            "#############",
-//            "# B         #",
-//            "#           #",
-//            "#           #",
-//            "#           #",
-//            "#           #",
-//            "#           #",
-//            "#           #",
-//            "#           #",
-//            "#           #",
-//            "#############",
-//    };
+    _template.push_back("#############");
+    _template.push_back("# B         #");
+    _template.push_back("#           #");
+    _template.push_back("#           #");
+    _template.push_back("#           #");
+    _template.push_back("#           #");
+    _template.push_back("#           #");
+    _template.push_back("#           #");
+    _template.push_back("#           #");
+    _template.push_back("#           #");
+    _template.push_back("#############");
 }
 
 void Floor::create_map() {
     int i = 0;
     for (int x = 0; x < 13; x++) { //widtht
-        for (int y = 0; y < 11; y++) { //height
+        for (int y = 0; y < 10; y++) { //height
             Coordinate cord;
             char c = _template[y][x];
             Floor::Type type = Floor::Type::EMPTY;
@@ -77,10 +75,11 @@ void Floor::create_map() {
             i++;
         }
     }
-    /*for (int i = 0; i < (13 * 11) ; i++)
-    {
-        std::cout << _new_map[i].second.x << " " << _new_map[i].second.y << std::endl;
-    }*/
+//    for (int i = 0; i < _new_map.size() ; i++)
+//    {
+//        std::cout << _new_map[i].second.x << " " << _new_map[i].second.y <<
+//        std::endl;
+//    }
 }
 
 int Floor::get_width() const {

@@ -21,8 +21,10 @@ template<typename T1>
 T1 MyList<T1>::operator[](unsigned int index)
 {
     auto it = this->begin();
-    for (int i = 0; i < index; i++)
+    for (int i = 0; i < index && i < this->size(); i++)
     {
+////        if (i == this->size())
+////            this->push_back(T1());
         it++;
     }
     return *it;
