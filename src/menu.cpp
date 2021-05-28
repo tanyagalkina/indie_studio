@@ -8,6 +8,16 @@ irr::gui::IGUIEnvironment *editGui(irr::gui::IGUIEnvironment *guienv, irr::Irrli
     int size_x = (int)(dimensions.Width * 0.8);
     int begin_x = (int)(dimensions.Width * 0.1);
 
+    irr::gui::IGUISkin* skin = guienv->getSkin();
+    irr::gui::IGUIFont* font = guienv->getFont("media/fonthaettenschweiler.bmp");
+    if (font)
+        skin->setFont(font);
+    //font->setKerningHeight(40);
+    //font->setKerningWidth(40);
+
+    skin->setFont(guienv->getBuiltInFont(), irr::gui::EGDF_TOOLTIP);
+
+
     guienv->addStaticText(L"BOMBERMAN", irr::core::rect<irr::s32>(begin_x,
                      size_y, begin_x + size_x, size_y * 6), true);
     guienv->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 7, begin_x + size_x,
