@@ -37,7 +37,7 @@ Player::Player(SAppContext &ctx, VisualMap &vmap, const int &playerIdx)
 
     initPlayer();
 
-    this->smgr->createOctreeTriangleSelector(this->body->getMesh(), this->body);
+    this->selector = this->smgr->createOctreeTriangleSelector(this->body->getMesh(), this->body);
     this->body->setTriangleSelector(this->selector);
 
     /* adding collision between the player and the map */
@@ -46,6 +46,7 @@ Player::Player(SAppContext &ctx, VisualMap &vmap, const int &playerIdx)
 
 Player::~Player()
 {
+    this->selector->drop();
 }
 
 void Player::changeMovementState()

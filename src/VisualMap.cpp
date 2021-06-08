@@ -80,3 +80,8 @@ VisualMap::VisualMap(SAppContext &ctx, MyList<std::string> &map)
         selector->drop();
     }
 }
+
+VisualMap::~VisualMap()
+{
+    this->metaSelector->drop();
+}

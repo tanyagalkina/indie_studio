@@ -13,6 +13,7 @@ class VisualMap
 {
 public:
     VisualMap(SAppContext &ctx, MyList<std::string> &map);
+    ~VisualMap();
     void display();
     void addCollision(irr::scene::IAnimatedMeshSceneNode *body);
 
