@@ -10,11 +10,20 @@
 
 #include <irrlicht.h>
 
+enum class GameState {
+    Menu,
+    PauseMenu,
+    PreGame, // maybe character draft or something like this
+    Game,
+    End,
+};
+
 typedef struct
 {
     irr::IrrlichtDevice *device;
     irr::s32 counter;
     irr::gui::IGUIListBox *listbox;
+    GameState state;
 } SAppContext;
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_APPCONTEXT_HPP

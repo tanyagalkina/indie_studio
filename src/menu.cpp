@@ -1,5 +1,11 @@
 #include <driverChoice.h>
+#include <Floor.hpp>
 #include "../include/menu.hpp"
+#include "AppContext.hpp"
+#include "EDriverTypes.h"
+#include "IGUISkin.h"
+#include "VisualMap.hpp"
+#include "Player.hpp"
 
 irr::gui::IGUIEnvironment *editGui(irr::gui::IGUIEnvironment *guienv, irr::IrrlichtDevice *device)
 {
@@ -62,12 +68,31 @@ int main()
     MyEventReceiver receiver(context);
 
     context.device->setEventReceiver(&receiver);
+    context.state = GameState::Menu;
     irr::video::IVideoDriver *driver = context.device->getVideoDriver();
     irr::gui::IGUIEnvironment *guienv = context.device->getGUIEnvironment();
-    while (context.device->run())
+
+    Floor floor;
+    floor.generate_template();
+
+    while (context.device->run() && context.state == GameState::Menu)
     {
         driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
         guienv->drawAll();
+        context.device->getSceneManager()->drawAll();
+        driver->endScene();
+    }
+
+    VisualMap map(context, floor.getTemplate());
+    Player player(context, map);
+
+    GameEventReceiver gameReceiver;
+    context.device->setEventReceiver(&gameReceiver);
+
+    while (context.device->run()) {
+        player.update(gameReceiver);
+        driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
+        map.display();
         driver->endScene();
     }
     context.device->drop();

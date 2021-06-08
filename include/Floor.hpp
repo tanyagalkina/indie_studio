@@ -39,6 +39,7 @@ public:
     int get_width() const;
     int get_height() const;
     void generate_template();
+    MyList<std::string> &getTemplate() { return _template; }
 
 private:
     Type _type;

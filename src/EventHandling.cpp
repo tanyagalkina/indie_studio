@@ -24,6 +24,7 @@ bool MyEventReceiver::OnEvent(const irr::SEvent &event)
                         Context.device->closeDevice();
                         return true;
                     case GUI_BUTTON_NEW:
+                        Context.state = GameState::Game;
                         // create new game here
                         return true;
                     case GUI_BUTTON_LOAD:
