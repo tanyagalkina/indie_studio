@@ -1,6 +1,7 @@
 #include "../include/VisualMap.hpp"
 #include "IAnimatedMesh.h"
 #include "menu.hpp"
+#include "Error.hpp"
 
 void VisualMap::display()
 {
@@ -14,11 +15,11 @@ irr::scene::IAnimatedMeshSceneNode *VisualMap::createCube(int i, int j)
     irr::video::ITexture *texture;
 
     if ((mesh = this->smgr->getMesh("media/WoodenBox.3ds")) == NULL) {
-        // @todo throw AssetLoadError("Can't load 'media/WoodenBox.3ds'");
+        AssetLoadErrorMac("Can't load 'media/WoodenBox.3ds'");
     }
 
     if ((texture = this->driver->getTexture("media/WoodPlanks_Albedo.png")) == NULL) {
-        // @todo throw AssetLoadError("Can't load 'media/WoodPlanks_Albedo.png'");
+        AssetLoadErrorMac("Can't load 'media/WoodPlanks_Albedo.png'");
     }
 
     cube = this->smgr->addAnimatedMeshSceneNode(mesh);
@@ -62,7 +63,7 @@ VisualMap::VisualMap(SAppContext &ctx, MyList<std::string> &map)
     this->driver = context->device->getVideoDriver();
 
     if (!this->smgr->loadScene("media/map.irr")) {
-        //@todo throw AssetLoadError("Can't load 'media/map.irr'")
+        AssetLoadErrorMac("Can't load 'media/map.irr'");
     }
 
     this->smgr->addCameraSceneNode(NULL, irr::core::vector3df(0, 400, -200),
@@ -84,4 +85,9 @@ VisualMap::VisualMap(SAppContext &ctx, MyList<std::string> &map)
 VisualMap::~VisualMap()
 {
     this->metaSelector->drop();
+}
+
+std::vector<irr::scene::IAnimatedMeshSceneNode *> VisualMap::getBlocks() const
+{
+    return blocks;
 }

@@ -69,7 +69,7 @@ public:
         DOWN,
         LEFT
     };
-    explicit Player(SAppContext &ctx, VisualMap &map, const int &playerIdx = 0);
+    Player(SAppContext &ctx, VisualMap &map, const int &playerIdx = 0);
     ~Player();
     void update(GameEventReceiver &receiver);
 
@@ -81,10 +81,10 @@ private:
     void moveDown(irr::core::vector3df &pos);
     void moveLeft(irr::core::vector3df &pos);
     void moveRight(irr::core::vector3df &pos);
-
+    irr::scene::IAnimatedMeshSceneNode *getBody();
     /* initialize */
     void initPlayer();
-
+    bool checkCollision(const irr::scene::IAnimatedMeshSceneNode *object) const;
 private:
     /* general */
     SAppContext *context;

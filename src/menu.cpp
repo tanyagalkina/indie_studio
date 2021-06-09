@@ -6,7 +6,7 @@
 #include "IGUISkin.h"
 #include "VisualMap.hpp"
 #include "Player.hpp"
-#include "Error.hpp"
+#include "../include/Error.hpp"
 
 irr::gui::IGUIEnvironment *editGui(irr::gui::IGUIEnvironment *guienv, irr::IrrlichtDevice *device)
 {

@@ -5,9 +5,8 @@
 ** Error.cpp
 */
 
-#include "../include/Error.hpp"
-
-AssetLoadError::AssetLoadError(std::string errorMessage) : _errorMessage(errorMessage){}
+#include "../include/AssetLoadError.hpp"
+AssetLoadError::AssetLoadError(std::string errorMessage) : _errorMessage(std::move(errorMessage)){}
 
 std::string AssetLoadError::getMessage()
 {

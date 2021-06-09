@@ -1,4 +1,5 @@
 #include "../include/Player.hpp"
+#include "Error.hpp"
 #include "IAnimatedMeshMD2.h"
 #include "VisualMap.hpp"
 
@@ -7,10 +8,10 @@ void Player::initPlayer()
     irr::scene::IAnimatedMesh *mesh;
 
     if ((mesh = smgr->getMesh("media/sydney.md2")) == NULL) {
-        // @todo throw AssetLoadError("Can't load 'media/sydney.md2'");
+        AssetLoadErrorMac("Can't load 'media/sydney.md2'");
     }
     if ((this->body = smgr->addAnimatedMeshSceneNode(mesh)) == NULL) {
-        // @todo throw something
+        SceneErrorMac("Could not add AnimatedMeshSceneNode");
     }
 
     this->body->setMD2Animation(currentMovementState);
@@ -113,4 +114,15 @@ void Player::update(GameEventReceiver &receiver)
 {
     move(receiver);
     // @todo look for bombs, powerups ...
+}
+
+irr::scene::IAnimatedMeshSceneNode *Player::getBody()
+{
+    return this->body;
+}
+
+
+bool Player::checkCollision(const irr::scene::IAnimatedMeshSceneNode *object) const
+{
+    return object->getTransformedBoundingBox().intersectsWithBox(this->body->getTransformedBoundingBox());
 }

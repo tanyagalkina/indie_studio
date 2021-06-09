@@ -5,13 +5,12 @@
 ** Error.hpp
 */
 
-#ifndef B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_ERROR_HPP
-#define B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_ERROR_HPP
+#ifndef B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_ASSETLOADERROR_HPP
+#define B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_ASSETLOADERROR_HPP
 
 #include "string"
-#define AssetLoadErrorMac(arg) \
-    throw AssetLoadError(arg "\n\tat: " __FILE__ ":" + std::to_string(__LINE__) + "\n")
 #include "exception"
+#include <utility>
 
 class AssetLoadError : public std::exception
 {
@@ -21,4 +20,4 @@ public:
     AssetLoadError(std::string errorMessage);
     std::string getMessage();
 };
-#endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_ERROR_HPP
+#endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_ASSETLOADERROR_HPP

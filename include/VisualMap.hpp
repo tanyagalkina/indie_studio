@@ -16,7 +16,7 @@ public:
     ~VisualMap();
     void display();
     void addCollision(irr::scene::IAnimatedMeshSceneNode *body);
-
+    std::vector<irr::scene::IAnimatedMeshSceneNode *> getBlocks() const;
 private:
     void initializeMap(MyList<std::string> &map);
     irr::scene::IAnimatedMeshSceneNode *createCube(int i, int j);
