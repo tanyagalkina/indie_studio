@@ -6,6 +6,7 @@
 #include "IGUISkin.h"
 #include "VisualMap.hpp"
 #include "Player.hpp"
+#include "Error.hpp"
 
 irr::gui::IGUIEnvironment *editGui(irr::gui::IGUIEnvironment *guienv, irr::IrrlichtDevice *device)
 {
@@ -64,6 +65,14 @@ SAppContext createContext()
 
 int main()
 {
+//    try {
+//        AssetLoadErrorMac("shit");
+//    }
+//    catch (AssetLoadError &er)
+//    {
+//        std::cout << er.getMessage();
+//        exit(0);
+//    }
     SAppContext context = createContext();
     MyEventReceiver receiver(context);
 

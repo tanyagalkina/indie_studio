@@ -4,11 +4,10 @@ project(B_YEP_400_BER_4_1_indiestudio_karl_erik_stoerzel)
 set(CMAKE_CXX_STANDARD 14)
 
 FILE(GLOB sources "src/*.cpp")
-FILE(GLOB includes "include/*.hpp")
 
 include_directories(
         "/usr/include/irrlicht"
         ${PROJECT_SOURCE_DIR}/include
 )
 link_libraries(Irrlicht)
-add_executable(bomberman ${sources} ${includes} include/Game.hpp include/Bomberman.hpp include/Coordinate.hpp include/Character.hpp include/my_list.hpp)
+add_executable(bomberman ${sources})
