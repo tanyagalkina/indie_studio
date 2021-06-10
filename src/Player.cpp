@@ -1,6 +1,5 @@
 #include "../include/Player.hpp"
 #include "Error.hpp"
-#include "IAnimatedMeshMD2.h"
 #include "VisualMap.hpp"
 #include <assert.h>
 
@@ -124,4 +123,9 @@ irr::scene::IAnimatedMeshSceneNode *Player::getBody()
 bool Player::checkCollision(const irr::scene::IAnimatedMeshSceneNode *object) const
 {
     return object->getTransformedBoundingBox().intersectsWithBox(this->body->getTransformedBoundingBox());
+}
+
+void Player::setExtraSpeed(irr::f32 newExtraSpeed)
+{
+    this->extraSpeedFactor = newExtraSpeed;
 }

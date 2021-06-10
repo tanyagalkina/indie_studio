@@ -11,7 +11,7 @@
 #include "VisualMap.hpp"
 #include "vector3d.h"
 #include <irrlicht.h>
-#include <chrono>
+#include "IAnimatedMeshMD2.h"
 
 class GameEventReceiver : public irr::IEventReceiver
 {
@@ -38,22 +38,6 @@ private:
 	bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
 };
 
-struct Timer {
-    std::chrono::time_point<std::chrono::high_resolution_clock> start;
-    std::chrono::time_point<std::chrono::high_resolution_clock> end;
-
-    void startTimer()
-    {
-        start = std::chrono::high_resolution_clock::now();
-    }
-
-    float getElapsedTime()
-    {
-        end = std::chrono::high_resolution_clock::now();
-        return (end - start).count();
-    }
-};
-
 /* up, right, down, left */
 static const irr::EKEY_CODE keyCodes[2][4] = {
     { irr::KEY_KEY_W, irr::KEY_KEY_D, irr::KEY_KEY_S, irr::KEY_KEY_A },
@@ -72,6 +56,8 @@ public:
     Player(SAppContext &ctx, VisualMap &map, const int &playerIdx = 0);
     ~Player();
     void update(GameEventReceiver &receiver);
+    void setExtraSpeed(irr::f32 newExtraSpeed);
+    irr::scene::IAnimatedMeshSceneNode *getBody();
 
 private:
     /* movement */
@@ -81,7 +67,6 @@ private:
     void moveDown(irr::core::vector3df &pos);
     void moveLeft(irr::core::vector3df &pos);
     void moveRight(irr::core::vector3df &pos);
-    irr::scene::IAnimatedMeshSceneNode *getBody();
     /* initialize */
     void initPlayer();
     bool checkCollision(const irr::scene::IAnimatedMeshSceneNode *object) const;
@@ -108,7 +93,6 @@ private:
     /* PowerUp handling */
     //Maybe we can use something like this to time the duration after you hit a
     //speed powerup ... we can reuse this class for bombs too.
-    Timer *powerUpTimer;
     irr::f32 extraSpeedFactor; /* used for the SpeedUp powerUp */
 };
 

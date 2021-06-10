@@ -6,13 +6,14 @@
 #include "ISceneManager.h"
 #include "IVideoDriver.h"
 #include "my_list.hpp"
+#include "Floor.hpp"
 #include <iostream>
 #include <vector>
 
 class VisualMap
 {
 public:
-    VisualMap(SAppContext &ctx, MyList<std::string> &map);
+    VisualMap(SAppContext &ctx, MyList<std::pair<Floor::Type, Coordinate>> &map);
     ~VisualMap();
     void display();
     void addCollision(irr::scene::IAnimatedMeshSceneNode *body);

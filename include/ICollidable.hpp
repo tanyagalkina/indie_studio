@@ -19,9 +19,9 @@ protected:
     irr::scene::ITriangleSelector *selector;
 
 public:
-    virtual ~ICollidable() = 0;
-
-    virtual void HandleCollision(const Player &player) = 0;
+    virtual ~ICollidable() = default;
+    virtual void setPosition(float x, float y) = 0;
+    virtual void HandleCollision(Player &player) = 0;
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_ICOLLIDABLE_HPP

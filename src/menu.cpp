@@ -7,6 +7,7 @@
 #include "VisualMap.hpp"
 #include "Player.hpp"
 #include "../include/Error.hpp"
+#include "SpeedUp.hpp"
 
 irr::gui::IGUIEnvironment *editGui(irr::gui::IGUIEnvironment *guienv, irr::IrrlichtDevice *device)
 {
@@ -63,6 +64,42 @@ SAppContext createContext()
     return context;
 }
 
+char get_char(Floor::Type teip)
+{
+    switch (teip)
+    {
+        case (Floor::Type::WALL):
+            return '#';
+        case (Floor:: Type::BOX):
+            return 'B';
+        case (Floor:: Type::EMPTY):
+            return ' ';
+        case (Floor::Type::TELEPORT):
+            return 'X';
+        case (Floor::Type::PLAYER):
+            return 'P';
+
+        default:
+            return '.';
+
+    }
+}
+
+void show_template(MyList<std::pair<Floor::Type, Coordinate>> mapTemplate)
+{
+    for (int j = 0; j < 40; ++j) {
+        for (int i = 0; i < 40; ++i) {
+            for (int k = 0; k < mapTemplate.size(); k++) {
+                if (mapTemplate[k].second.y == j && mapTemplate[k].second.x == i) {
+                    char ch = get_char(mapTemplate[k].first);
+                    printf("%c", ch);
+                }
+            }
+        }
+        printf("\n");
+    }
+}
+
 int main()
 {
 //    try {
@@ -81,8 +118,10 @@ int main()
     irr::video::IVideoDriver *driver = context.device->getVideoDriver();
     irr::gui::IGUIEnvironment *guienv = context.device->getGUIEnvironment();
 
-    Floor floor;
-    floor.generate_template();
+    ///_level, _nb_players, _width, _height
+    Floor floor(1, 1, 30, 11);
+    MyList<std::pair<Floor::Type, Coordinate>> mapTemplate = floor.getTemplate();
+    ///show_template(mapTemplate);
 
     while (context.device->run() && context.state == GameState::Menu)
     {
@@ -92,9 +131,10 @@ int main()
         driver->endScene();
     }
 
-    VisualMap map(context, floor.getTemplate());
+    VisualMap map(context, mapTemplate);
     Player player(context, map);
-
+    SpeedUp speed(context);
+    speed.setPosition(55, 55);
     GameEventReceiver gameReceiver;
     context.device->setEventReceiver(&gameReceiver);
 
@@ -102,6 +142,10 @@ int main()
         player.update(gameReceiver);
         driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
         map.display();
+        if (speed.checkExisting())
+            speed.HandleCollision(player);
+        else
+            break;
         driver->endScene();
     }
     context.device->drop();
