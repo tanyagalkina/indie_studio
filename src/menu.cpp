@@ -1,9 +1,12 @@
+#include <cstddef>
 #include <driverChoice.h>
 #include <Floor.hpp>
 #include "../include/menu.hpp"
 #include "AppContext.hpp"
+#include "AssetLoadError.hpp"
 #include "EDriverTypes.h"
 #include "IGUISkin.h"
+#include "SceneError.hpp"
 #include "VisualMap.hpp"
 #include "Player.hpp"
 #include "../include/Error.hpp"
@@ -64,6 +67,42 @@ SAppContext createContext()
     return context;
 }
 
+char get_char(Floor::Type teip)
+{
+    switch (teip)
+    {
+        case (Floor::Type::WALL):
+            return '#';
+        case (Floor:: Type::BOX):
+            return 'B';
+        case (Floor:: Type::EMPTY):
+            return ' ';
+        case (Floor::Type::TELEPORT):
+            return 'X';
+        case (Floor::Type::PLAYER):
+            return 'P';
+
+        default:
+            return '.';
+
+    }
+}
+
+void show_template(MyList<std::pair<Floor::Type, Coordinate>> mapTemplate)
+{
+    for (int j = 0; j < 40; ++j) {
+        for (int i = 0; i < 40; ++i) {
+            for (int k = 0; k < mapTemplate.size(); k++) {
+                if (mapTemplate[k].second.y == j && mapTemplate[k].second.x == i) {
+                    char ch = get_char(mapTemplate[k].first);
+                    printf("%c", ch);
+                }
+            }
+        }
+        printf("\n");
+    }
+}
+
 int main()
 {
 //    try {
@@ -83,8 +122,9 @@ int main()
     irr::gui::IGUIEnvironment *guienv = context.device->getGUIEnvironment();
 
     ///_level, _nb_players, _width, _height
-    Floor floor(1, 1, 13, 11);
-    MyList<std::string> mapTemplate = floor.getTemplate();
+    Floor floor(1, 1, 30, 11);
+    MyList<std::pair<Floor::Type, Coordinate>> mapTemplate = floor.getTemplate();
+    ///show_template(mapTemplate);
 
     while (context.device->run() && context.state == GameState::Menu)
     {
@@ -94,8 +134,19 @@ int main()
         driver->endScene();
     }
 
-    VisualMap map(context, mapTemplate);
-    Player player(context, map);
+    VisualMap *map = nullptr;
+
+    try {
+        map = new VisualMap(context, mapTemplate);
+    } catch (AssetLoadError &e) {
+        std::cerr << e.getMessage() << std::endl;
+        return 84;
+    } catch (SceneError &e) {
+        std::cerr << e.getMessage() << std::endl;
+        return 84;
+    }
+
+    Player player(context, *map);
     GameEventReceiver gameReceiver;
     context.device->setEventReceiver(&gameReceiver);
     PowerUpHandler PUHandler(context, player);
@@ -111,9 +162,11 @@ int main()
             over = true;
         }
         PUHandler.loop(gameReceiver);
-        map.display();
+        map->display();
         driver->endScene();
     }
+
     context.device->drop();
+    delete map;
     return (0);
 }

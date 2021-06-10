@@ -30,13 +30,14 @@ public:
         BOMB,
         PLAYER,
         MONSTER,
-        POWER_UP
+        POWER_UP,
+        TELEPORT
     };
 
 public:
     Floor(int level, int player_nb, int width, int height);
-    ///MyList<std::pair<Type, Coordinate>> getTemplate();
-    MyList<std::string> getTemplate();
+    MyList<std::pair<Type, Coordinate>> getTemplate();
+    ///MyList<std::string> getTemplate();
     int get_width() const;
     int get_height() const;
     ///only public for debugging
