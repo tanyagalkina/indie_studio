@@ -9,18 +9,21 @@
 #include "Floor.hpp"
 #include <iostream>
 #include <vector>
+#include "Cube.hpp"
+
+using Map = MyList<std::pair<Floor::Type, Coordinate>>;
 
 class VisualMap
 {
 public:
-    VisualMap(SAppContext &ctx, MyList<std::pair<Floor::Type, Coordinate>> &map);
+    VisualMap(SAppContext &ctx, Map &map);
     ~VisualMap();
     void display();
     void addCollision(irr::scene::IAnimatedMeshSceneNode *body);
-    std::vector<irr::scene::IAnimatedMeshSceneNode *> getBlocks() const;
+    std::vector<Cube *> getBlocks() const;
 private:
-    void initializeMap(MyList<std::string> &map);
-    irr::scene::IAnimatedMeshSceneNode *createCube(int i, int j);
+    void initializeMap(Map &map);
+    irr::scene::IAnimatedMeshSceneNode *createCube(Floor::Type type, Coordinate coord);
 
 private:
     /* general */
@@ -34,7 +37,7 @@ private:
     // at any time or is there a powerup underneath, this Class should have an
     // addCollision(just like the VisualMap class) method to make collision
     // between this box and the player possible.
-    std::vector<irr::scene::IAnimatedMeshSceneNode *> blocks;
+    std::vector<Cube *> blocks;
 
     /* collision */
     /* this one is just a collection of multiple selectors to act as one big

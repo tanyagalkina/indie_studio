@@ -70,6 +70,10 @@ private:
     /* initialize */
     void initPlayer();
     bool checkCollision(const irr::scene::IAnimatedMeshSceneNode *object) const;
+
+    /* collision */
+    void addCollision(irr::scene::IAnimatedMeshSceneNode *_body);
+
 private:
     /* general */
     SAppContext *context;

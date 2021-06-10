@@ -1,9 +1,12 @@
+#include <cstddef>
 #include <driverChoice.h>
 #include <Floor.hpp>
 #include "../include/menu.hpp"
 #include "AppContext.hpp"
+#include "AssetLoadError.hpp"
 #include "EDriverTypes.h"
 #include "IGUISkin.h"
+#include "SceneError.hpp"
 #include "VisualMap.hpp"
 #include "Player.hpp"
 #include "../include/Error.hpp"
@@ -131,8 +134,19 @@ int main()
         driver->endScene();
     }
 
-    VisualMap map(context, mapTemplate);
-    Player player(context, map);
+    VisualMap *map = nullptr;
+
+    try {
+        map = new VisualMap(context, mapTemplate);
+    } catch (AssetLoadError &e) {
+        std::cerr << e.getMessage() << std::endl;
+        return 84;
+    } catch (SceneError &e) {
+        std::cerr << e.getMessage() << std::endl;
+        return 84;
+    }
+
+    Player player(context, *map);
     SpeedUp speed(context);
     speed.setPosition(55, 55);
     GameEventReceiver gameReceiver;
@@ -141,13 +155,15 @@ int main()
     while (context.device->run()) {
         player.update(gameReceiver);
         driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
-        map.display();
+        map->display();
         if (speed.checkExisting())
             speed.HandleCollision(player);
         else
             break;
         driver->endScene();
     }
+
     context.device->drop();
+    delete map;
     return (0);
 }

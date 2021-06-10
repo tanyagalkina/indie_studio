@@ -114,11 +114,20 @@ void Player::update(GameEventReceiver &receiver)
     // @todo look for bombs, powerups ...
 }
 
+/* use this function to create Collision between multiple Players or monsters */
+void Player::addCollision(irr::scene::IAnimatedMeshSceneNode *_body)
+{
+    auto *anim = smgr->createCollisionResponseAnimator(selector, _body,
+            irr::core::vector3df(10, 10, 10),
+            irr::core::vector3df(0, 0, 0));
+    _body->addAnimator(anim);
+    anim->drop();
+}
+
 irr::scene::IAnimatedMeshSceneNode *Player::getBody()
 {
     return this->body;
 }
-
 
 bool Player::checkCollision(const irr::scene::IAnimatedMeshSceneNode *object) const
 {
