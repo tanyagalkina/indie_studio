@@ -56,7 +56,7 @@ void VisualMap::addCollision(irr::scene::IAnimatedMeshSceneNode *body)
     anim->drop();
 }
 
-VisualMap::VisualMap(SAppContext &ctx, MyList<std::string> &map)
+VisualMap::VisualMap(SAppContext &ctx, MyList<std::pair<Floor::Type, Coordinate>> &map)
     : context(&ctx)
 {
     this->smgr = context->device->getSceneManager();
@@ -69,7 +69,7 @@ VisualMap::VisualMap(SAppContext &ctx, MyList<std::string> &map)
     this->smgr->addCameraSceneNode(NULL, irr::core::vector3df(0, 400, -200),
             irr::core::vector3df(0, 0, -50));
 
-    initializeMap(map);
+    //initializeMap(map);
 
     irr::core::array<irr::scene::ISceneNode *>	walls;
     smgr->getSceneNodesFromType(irr::scene::ESNT_CUBE, walls);

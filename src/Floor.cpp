@@ -62,21 +62,19 @@ void Floor::set_teleport()
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> distr(1, 4);
     int my_random = distr(gen);
-    std::cout << my_random << std::endl;
     switch (my_random)
     {
         case (1):
-            _template[(_width) / 2][1] = 'X';
+            _template[_height / 2][1] = 'X';
             break;
         case (2):
-            _template[(_width) / 2][_height - 2] =  'X';
+            _template[(_height) / 2][_width - 2] =  'X';
             break;
         case (3):
-            _template[1][(_height) / 2] = 'X';
-
+            _template[1][(_width) / 2] = 'X';
             break;
         case (4):
-            _template[_width - 2][(_height) / 2] = 'X';
+            _template[_height - 2][_width / 2] = 'X';
             break;
     }
 
@@ -111,16 +109,16 @@ void Floor::put_players()
 }
 
 ///return _map will return a List of pairs <Coordinate, Type>
-MyList<std::string> Floor::getTemplate()
-///MyList<std::pair<Floor::Type, Coordinate>> Floor::getTemplate()
+///MyList<std::string> Floor::getTemplate()
+MyList<std::pair<Floor::Type, Coordinate>> Floor::getTemplate()
 {
-    MyList<std::string> output;
+    /*MyList<std::string> output;
     for (std::vector<std::string>::const_iterator i = _template.begin(); i != _template.end(); ++i)
         output.push_back(*i);
-    return output;
+    return output;*/
 
     ///_map is a list of pairs<Coordinate, Floor::Type>
-    //return _map;
+    return _map;
 }
 
 void Floor::generate_template()
@@ -157,8 +155,8 @@ void Floor::create_map() {
     for (int x = 0; x < _width; x++) {
         for (int y = 0; y < _height; y++) {
             Coordinate cord;
-            char c = _template[y][x];
             Floor::Type type = Floor::Type::EMPTY;
+            char c = _template[y][x];
             if (c == '#') {
                 type = Floor::Type::WALL;
             }
@@ -180,6 +178,8 @@ void Floor::create_map() {
             if (c == 'P') {
                 type = Floor::Type::PLAYER;
             }
+            if (c == 'X')
+                type = Floor::Type::TELEPORT;
 
             cord.x = x;
             cord.y = y;
