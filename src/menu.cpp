@@ -47,6 +47,7 @@ irr::gui::IGUIEnvironment *editGui(irr::gui::IGUIEnvironment *guienv, irr::Irrli
 SAppContext createContext()
 {
     irr::video::E_DRIVER_TYPE driver_type = irr::driverChoiceConsole();
+    //irr::video::E_DRIVER_TYPE driver_type = irr::video::EDT_OPENGL;
     irr::IrrlichtDevice *device = irr::createDevice(driver_type,
         irr::core::dimension2d<irr::u32>(640, 480),
             16, false, false, false, nullptr);
@@ -122,7 +123,7 @@ int main()
     irr::gui::IGUIEnvironment *guienv = context.device->getGUIEnvironment();
 
     ///_level, _nb_players, _width, _height
-    Floor floor(1, 1, 30, 11);
+    Floor floor(1, 1, 10, 10);
     MyList<std::pair<Floor::Type, Coordinate>> mapTemplate = floor.getTemplate();
     ///show_template(mapTemplate);
 

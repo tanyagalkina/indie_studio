@@ -4,10 +4,10 @@
 
 //                     meshPath       texturePath
 static const std::pair<irr::io::path, irr::io::path>  assetPath[4] = {
-    std::make_pair("media/WoodenBox.3ds", "media/WoodPlanks_Albedo.png"), // Empty
-    std::make_pair("media/WoodenBox.3ds", "media/WoodPlanks_Metallic.png"), // Box
-    std::make_pair("media/WoodenBox.3ds", "media/WoodPlanks_Roughness.png"), // Tile
-    std::make_pair("media/WoodenBox.3ds", "media/WoodPlanks_Normal.png"), // Wall
+    std::make_pair("media/WoodenBox.3ds", "media/textures/grass.png"), // Empty
+    std::make_pair("media/WoodenBox.3ds", "media/WoodPlanks_Albedo.png"), // Box
+    std::make_pair("media/WoodenBox.3ds", "media/textures/grass.png"), // Tile
+    std::make_pair("media/WoodenBox.3ds", "media/textures/wall_interior_save.png"), // Wall
     // @todo maybe add something for the outside walls ??
 };
 

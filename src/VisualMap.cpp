@@ -32,8 +32,10 @@ VisualMap::VisualMap(SAppContext &ctx, Map &map)
     this->smgr = context->device->getSceneManager();
     this->driver = context->device->getVideoDriver();
 
-    if (!this->smgr->loadScene("media/map.irr"))
-        AssetLoadErrorMac("Can't load 'media/map.irr'");
+    //if (!this->smgr->loadScene("media/map.irr"))
+        //AssetLoadErrorMac("Can't load 'media/map.irr'");
+    if (!this->smgr->loadScene("media/skybox.irr"))
+        AssetLoadErrorMac("Can't load 'media/skybox.irr'");
 
     this->smgr->addCameraSceneNode(NULL, irr::core::vector3df(0, 400, -200),
             irr::core::vector3df(0, 0, -50));

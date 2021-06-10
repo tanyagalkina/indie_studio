@@ -21,6 +21,7 @@ void Player::initPlayer()
     /* lift the player up a bit */
     auto pos = this->body->getPosition();
     pos.Y += 45;
+    pos.Z += 50;
     this->body->setPosition(pos);
 }
 
