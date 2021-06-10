@@ -11,7 +11,7 @@
 
 class ICollidable
 {
-private:
+protected:
     SAppContext *context;
     irr::scene::ISceneManager *smgr;
     irr::video::IVideoDriver *driver;
