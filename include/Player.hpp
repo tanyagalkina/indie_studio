@@ -12,6 +12,8 @@
 #include "vector3d.h"
 #include <irrlicht.h>
 #include "IAnimatedMeshMD2.h"
+#include "Timer.hpp"
+#include "PowerUpEnum.hpp"
 
 class GameEventReceiver : public irr::IEventReceiver
 {
@@ -58,6 +60,11 @@ public:
     void update(GameEventReceiver &receiver);
     void setExtraSpeed(irr::f32 newExtraSpeed);
     irr::scene::IAnimatedMeshSceneNode *getBody();
+    bool isAlive() const;
+    void kill();
+    void revive();
+    void setFire(bool enable);
+    void setUnlimitedBombs(bool enabled);
 
 private:
     /* movement */
@@ -67,6 +74,7 @@ private:
     void moveDown(irr::core::vector3df &pos);
     void moveLeft(irr::core::vector3df &pos);
     void moveRight(irr::core::vector3df &pos);
+
     /* initialize */
     void initPlayer();
     bool checkCollision(const irr::scene::IAnimatedMeshSceneNode *object) const;
@@ -87,7 +95,6 @@ private:
 	irr::f32 MOVEMENT_SPEED;
     irr::f32 frameDeltaTime;
     irr::scene::EMD2_ANIMATION_TYPE currentMovementState;
-
     /* collision */
     irr::scene::ITriangleSelector *selector;
 
@@ -97,7 +104,12 @@ private:
     /* PowerUp handling */
     //Maybe we can use something like this to time the duration after you hit a
     //speed powerup ... we can reuse this class for bombs too.
-    irr::f32 extraSpeedFactor; /* used for the SpeedUp powerUp */
+    irr::f32 extraSpeedFactor; /* used for the SpeedUp_t powerUp */
+    bool alive = true;
+    bool fireUp = false;
+    bool unlimitedBombs = false;
+
+    MyList<std::pair<Timer, PowerUpType>> powerUpTimers;
 };
 
 #endif //PLAYER_HPP_

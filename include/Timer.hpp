@@ -12,7 +12,9 @@
 class Timer {
     std::chrono::time_point<std::chrono::system_clock> start{};
     std::chrono::time_point<std::chrono::system_clock> end{};
+    float time;
 public:
+    explicit Timer(float Milliseconds) : time(Milliseconds){}
     void startTimer()
     {
         start = std::chrono::system_clock::now();
@@ -21,6 +23,14 @@ public:
     {
         end = std::chrono::system_clock::now();
         return float(std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
+    }
+    void reset()
+    {
+        start = std::chrono::system_clock::now();
+    }
+    bool isFinished()
+    {
+        return getElapsedTime() >= time;
     }
 };
 

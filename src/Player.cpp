@@ -139,3 +139,28 @@ void Player::setExtraSpeed(irr::f32 newExtraSpeed)
 {
     this->extraSpeedFactor = newExtraSpeed;
 }
+
+bool Player::isAlive() const
+{
+    return alive;
+}
+
+void Player::kill()
+{
+    alive = false;
+}
+
+void Player::revive()
+{
+    alive = true;
+}
+
+void Player::setFire(bool enable)
+{
+    fireUp = enable;
+}
+
+void Player::setUnlimitedBombs(bool enabled)
+{
+    unlimitedBombs = enabled;
+}
