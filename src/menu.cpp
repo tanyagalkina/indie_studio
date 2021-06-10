@@ -7,6 +7,7 @@
 #include "VisualMap.hpp"
 #include "Player.hpp"
 #include "../include/Error.hpp"
+#include "SpeedUp.hpp"
 
 irr::gui::IGUIEnvironment *editGui(irr::gui::IGUIEnvironment *guienv, irr::IrrlichtDevice *device)
 {
@@ -95,7 +96,8 @@ int main()
 
     VisualMap map(context, mapTemplate);
     Player player(context, map);
-
+    SpeedUp speed(context);
+    speed.setPosition(55, 55);
     GameEventReceiver gameReceiver;
     context.device->setEventReceiver(&gameReceiver);
 
@@ -103,6 +105,10 @@ int main()
         player.update(gameReceiver);
         driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
         map.display();
+        if (speed.checkExisting())
+            speed.HandleCollision(player);
+        else
+            break;
         driver->endScene();
     }
     context.device->drop();
