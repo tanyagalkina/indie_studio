@@ -7,7 +7,7 @@
 #include "VisualMap.hpp"
 #include "Player.hpp"
 #include "../include/Error.hpp"
-#include "SpeedUp.hpp"
+#include "PowerUpHandler.hpp"
 
 irr::gui::IGUIEnvironment *editGui(irr::gui::IGUIEnvironment *guienv, irr::IrrlichtDevice *device)
 {
@@ -96,19 +96,22 @@ int main()
 
     VisualMap map(context, mapTemplate);
     Player player(context, map);
-    SpeedUp speed(context);
-    speed.setPosition(55, 55);
     GameEventReceiver gameReceiver;
     context.device->setEventReceiver(&gameReceiver);
-
+    PowerUpHandler PUHandler(context, player);
+    Timer t(5000);
+    t.startTimer();
+    bool over = false;
     while (context.device->run()) {
         player.update(gameReceiver);
         driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
+        if (t.isFinished() && !over)
+        {
+            PUHandler.addPowerUp(PowerUpType::SpeedUp_t, 80, 55);
+            over = true;
+        }
+        PUHandler.loop(gameReceiver);
         map.display();
-        if (speed.checkExisting())
-            speed.HandleCollision(player);
-        else
-            break;
         driver->endScene();
     }
     context.device->drop();
