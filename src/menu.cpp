@@ -81,8 +81,9 @@ int main()
     irr::video::IVideoDriver *driver = context.device->getVideoDriver();
     irr::gui::IGUIEnvironment *guienv = context.device->getGUIEnvironment();
 
-    Floor floor;
-    floor.generate_template();
+    ///_level, _nb_players, _width, _height
+    Floor floor(1, 1, 13, 11);
+    MyList<std::string> mapTemplate = floor.getTemplate();
 
     while (context.device->run() && context.state == GameState::Menu)
     {
@@ -92,7 +93,7 @@ int main()
         driver->endScene();
     }
 
-    VisualMap map(context, floor.getTemplate());
+    VisualMap map(context, mapTemplate);
     Player player(context, map);
 
     GameEventReceiver gameReceiver;
