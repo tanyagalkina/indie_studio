@@ -111,16 +111,16 @@ void Floor::put_players()
 }
 
 ///return _map will return a List of pairs <Coordinate, Type>
-MyList<std::string> Floor::getTemplate()
-///MyList<std::pair<Floor::Type, Coordinate>> Floor::getTemplate()
+///MyList<std::string> Floor::getTemplate()
+MyList<std::pair<Floor::Type, Coordinate>> Floor::getTemplate()
 {
-    MyList<std::string> output;
+    /*MyList<std::string> output;
     for (std::vector<std::string>::const_iterator i = _template.begin(); i != _template.end(); ++i)
         output.push_back(*i);
-    return output;
+    return output;*/
 
     ///_map is a list of pairs<Coordinate, Floor::Type>
-    //return _map;
+    return _map;
 }
 
 void Floor::generate_template()

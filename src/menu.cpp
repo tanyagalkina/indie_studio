@@ -83,7 +83,7 @@ int main()
 
     ///_level, _nb_players, _width, _height
     Floor floor(1, 1, 13, 11);
-    MyList<std::string> mapTemplate = floor.getTemplate();
+    MyList<std::pair<Floor::Type, Coordinate>> mapTemplate = floor.getTemplate();
 
     while (context.device->run() && context.state == GameState::Menu)
     {
