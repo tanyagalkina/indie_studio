@@ -1,7 +1,7 @@
 #include "../include/Player.hpp"
 #include "Error.hpp"
-#include "IAnimatedMeshMD2.h"
 #include "VisualMap.hpp"
+#include <assert.h>
 
 void Player::initPlayer()
 {
@@ -29,9 +29,7 @@ Player::Player(SAppContext &ctx, VisualMap &vmap, const int &playerIdx)
     MOVEMENT_SPEED(100.f), currentMovementState(irr::scene::EMAT_STAND),
     extraSpeedFactor(1.f)
 {
-    if (playerIndex > 1) {
-        // @todo throw something
-    }
+    assert(playerIndex < 2); // just for now because it would crash
     this->smgr = context->device->getSceneManager();
     this->driver = context->device->getVideoDriver();
     then = context->device->getTimer()->getTime();
@@ -125,4 +123,9 @@ irr::scene::IAnimatedMeshSceneNode *Player::getBody()
 bool Player::checkCollision(const irr::scene::IAnimatedMeshSceneNode *object) const
 {
     return object->getTransformedBoundingBox().intersectsWithBox(this->body->getTransformedBoundingBox());
+}
+
+void Player::setExtraSpeed(irr::f32 newExtraSpeed)
+{
+    this->extraSpeedFactor = newExtraSpeed;
 }
