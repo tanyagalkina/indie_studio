@@ -30,7 +30,8 @@ public:
         BOMB,
         PLAYER,
         MONSTER,
-        POWER_UP
+        POWER_UP,
+        TELEPORT
     };
 
 public:
