@@ -27,8 +27,8 @@ public:
         BOX,
         TILE,
         WALL,
-        BOMB,
         PLAYER,
+        BOMB,
         MONSTER,
         POWER_UP,
         TELEPORT

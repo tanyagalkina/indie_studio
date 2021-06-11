@@ -10,7 +10,7 @@ Cube::Cube(SAppContext &context, Floor::Type  blockType, Coordinate cord)
 
     this->smgr = context.device->getSceneManager();
 
-    if (static_cast<int>(type) > 3)
+    if (static_cast<int>(type) > 4)
         type = Floor::Type::WALL;
 
     auto [meshPath, texturePath] = assetPath[static_cast<int>(type)];
@@ -26,11 +26,11 @@ Cube::Cube(SAppContext &context, Floor::Type  blockType, Coordinate cord)
     this->body->setMaterialTexture(0, driver->getTexture(texturePath));
     this->body->setScale(irr::core::vector3df(cubeSize));
 
-    if (type == Floor::Type::TILE || type == Floor::Type::EMPTY)
+    bool isGroundLevel = type == Floor::Type::TILE || type == Floor::Type::EMPTY || type == Floor::Type::PLAYER;
+    if (isGroundLevel)
         this->body->setPosition(irr::core::vector3df(-300 + x * cubeSize, -10, 300 - y * cubeSize));
     else
         this->body->setPosition(irr::core::vector3df(-300 + x * cubeSize, 30, 300 - y * cubeSize));
-    //this->body->setPosition(irr::core::vector3df(-300, 30, 250));
 
     selector = smgr->createOctreeTriangleSelector(this->body->getMesh(), this->body);
     this->body->setTriangleSelector(selector);
