@@ -28,16 +28,28 @@ Bomb::Bomb(SAppContext &ctx) {
     this->body->setTriangleSelector(this->selector);
 }
 
-void Bomb::drop(const irr::core::vector3df &pos)
-{
-    this->body->setPosition(pos);
+
+int calcMiddle(int coordinate) {
+    int n = coordinate / 50;
+    int min_x = 50 * n;
+    int max_x = 50 * (n + (n >= 0 && coordinate >= 0 ? + 1 : - 1));
+
+    return abs(min_x - coordinate) < abs(max_x - coordinate) ? min_x : max_x;
+}
+
+void Bomb::drop(const irr::core::vector3df &pos) {
+    auto position = pos;
+
+    position.X = calcMiddle(pos.X);
+    position.Z = calcMiddle(pos.Z);
+    position.Y = 10;
+
+    this->body->setPosition(position);
     this->body->setVisible(true);
     // @todo start timer ... explode etc.
 }
 
-void Bomb::setPosition(float x, float z) {
-    this->body->setPosition(irr::core::vector3d<irr::f32>(x, 45, z));
-}
+void Bomb::setPosition(float x, float z) {}
 
 bool Bomb::HandleCollision(Player &player) {
     if (player.getBody()->getTransformedBoundingBox().intersectsWithBox(this->body->getTransformedBoundingBox())) {
