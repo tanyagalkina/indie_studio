@@ -15,6 +15,8 @@
 #include "Timer.hpp"
 #include "PowerUpEnum.hpp"
 
+class Bomb;
+
 class GameEventReceiver : public irr::IEventReceiver
 {
 public:
@@ -41,9 +43,9 @@ private:
 };
 
 /* up, right, down, left */
-static const irr::EKEY_CODE keyCodes[2][4] = {
-    { irr::KEY_KEY_W, irr::KEY_KEY_D, irr::KEY_KEY_S, irr::KEY_KEY_A },
-    { irr::KEY_UP, irr::KEY_RIGHT, irr::KEY_DOWN, irr::KEY_LEFT }
+static const irr::EKEY_CODE keyCodes[2][5] = {
+    { irr::KEY_KEY_W, irr::KEY_KEY_D, irr::KEY_KEY_S, irr::KEY_KEY_A, irr::KEY_SPACE},
+    { irr::KEY_UP, irr::KEY_RIGHT, irr::KEY_DOWN, irr::KEY_LEFT, irr::KEY_RETURN}
 };
 
 class Player
@@ -53,7 +55,8 @@ public:
         UP = 0,
         RIGHT,
         DOWN,
-        LEFT
+        LEFT,
+        DROP_BOMB,
     };
     Player(SAppContext &ctx, VisualMap &map, const int &playerIdx = 0);
     ~Player();
@@ -74,6 +77,8 @@ private:
     void moveDown(irr::core::vector3df &pos);
     void moveLeft(irr::core::vector3df &pos);
     void moveRight(irr::core::vector3df &pos);
+
+    void dropBomb(GameEventReceiver &receiver);
 
     /* initialize */
     void initPlayer();
@@ -108,6 +113,8 @@ private:
     bool alive = true;
     bool fireUp = false;
     bool unlimitedBombs = false;
+
+    std::vector<Bomb> bombs; // @todo put this into the overall game class with all bombs on the field
 
     MyList<std::pair<Timer, PowerUpType>> powerUpTimers;
 };

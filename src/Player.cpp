@@ -2,6 +2,7 @@
 #include "Error.hpp"
 #include "VisualMap.hpp"
 #include <assert.h>
+#include "Bomb.hpp"
 
 void Player::initPlayer()
 {
@@ -113,9 +114,19 @@ void Player::move(GameEventReceiver &receiver)
     body->setPosition(pos);
 }
 
+void Player::dropBomb(GameEventReceiver &receiver)
+{
+    if (receiver.IsKeyDown(keyCodes[this->playerIndex][this->DROP_BOMB])) {
+        Bomb b(*this->context);
+        b.drop(this->body->getPosition());
+        bombs.push_back(b);
+    }
+}
+
 void Player::update(GameEventReceiver &receiver)
 {
     move(receiver);
+    dropBomb(receiver);
     // @todo look for bombs, powerups ...
 }
 
