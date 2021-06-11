@@ -25,7 +25,6 @@ PowerUp::PowerUp(SAppContext &ctx, const irr::core::string<irr::fschar_t> &meshP
     std::cout << "here" << std::endl;
     //        this->body->setMD2Animation(currentMovementState);
     this->body->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-//    this->body->setScale(irr::core::vector3df(18, 18, 8));
     this->body->setMaterialTexture(1, driver->getTexture(texturePath));
     this->body->setMaterialTexture(0, driver->getTexture(
         "./media/textures/textures/swiatlo1obj_1001_BaseColor.jpg"
@@ -36,6 +35,7 @@ PowerUp::PowerUp(SAppContext &ctx, const irr::core::string<irr::fschar_t> &meshP
     this->body->setMaterialTexture(3, driver->getTexture(
         "./media/textures/textures/swiatlo1obj_1001_Roughness.jpg"
     ));
+    this->body->setScale(irr::core::vector3df(3, 3, 3));
 
     /* lift the player up a bit */
     auto pos = this->body->getPosition();

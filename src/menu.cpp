@@ -159,7 +159,7 @@ int main()
         driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
         if (t.isFinished() && !over)
         {
-            PUHandler.addPowerUp(PowerUpType::FireUp_t, 90, 55);
+            PUHandler.addPowerUp(PowerUpType::FireUp_t, 0, 0);
             over = true;
         }
         PUHandler.loop(gameReceiver);
