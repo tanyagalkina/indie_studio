@@ -15,27 +15,38 @@ PowerUp::PowerUp(SAppContext &ctx, const irr::core::string<irr::fschar_t> &meshP
     this->smgr = context->device->getSceneManager();
     this->driver = context->device->getVideoDriver();
 
-    irr::scene::IAnimatedMesh *mesh;
-    if ((mesh = smgr->getMesh(meshPath)) == NULL) {
-        AssetLoadErrorMac("Can't load mesh");
-    }
-    if ((this->body = smgr->addAnimatedMeshSceneNode(mesh)) == NULL) {
-        SceneErrorMac("Could not add AnimatedMeshSceneNode");
-    }
-    std::cout << "here" << std::endl;
-    //        this->body->setMD2Animation(currentMovementState);
-    this->body->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    this->body->setMaterialTexture(1, driver->getTexture(texturePath));
-    this->body->setMaterialTexture(0, driver->getTexture(
-        "./media/textures/textures/swiatlo1obj_1001_BaseColor.jpg"
-        ));
-    this->body->setMaterialTexture(2, driver->getTexture(
-        "./media/textures/textures/swiatlo1obj_1001_Emissive.jpg"
-    ));
-    this->body->setMaterialTexture(3, driver->getTexture(
-        "./media/textures/textures/swiatlo1obj_1001_Roughness.jpg"
-    ));
-    this->body->setScale(irr::core::vector3df(3, 3, 3));
+    this->body = smgr->addAnimatedMeshSceneNode(smgr->getMesh("./media/asset/powerup/powerUpP.obj"));
+    this->body->setMaterialTexture(
+        0,driver->getTexture("./media/asset/pillier/Texture_pillier_Selfillum_Orange.png"));
+    this->body->setMaterialTexture(
+        1,driver->getTexture("./media/asset/pillier/Texture_pillier_alpha_Orange.png"));
+    this->body->setMaterialFlag(irr::video::EMF_LIGHTING, true);
+    this->body->setScale(irr::core::vector3df(0.7, 0.7, 0.7));
+    this->body->setMaterialType(irr::video::EMT_TRANSPARENT_ADD_COLOR);
+    this->body->setRotation(irr::core::vector3df(130, 0, 0));
+    this->body->addAnimator(smgr->createRotationAnimator(irr::core::vector3df(0, 1, 0)));
+
+    //
+//    irr::scene::IAnimatedMesh *mesh;
+//    if ((mesh = smgr->getMesh("meshPath")) == NULL) {
+//        AssetLoadErrorMac("Can't load mesh");
+//    }
+//    if ((this->body = smgr->addAnimatedMeshSceneNode(mesh)) == NULL) {
+//        SceneErrorMac("Could not add AnimatedMeshSceneNode");
+//    }
+//    std::cout << "here" << std::endl;
+//    //        this->body->setMD2Animation(currentMovementState);
+//    this->body->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+//    this->body->setMaterialTexture(1, driver->getTexture(texturePath));
+//    this->body->setMaterialTexture(0, driver->getTexture(
+//        "./media/textures/textures/swiatlo1obj_1001_BaseColor.jpg"
+//        ));
+//    this->body->setMaterialTexture(2, driver->getTexture(
+//        "./media/textures/textures/swiatlo1obj_1001_Emissive.jpg"
+//    ));
+//    this->body->setMaterialTexture(3, driver->getTexture(
+//        "./media/textures/textures/swiatlo1obj_1001_Roughness.jpg"
+//    ));
 
     /* lift the player up a bit */
     auto pos = this->body->getPosition();
