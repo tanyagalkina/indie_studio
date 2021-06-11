@@ -151,7 +151,7 @@ int main()
     GameEventReceiver gameReceiver;
     context.device->setEventReceiver(&gameReceiver);
     PowerUpHandler PUHandler(context, player);
-    Timer t(5000);
+    Timer t(1000);
     t.startTimer();
     bool over = false;
     while (context.device->run()) {

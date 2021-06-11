@@ -13,5 +13,7 @@ std::pair<Timer, PowerUpType> SpeedUp::getTimerAndType()
 }
 
 SpeedUp::SpeedUp(SAppContext &sac) : PowerUp(sac, "media/boot.3ds", "media/sydney.bmp")
-{}
+{
+    this->body->setScale(irr::core::vector3df(0.07, 0.07, 0.07));
+}
 

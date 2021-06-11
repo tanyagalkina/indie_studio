@@ -7,8 +7,16 @@
 
 #include "BombUp.hpp"
 
-BombUp::BombUp(SAppContext &sac) : PowerUp(sac, "media/sydney.md2", "media/sydney.bmp")
+BombUp::BombUp(SAppContext &sac) : PowerUp(sac, "./media/asset/powerup/powerUpP.obj",
+"./media/asset/pillier/Texture_pillier_Selfillum_Orange.png")
 {
+    this->body->setMaterialTexture(
+        1,driver->getTexture("./media/asset/pillier/Texture_pillier_alpha_Orange.png"));
+    this->body->setMaterialTexture(
+        2,driver->getTexture("./media/asset/pillier/Texture_pillier_Orange.png"));
+    this->body->setScale(irr::core::vector3df(5, 5, 5));
+    this->body->setMaterialType(irr::video::EMT_TRANSPARENT_ADD_COLOR);
+    this->body->setRotation(irr::core::vector3df(50, 0, 0));
 }
 
 std::pair<Timer, PowerUpType> BombUp::getTimerAndType()
