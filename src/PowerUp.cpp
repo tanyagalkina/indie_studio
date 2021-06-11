@@ -21,7 +21,7 @@ PowerUp::PowerUp(SAppContext &ctx, const irr::core::string<irr::fschar_t> &meshP
     this->body->setMaterialTexture(
         1,driver->getTexture("./media/asset/pillier/Texture_pillier_alpha_Orange.png"));
     this->body->setMaterialFlag(irr::video::EMF_LIGHTING, true);
-    this->body->setScale(irr::core::vector3df(0.7, 0.7, 0.7));
+    this->body->setScale(irr::core::vector3df(7, 7, 7));
     this->body->setMaterialType(irr::video::EMT_TRANSPARENT_ADD_COLOR);
     this->body->setRotation(irr::core::vector3df(130, 0, 0));
     this->body->addAnimator(smgr->createRotationAnimator(irr::core::vector3df(0, 1, 0)));
