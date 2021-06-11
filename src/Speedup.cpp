@@ -12,6 +12,6 @@ std::pair<Timer, PowerUpType> SpeedUp::getTimerAndType()
     return std::make_pair(Timer(15000), PowerUpType::SpeedUp_t);
 }
 
-SpeedUp::SpeedUp(SAppContext &sac) : PowerUp(sac, "media/sydney.md2", "media/sydney.bmp")
+SpeedUp::SpeedUp(SAppContext &sac) : PowerUp(sac, "media/boot.3ds", "media/sydney.bmp")
 {}
 

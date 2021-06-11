@@ -57,6 +57,12 @@ void PowerUpHandler::addPowerUp(PowerUpType type, float x, float z)
         item->setPosition(x, z);
         allPowerUps.push_back(item);
     }
+    if (type == PowerUpType::FireUp_t)
+    {
+        auto *item = new FireUp(*appContext);
+        item->setPosition(x, z);
+        allPowerUps.push_back(item);
+    }
 }
 
 void PowerUpHandler::handlePlayerItems(PowerUpType type)

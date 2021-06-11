@@ -7,7 +7,8 @@
 
 #include "FireUp.hpp"
 
-FireUp::FireUp(SAppContext &sac) : PowerUp(sac, "media/sydney.md2", "media/sydney.bmp")
+FireUp::FireUp(SAppContext &sac) : PowerUp(sac, "./media/textures/source/swiatlo1obj.obj",
+                                           "./media/textures/textures/swiatlo1obj_1001_Normal.jpg")
 {
 }
 

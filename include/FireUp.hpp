@@ -10,8 +10,9 @@
 
 #include "PowerUp.hpp"
 
-class FireUp : PowerUp
+class FireUp : public PowerUp
 {
+public:
     explicit FireUp(SAppContext &sac);
     std::pair<Timer, PowerUpType> getTimerAndType() final;
 
