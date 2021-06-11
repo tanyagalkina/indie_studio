@@ -16,34 +16,24 @@ PowerUp::PowerUp(SAppContext &ctx, const irr::core::string<irr::fschar_t> &meshP
     this->smgr = context->device->getSceneManager();
     this->driver = context->device->getVideoDriver();
 
-    //irr::scene::IAnimatedMesh *mesh;
+    irr::scene::IAnimatedMesh *mesh;
 
-    //if ((mesh = smgr->getMesh(meshPath)) == NULL)
-        //AssetLoadErrorMac("powerup");
-    //if ((this->body = smgr->addAnimatedMeshSceneNode(mesh)) == NULL)
-        //SceneErrorMac("powerup");
+    if ((mesh = smgr->getMesh(meshPath)) == NULL)
+        AssetLoadErrorMac("loading mesh");
+    if ((this->body = smgr->addAnimatedMeshSceneNode(mesh)) == NULL)
+        SceneErrorMac("adding scene node");
 
     //this->body = smgr->addAnimatedMeshSceneNode(smgr->getMesh("./media/asset/powerup/powerUpP.obj"));
     ////this->body = smgr->addAnimatedMeshSceneNode(smgr->getMesh("media/boot.3ds"));
 
-    //this->body->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    //auto *texture = driver->getTexture("media/WoodPlanks_Normal.png");
+    this->body->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+    auto *texture = driver->getTexture(texturePath);
 
     //if (texture == NULL)
         //std::cout << "--------------------------__" << std::endl;
-    //this->body->setMaterialTexture(0, texture);
+    this->body->setMaterialTexture(0, texture);
     //this->body->setScale(irr::core::vector3df(.04));
     //this->body->setPosition(irr::core::vector3df(-300, 30, 300));
-    this->body = smgr->addAnimatedMeshSceneNode(smgr->getMesh("./media/asset/powerup/powerUpP.obj"));
-
-    this->body->setMaterialTexture(
-        0,driver->getTexture("./media/asset/pillier/Texture_pillier_Selfillum_Orange.png"));
-    this->body->setMaterialTexture(
-        1,driver->getTexture("./media/asset/pillier/Texture_pillier_alpha_Orange.png"));
-    this->body->setMaterialFlag(irr::video::EMF_LIGHTING, true);
-    this->body->setScale(irr::core::vector3df(0.7, 0.7, 0.7));
-    this->body->setMaterialType(irr::video::EMT_TRANSPARENT_ADD_COLOR);
-    this->body->setRotation(irr::core::vector3df(130, 0, 0));
     this->body->addAnimator(smgr->createRotationAnimator(irr::core::vector3df(0, 1, 0)));
 
     //

@@ -51,18 +51,26 @@ void PowerUpHandler::loop(GameEventReceiver &receiver)
 
 void PowerUpHandler::addPowerUp(PowerUpType type, float x, float z)
 {
-    if (type == PowerUpType::SpeedUp_t)
+    PowerUp *item = nullptr;
+    switch (type)
     {
-        auto *item = new SpeedUp(*appContext);
-        item->setPosition(x, z);
-        allPowerUps.push_back(item);
+        case PowerUpType::SpeedUp_t:
+            item = new SpeedUp(*appContext);
+            break;
+        case PowerUpType::FireUp_t:
+            item = new FireUp(*appContext);
+            break;
+        case PowerUpType::BombUp_t:
+            item = new BombUp(*appContext);
+            break;
+        default:
+            break;
     }
-    if (type == PowerUpType::FireUp_t)
-    {
-        auto *item = new FireUp(*appContext);
+    if (item)
         item->setPosition(x, z);
-        allPowerUps.push_back(item);
-    }
+    else
+        SceneErrorMac("uncoded powerup");
+    allPowerUps.push_back(item);
 }
 
 void PowerUpHandler::handlePlayerItems(PowerUpType type)
