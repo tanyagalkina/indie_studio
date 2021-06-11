@@ -34,6 +34,7 @@ PowerUp::PowerUp(SAppContext &ctx, const irr::core::string<irr::fschar_t> &meshP
     //this->body->setMaterialTexture(0, texture);
     //this->body->setScale(irr::core::vector3df(.04));
     //this->body->setPosition(irr::core::vector3df(-300, 30, 300));
+    this->body = smgr->addAnimatedMeshSceneNode(smgr->getMesh("./media/asset/powerup/powerUpP.obj"));
 
     this->body->setMaterialTexture(
         0,driver->getTexture("./media/asset/pillier/Texture_pillier_Selfillum_Orange.png"));
