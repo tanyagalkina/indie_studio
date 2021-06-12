@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="bomberman"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\cmake\;CMake Files\cmake\Irrlicht\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option working_dir="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option working_dir="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="bomberman">
+				<Option output="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/bomberman" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/irrlicht"/>
+					<Add directory="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 bomberman"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="bomberman/fast">
+				<Option output="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/bomberman" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/irrlicht"/>
+					<Add directory="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 bomberman/fast"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/AppContext.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/AssetLoadError.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/BombUp.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/Bomberman.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/Character.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/Coordinate.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/Cube.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/Error.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/EventHandling.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/FireUp.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/Floor.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/Game.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/ICollidable.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/Player.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/PowerUp.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/PowerUpEnum.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/PowerUpHandler.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/SceneError.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/SpeedUp.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/Timer.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/VisualMap.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/button_enum.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/help_functions.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/menu.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/my_list.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/AssetLoadError.cpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/BombUp.cpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/Cube.cpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/EventHandling.cpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/FireUp.cpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/Floor.cpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/Player.cpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/PowerUp.cpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/PowerUpHandler.cpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/SceneError.cpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/Speedup.cpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/VisualMap.cpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/help_functions.cpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/menu.cpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/cmake/Irrlicht/IrrlichtConfig.cmake">
+			<Option virtualFolder="CMake Files\cmake\Irrlicht\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

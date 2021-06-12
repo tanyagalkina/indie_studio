@@ -1,7 +1,8 @@
 #include "../include/Player.hpp"
 #include "Error.hpp"
-#include "IAnimatedMeshMD2.h"
 #include "VisualMap.hpp"
+#include <assert.h>
+#include "Bomb.hpp"
 
 void Player::initPlayer()
 {
@@ -21,6 +22,11 @@ void Player::initPlayer()
     /* lift the player up a bit */
     auto pos = this->body->getPosition();
     pos.Y += 45;
+
+    if (playerIndex == 0) {
+        pos.X = -250;
+        pos.Z = 250;
+    }
     this->body->setPosition(pos);
 }
 
@@ -29,9 +35,7 @@ Player::Player(SAppContext &ctx, VisualMap &vmap, const int &playerIdx)
     MOVEMENT_SPEED(100.f), currentMovementState(irr::scene::EMAT_STAND),
     extraSpeedFactor(1.f)
 {
-    if (playerIndex > 1) {
-        // @todo throw something
-    }
+    assert(playerIndex < 2); // just for now because it would crash
     this->smgr = context->device->getSceneManager();
     this->driver = context->device->getVideoDriver();
     then = context->device->getTimer()->getTime();
@@ -110,10 +114,30 @@ void Player::move(GameEventReceiver &receiver)
     body->setPosition(pos);
 }
 
+void Player::dropBomb(GameEventReceiver &receiver)
+{
+    if (receiver.IsKeyDown(keyCodes[this->playerIndex][this->DROP_BOMB])) {
+        Bomb b(*this->context);
+        b.drop(this->body->getPosition());
+        bombs.push_back(b);
+    }
+}
+
 void Player::update(GameEventReceiver &receiver)
 {
     move(receiver);
+    dropBomb(receiver);
     // @todo look for bombs, powerups ...
+}
+
+/* use this function to create Collision between multiple Players or monsters */
+void Player::addCollision(irr::scene::IAnimatedMeshSceneNode *_body)
+{
+    auto *anim = smgr->createCollisionResponseAnimator(selector, _body,
+            irr::core::vector3df(10, 10, 10),
+            irr::core::vector3df(0, 0, 0));
+    _body->addAnimator(anim);
+    anim->drop();
 }
 
 irr::scene::IAnimatedMeshSceneNode *Player::getBody()
@@ -121,8 +145,37 @@ irr::scene::IAnimatedMeshSceneNode *Player::getBody()
     return this->body;
 }
 
-
 bool Player::checkCollision(const irr::scene::IAnimatedMeshSceneNode *object) const
 {
     return object->getTransformedBoundingBox().intersectsWithBox(this->body->getTransformedBoundingBox());
+}
+
+void Player::setExtraSpeed(irr::f32 newExtraSpeed)
+{
+    this->extraSpeedFactor = newExtraSpeed;
+}
+
+bool Player::isAlive() const
+{
+    return alive;
+}
+
+void Player::kill()
+{
+    alive = false;
+}
+
+void Player::revive()
+{
+    alive = true;
+}
+
+void Player::setFire(bool enable)
+{
+    fireUp = enable;
+}
+
+void Player::setUnlimitedBombs(bool enabled)
+{
+    unlimitedBombs = enabled;
 }

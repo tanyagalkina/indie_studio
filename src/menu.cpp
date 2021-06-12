@@ -1,12 +1,16 @@
+#include <cstddef>
 #include <driverChoice.h>
 #include <Floor.hpp>
 #include "../include/menu.hpp"
 #include "AppContext.hpp"
+#include "AssetLoadError.hpp"
 #include "EDriverTypes.h"
 #include "IGUISkin.h"
+#include "SceneError.hpp"
 #include "VisualMap.hpp"
 #include "Player.hpp"
 #include "../include/Error.hpp"
+#include "PowerUpHandler.hpp"
 
 Menu::Menu(SAppContext context)
 {
