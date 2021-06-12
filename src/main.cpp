@@ -7,6 +7,7 @@
 
 #include <driverChoice.h>
 #include <Floor.hpp>
+#include <PowerUpHandler.hpp>
 #include "../include/menu.hpp"
 #include "AppContext.hpp"
 #include "EDriverTypes.h"
@@ -14,6 +15,43 @@
 #include "VisualMap.hpp"
 #include "Player.hpp"
 #include "../include/Error.hpp"
+
+
+char get_char(Floor::Type teip)
+{
+    switch (teip)
+    {
+        case (Floor::Type::WALL):
+            return '#';
+        case (Floor:: Type::BOX):
+            return 'B';
+        case (Floor:: Type::EMPTY):
+            return ' ';
+        case (Floor::Type::TELEPORT):
+            return 'X';
+        case (Floor::Type::PLAYER):
+            return 'P';
+
+        default:
+            return '.';
+
+    }
+}
+
+void show_template(MyList<std::pair<Floor::Type, Coordinate>> mapTemplate)
+{
+    for (int j = 0; j < 40; ++j) {
+        for (int i = 0; i < 40; ++i) {
+            for (int k = 0; k < mapTemplate.size(); k++) {
+                if (mapTemplate[k].second.y == j && mapTemplate[k].second.x == i) {
+                    char ch = get_char(mapTemplate[k].first);
+                    printf("%c", ch);
+                }
+            }
+        }
+        printf("\n");
+    }
+}
 
 
 SAppContext createContext()
@@ -31,6 +69,7 @@ SAppContext createContext()
     return context;
 }
 
+
 int main()
 {
     SAppContext context = createContext();
@@ -41,8 +80,8 @@ int main()
     irr::video::IVideoDriver *driver = context.device->getVideoDriver();
     Menu *main_menu = build_main_menu(context);
 
-    Floor floor;
-    floor.generate_template();
+    Floor floor(1, 1, 10, 10);
+    MyList<std::pair<Floor::Type, Coordinate>> mapTemplate = floor.getTemplate();
 
     while (context.device->run() && context.state == GameState::Menu)
     {
@@ -52,18 +91,39 @@ int main()
         driver->endScene();
     }
 
-    VisualMap map(context, floor.getTemplate());
-    Player player(context, map);
+    VisualMap *map = nullptr;
 
+    try {
+        map = new VisualMap(context, mapTemplate);
+    } catch (AssetLoadError &e) {
+        std::cerr << e.getMessage() << std::endl;
+        return 84;
+    } catch (SceneError &e) {
+        std::cerr << e.getMessage() << std::endl;
+        return 84;
+    }
+
+    Player player(context, *map);
     GameEventReceiver gameReceiver;
     context.device->setEventReceiver(&gameReceiver);
-
+    PowerUpHandler PUHandler(context, player);
+    Timer t(1000);
+    t.startTimer();
+    bool over = false;
     while (context.device->run()) {
         player.update(gameReceiver);
         driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
-        map.display();
+        if (t.isFinished() && !over)
+        {
+            PUHandler.addPowerUp(PowerUpType::SpeedUp_t, 50, 50);
+            over = true;
+        }
+        PUHandler.loop(gameReceiver);
+        map->display();
         driver->endScene();
     }
+
     context.device->drop();
+    delete map;
     return (0);
 }
