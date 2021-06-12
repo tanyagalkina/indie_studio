@@ -10,7 +10,20 @@
 
 #include "EventHandling.hpp"
 
-SAppContext createContext();
-irr::gui::IGUIEnvironment *editGui(irr::gui::IGUIEnvironment *guienv, irr::IrrlichtDevice *device);
+class Menu
+{
+public:
+    Menu(SAppContext context);
+    ~Menu() = default;
+    void addLabel(const wchar_t *text, const irr::core::rect<irr::s32>& pos);
+    void addButton(const irr::core::rect<irr::s32>& pos, int btn_enum, const wchar_t
+    *text, const wchar_t *tooltip);
+
+    irr::IrrlichtDevice *device;
+    irr::gui::IGUIEnvironment *guienv;
+};
+
+Menu *build_main_menu(SAppContext context);
+
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_MENU_HPP

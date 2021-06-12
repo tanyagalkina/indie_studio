@@ -10,4 +10,4 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/include
 )
 link_libraries(Irrlicht)
-add_executable(bomberman ${sources} include/PowerUp.hpp)
+add_executable(bomberman ${sources})

@@ -8,102 +8,27 @@
 #include "Player.hpp"
 #include "../include/Error.hpp"
 
-irr::gui::IGUIEnvironment *editGui(irr::gui::IGUIEnvironment *guienv, irr::IrrlichtDevice *device)
+Menu::Menu(SAppContext context)
 {
-    irr::core::dimension2d<irr::u32> dimensions = device->getVideoDriver()->getScreenSize();
-    int size_y = (int)(dimensions.Height * 0.05);
-    int size_x = (int)(dimensions.Width * 0.8);
-    int begin_x = (int)(dimensions.Width * 0.1);
+    device = context.device;
+    guienv = context.device->getGUIEnvironment();
 
     irr::gui::IGUISkin* skin = guienv->getSkin();
     irr::gui::IGUIFont* font = guienv->getFont("media/fonthaettenschweiler.bmp");
     if (font)
         skin->setFont(font);
-    //font->setKerningHeight(40);
-    //font->setKerningWidth(40);
 
     skin->setFont(guienv->getBuiltInFont(), irr::gui::EGDF_TOOLTIP);
 
-
-    guienv->addStaticText(L"BOMBERMAN", irr::core::rect<irr::s32>(begin_x,
-                     size_y, begin_x + size_x, size_y * 6), true);
-    guienv->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 7, begin_x + size_x,
-        size_y * 10), 0, GUI_BUTTON_NEW, L"NEW", L"Create New Game");
-    guienv->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 11, begin_x + size_x,
-        size_y * 14), 0, GUI_BUTTON_LOAD, L"LOAD", L"Load Previous Game");
-    guienv->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 15, begin_x + size_x,
-        size_y * 18), 0, GUI_BUTTON_QUIT, L"QUIT", L"Exit Program");
-//    guienv->addStaticText(L"Logging ListBox:", irr::core::rect<irr::s32>(50,
-//                                                                         110, 250, 130), true);
-//    guienv->addEditBox(L"Editable Text",
-//                       irr::core::rect<irr::s32>(350, 80, 550, 100));
-    return guienv;
 }
 
-SAppContext createContext()
+void Menu::addLabel(const wchar_t *text, const irr::core::rect<irr::s32>& pos)
 {
-    irr::video::E_DRIVER_TYPE driver_type = irr::driverChoiceConsole();
-    irr::IrrlichtDevice *device = irr::createDevice(driver_type,
-        irr::core::dimension2d<irr::u32>(640, 480),
-            16, false, false, false, nullptr);
-    device->setWindowCaption(L"Best Bomberman");
-    device->setResizable(true);
-    irr::gui::IGUIEnvironment *guienv = device->getGUIEnvironment();
-    guienv = editGui(guienv, device);
-
-//    irr::gui::IGUISkin *skin = guienv->getSkin();
-//    skin->setFont(guienv->getBuiltInFont(), irr::gui::EGDF_TOOLTIP);
-//    irr::gui::IGUIListBox *listbox = guienv->addListBox
-//        (irr::core::rect<irr::s32>(50, 140, 250, 210));
-
-    SAppContext context;
-    context.device = device;
-    context.counter = 0;
-//    context.listbox = listbox;
-    return context;
+    guienv->addStaticText(text, pos, true);
 }
 
-int main()
+void Menu::addButton(const irr::core::rect<irr::s32>& pos, int btn_enum, const wchar_t
+*text, const wchar_t *tooltip)
 {
-//    try {
-//        AssetLoadErrorMac("shit");
-//    }
-//    catch (AssetLoadError &er)
-//    {
-//        std::cout << er.getMessage();
-//        exit(0);
-//    }
-    SAppContext context = createContext();
-    MyEventReceiver receiver(context);
-
-    context.device->setEventReceiver(&receiver);
-    context.state = GameState::Menu;
-    irr::video::IVideoDriver *driver = context.device->getVideoDriver();
-    irr::gui::IGUIEnvironment *guienv = context.device->getGUIEnvironment();
-
-    Floor floor;
-    floor.generate_template();
-
-    while (context.device->run() && context.state == GameState::Menu)
-    {
-        driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
-        guienv->drawAll();
-        context.device->getSceneManager()->drawAll();
-        driver->endScene();
-    }
-
-    VisualMap map(context, floor.getTemplate());
-    Player player(context, map);
-
-    GameEventReceiver gameReceiver;
-    context.device->setEventReceiver(&gameReceiver);
-
-    while (context.device->run()) {
-        player.update(gameReceiver);
-        driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
-        map.display();
-        driver->endScene();
-    }
-    context.device->drop();
-    return (0);
+    guienv->addButton(pos, nullptr, btn_enum, text, tooltip);
 }
