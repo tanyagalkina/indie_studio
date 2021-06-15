@@ -6,15 +6,11 @@
 */
 
 #include <driverChoice.h>
-#include <Floor.hpp>
-#include <PowerUpHandler.hpp>
 #include "../include/menu.hpp"
-#include "AppContext.hpp"
 #include "EDriverTypes.h"
 #include "IGUISkin.h"
-#include "VisualMap.hpp"
-#include "Player.hpp"
 #include "../include/Error.hpp"
+#include "Game.hpp"
 
 
 char get_char(Floor::Type teip)
@@ -72,58 +68,7 @@ SAppContext createContext()
 
 int main()
 {
-    SAppContext context = createContext();
-    MyEventReceiver receiver(context);
-
-    context.device->setEventReceiver(&receiver);
-    context.state = GameState::Menu;
-    irr::video::IVideoDriver *driver = context.device->getVideoDriver();
-    Menu *main_menu = build_main_menu(context);
-
-    Floor floor(1, 1, 10, 10);
-    MyList<std::pair<Floor::Type, Coordinate>> mapTemplate = floor.getTemplate();
-
-    while (context.device->run() && context.state == GameState::Menu)
-    {
-        driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
-        main_menu->guienv->drawAll();
-        context.device->getSceneManager()->drawAll();
-        driver->endScene();
-    }
-
-    VisualMap *map = nullptr;
-
-    try {
-        map = new VisualMap(context, mapTemplate);
-    } catch (AssetLoadError &e) {
-        std::cerr << e.getMessage() << std::endl;
-        return 84;
-    } catch (SceneError &e) {
-        std::cerr << e.getMessage() << std::endl;
-        return 84;
-    }
-
-    Player player(context, *map);
-    GameEventReceiver gameReceiver;
-    context.device->setEventReceiver(&gameReceiver);
-    PowerUpHandler PUHandler(context, player);
-    Timer t(1000);
-    t.startTimer();
-    bool over = false;
-    while (context.device->run()) {
-        player.update(gameReceiver);
-        driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
-        if (t.isFinished() && !over)
-        {
-            PUHandler.addPowerUp(PowerUpType::SpeedUp_t, 50, 50);
-            over = true;
-        }
-        PUHandler.loop(gameReceiver);
-        map->display();
-        driver->endScene();
-    }
-
-    context.device->drop();
-    delete map;
+    Game g;
+    g.play();
     return (0);
 }

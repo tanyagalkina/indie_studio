@@ -20,7 +20,8 @@ public:
     explicit PowerUp(SAppContext &ctx, const irr::core::string<irr::fschar_t>& meshPath, const
     irr::core::string<irr::fschar_t> &texturePath);
     void setPosition(float x, float z) final;
-    virtual std::pair<Timer, PowerUpType> getTimerAndType() = 0;
+    virtual std::tuple<Timer, PowerUpType, Player *> getTimerTypeAndPlayer(Player& player)
+    = 0;
     bool HandleCollision(Player &player) override;
 };
 

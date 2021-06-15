@@ -19,7 +19,7 @@ BombUp::BombUp(SAppContext &sac) : PowerUp(sac, "./media/asset/powerup/powerUpP.
     this->body->setRotation(irr::core::vector3df(50, 0, 0));
 }
 
-std::pair<Timer, PowerUpType> BombUp::getTimerAndType()
+std::tuple<Timer, PowerUpType, Player *> BombUp::getTimerTypeAndPlayer(Player &player)
 {
-    return std::make_pair(Timer(5000), PowerUpType::BombUp_t);
+    return std::tuple(Timer(5000), PowerUpType::BombUp_t, &player);
 }

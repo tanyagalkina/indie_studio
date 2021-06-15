@@ -7,10 +7,9 @@
 
 #include "PowerUpHandler.hpp"
 
-void PowerUpHandler::loop(GameEventReceiver &receiver)
+void PowerUpHandler::loop(MyList<Player>& players)
 {
-    playerRef.update(receiver);
-    MyList<MyList<std::pair<Timer, PowerUpType>>::iterator> erasablePair;
+    MyList<MyList<std::tuple<Timer, PowerUpType, Player *>>::iterator> erasablePair;
     MyList<MyList<PowerUp *>::iterator> erasablePowerUps;
 
 
@@ -19,12 +18,15 @@ void PowerUpHandler::loop(GameEventReceiver &receiver)
 //    std::cout << playerRef.getBody()->getPosition().Y << std::endl;
     for (auto it = allPowerUps.begin(); it!= allPowerUps.end(); it++)
     {
-        if ((*it)->HandleCollision(playerRef))
+        for (auto & player : players)
         {
-            auto pu = (*it)->getTimerAndType();
-            pu.first.startTimer();
-            currentPowerUps.push_back(pu);
-            erasablePowerUps.push_back(it);
+            if ((*it)->HandleCollision(player))
+            {
+                auto pu = (*it)->getTimerTypeAndPlayer(player);
+                std::get<0>(pu).startTimer();
+                currentPowerUps.push_back(pu);
+                erasablePowerUps.push_back(it);
+            }
         }
     }
     for (auto & it : erasablePowerUps)
@@ -32,16 +34,19 @@ void PowerUpHandler::loop(GameEventReceiver &receiver)
         allPowerUps.erase(it);
     }
 
-    playerRef.setExtraSpeed(1);
-    playerRef.setFire(false);
-    playerRef.setUnlimitedBombs(false);
+    for (auto & player : players)
+    {
+        player.setExtraSpeed(1);
+        player.setFire(false);
+        player.setUnlimitedBombs(false);
+    }
 
     for (auto it = currentPowerUps.begin(); it != currentPowerUps.end(); it++)
     {
-        if (it->first.isFinished())
+        if (std::get<0>(*it).isFinished())
             erasablePair.push_back(it);
         else
-            handlePlayerItems(it->second);
+            handlePlayerItems(std::get<1>(*it), std::get<2>(*it));
     }
     for (auto & it : erasablePair)
     {
@@ -73,18 +78,18 @@ void PowerUpHandler::addPowerUp(PowerUpType type, float x, float z)
     allPowerUps.push_back(item);
 }
 
-void PowerUpHandler::handlePlayerItems(PowerUpType type)
+void PowerUpHandler::handlePlayerItems(PowerUpType type, Player *playerRef)
 {
     switch (type)
     {
         case PowerUpType::SpeedUp_t:
-            playerRef.setExtraSpeed(2);
+            playerRef->setExtraSpeed(2);
             break;
         case PowerUpType::FireUp_t:
-            playerRef.setFire(true);
+            playerRef->setFire(true);
             break;
         case PowerUpType::BombUp_t:
-            playerRef.setUnlimitedBombs(true);
+            playerRef->setUnlimitedBombs(true);
         default:
             break;
     }

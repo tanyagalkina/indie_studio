@@ -7,9 +7,9 @@
 
 #include "SpeedUp.hpp"
 
-std::pair<Timer, PowerUpType> SpeedUp::getTimerAndType()
+std::tuple<Timer, PowerUpType, Player *> SpeedUp::getTimerTypeAndPlayer(Player& player)
 {
-    return std::make_pair(Timer(15000), PowerUpType::SpeedUp_t);
+    return std::make_tuple(Timer(15000), PowerUpType::SpeedUp_t, &player);
 }
 
 SpeedUp::SpeedUp(SAppContext &sac) : PowerUp(sac, "media/boot.3ds", "media/sydney.bmp")

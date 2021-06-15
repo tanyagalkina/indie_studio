@@ -114,19 +114,19 @@ void Player::move(GameEventReceiver &receiver)
     body->setPosition(pos);
 }
 
-void Player::dropBomb(GameEventReceiver &receiver)
+ bool Player::dropBomb(GameEventReceiver &receiver)
 {
     if (receiver.IsKeyDown(keyCodes[this->playerIndex][this->DROP_BOMB])) {
-        Bomb b(*this->context);
-        b.drop(this->body->getPosition());
-        bombs.push_back(b);
+        return true;
+//        bombs.push_back(b);
     }
+    return false;
 }
 
-void Player::update(GameEventReceiver &receiver)
+bool Player::update(GameEventReceiver &receiver)
 {
     move(receiver);
-    dropBomb(receiver);
+    return dropBomb(receiver);
     // @todo look for bombs, powerups ...
 }
 

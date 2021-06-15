@@ -15,8 +15,6 @@
 #include "Timer.hpp"
 #include "PowerUpEnum.hpp"
 
-class Bomb;
-
 class GameEventReceiver : public irr::IEventReceiver
 {
 public:
@@ -60,7 +58,7 @@ public:
     };
     Player(SAppContext &ctx, VisualMap &map, const int &playerIdx = 0);
     ~Player();
-    void update(GameEventReceiver &receiver);
+    bool update(GameEventReceiver &receiver);
     void setExtraSpeed(irr::f32 newExtraSpeed);
     irr::scene::IAnimatedMeshSceneNode *getBody();
     bool isAlive() const;
@@ -78,7 +76,7 @@ private:
     void moveLeft(irr::core::vector3df &pos);
     void moveRight(irr::core::vector3df &pos);
 
-    void dropBomb(GameEventReceiver &receiver);
+    bool dropBomb(GameEventReceiver &receiver);
 
     /* initialize */
     void initPlayer();
@@ -114,7 +112,7 @@ private:
     bool fireUp = false;
     bool unlimitedBombs = false;
 
-    std::vector<Bomb> bombs; // @todo put this into the overall game class with all bombs on the field
+//    std::vector<Bomb> bombs; // @todo put this into the overall game class with all bombs on the field
 
     MyList<std::pair<Timer, PowerUpType>> powerUpTimers;
 };
