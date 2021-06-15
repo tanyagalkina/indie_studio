@@ -10,7 +10,7 @@ Cube::Cube(SAppContext &context, Floor::Type  blockType, Coordinate cord)
 
     this->smgr = context.device->getSceneManager();
 
-    if (static_cast<int>(type) > 4)
+    if (static_cast<int>(type) > 6)
         type = Floor::Type::WALL;
 
     auto [meshPath, texturePath] = assetPath[static_cast<int>(type)];
