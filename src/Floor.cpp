@@ -24,16 +24,6 @@ void Floor::set_obstacle_number_for_the_level()
     set_monster_nb();
 }
 
-///what is this for?
-bool Floor::can_walk_on() {
-    return _type != Type::WALL; //or brick
-}
-
-/// what is this for?
-bool Floor::makes_invincible() {
-    return _type == Type::POWER_UP;
-}
-
 void Floor::build_available_square_list()
 {
     Coordinate cor;
@@ -143,9 +133,15 @@ void Floor::generate_template()
     }
     set_teleport();
     build_available_square_list();
-    put_obstacles('+', _nb_boxes);
-    put_obstacles('M', _nb_monsters);
-    put_obstacles('*', _nb_tiles);
+    if (_level == 10)
+        put_obstacles('B', 1);
+    else if (_level == 20)
+        put_obstacles('B', 2);
+    else {
+        put_obstacles('+', _nb_boxes);
+        put_obstacles('M', _nb_monsters);
+        put_obstacles('*', _nb_tiles);
+    }
     put_players();
     create_map();
 }
@@ -158,7 +154,13 @@ void Floor::create_map() {
             Floor::Type type = Floor::Type::EMPTY;
             char c = _template[y][x];
             if (c == '#') {
-                type = Floor::Type::WALL;
+                if (_level == 10 || _level == 20)
+                    type = Floor::Type::WALL_BOSS;
+                else
+                    type = Floor::Type::WALL;
+            }
+            if (c == 'B') {
+                type = Floor::Type::BOSS;
             }
             if (c == '+') {
                 type = Floor::Type::BOX;
@@ -187,14 +189,6 @@ void Floor::create_map() {
             i++;
         }
     }
-}
-
-int Floor::get_width() const {
-    return _width;
-}
-
-int Floor::get_height() const {
-    return _height;
 }
 
 void Floor::check_and_fit_in_sizes() {
