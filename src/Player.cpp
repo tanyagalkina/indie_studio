@@ -41,7 +41,6 @@ void Player::move(GameEventReceiver &receiver)
  bool Player::dropBomb(GameEventReceiver &receiver)
 {
     if (receiver.IsKeyDown(keyCodes[this->playerIndex][this->DROP_BOMB])) {
-        updated = true;
         return true;
 //        bombs.push_back(b);
     }
