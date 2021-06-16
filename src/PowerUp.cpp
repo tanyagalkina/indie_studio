@@ -78,7 +78,7 @@ bool PowerUp::HandleCollision(Player &player)
     if (player.getBody()->getTransformedBoundingBox().intersectsWithBox(
         this->body->getTransformedBoundingBox()))
     {
-//        this->body->setVisible(false);
+        this->body->setVisible(false);
         std::cout << "hit" << std::endl;
         return true;
     }

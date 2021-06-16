@@ -14,7 +14,7 @@ class SpeedUp : public PowerUp
 {
 public:
     explicit SpeedUp(SAppContext &sac);
-    std::pair<Timer, PowerUpType> getTimerAndType() final;
+    std::tuple<Timer, PowerUpType, Player *> getTimerTypeAndPlayer(Player& player) final;
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_SPEEDUP_HPP

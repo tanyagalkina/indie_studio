@@ -10,10 +10,10 @@
 #include <iostream>
 #include <vector>
 #include "Cube.hpp"
-
+#include "IXML.hpp"
 using Map = MyList<std::pair<Floor::Type, Coordinate>>;
 
-class VisualMap
+class VisualMap : IXML
 {
 public:
     VisualMap(SAppContext &ctx, Map &map);
@@ -21,6 +21,9 @@ public:
     void display();
     void addCollision(irr::scene::IAnimatedMeshSceneNode *body);
     std::vector<Cube *> getBlocks() const;
+    void deserialize(std::string xmlCode) final;
+    std::string serialize() final;
+
 private:
     void initializeMap(Map &map);
     irr::scene::IAnimatedMeshSceneNode *createCube(Floor::Type type, Coordinate coord);

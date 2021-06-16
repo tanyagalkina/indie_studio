@@ -35,8 +35,8 @@ public:
         POWER_UP,
         TELEPORT
     };
-
 public:
+    static std::string getStringFromType(Type t);
     Floor(int level, int player_nb, int width, int height);
     MyList<std::pair<Type, Coordinate>> getTemplate(); //only for debugging
     void show_map(); //only for debugging

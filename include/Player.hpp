@@ -14,8 +14,7 @@
 #include "IAnimatedMeshMD2.h"
 #include "Timer.hpp"
 #include "PowerUpEnum.hpp"
-
-class Bomb;
+#include "IXML.hpp"
 
 class GameEventReceiver : public irr::IEventReceiver
 {
@@ -48,7 +47,7 @@ static const irr::EKEY_CODE keyCodes[2][5] = {
     { irr::KEY_UP, irr::KEY_RIGHT, irr::KEY_DOWN, irr::KEY_LEFT, irr::KEY_RETURN}
 };
 
-class Player
+class Player : public IXML
 {
 public:
     enum keyDirection {
@@ -60,7 +59,7 @@ public:
     };
     Player(SAppContext &ctx, VisualMap &map, const int &playerIdx = 0);
     ~Player();
-    void update(GameEventReceiver &receiver);
+    bool update(GameEventReceiver &receiver);
     void setExtraSpeed(irr::f32 newExtraSpeed);
     irr::scene::IAnimatedMeshSceneNode *getBody();
     bool isAlive() const;
@@ -68,6 +67,8 @@ public:
     void revive();
     void setFire(bool enable);
     void setUnlimitedBombs(bool enabled);
+    std::string serialize() final;
+    void deserialize(std::string xmlCode) final;
 
 private:
     /* movement */
@@ -78,7 +79,7 @@ private:
     void moveLeft(irr::core::vector3df &pos);
     void moveRight(irr::core::vector3df &pos);
 
-    void dropBomb(GameEventReceiver &receiver);
+    bool dropBomb(GameEventReceiver &receiver);
 
     /* initialize */
     void initPlayer();
@@ -114,7 +115,7 @@ private:
     bool fireUp = false;
     bool unlimitedBombs = false;
 
-    std::vector<Bomb> bombs; // @todo put this into the overall game class with all bombs on the field
+//    std::vector<Bomb> bombs; // @todo put this into the overall game class with all bombs on the field
 
     MyList<std::pair<Timer, PowerUpType>> powerUpTimers;
 };

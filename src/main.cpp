@@ -6,16 +6,12 @@
 */
 
 #include <driverChoice.h>
-#include <Floor.hpp>
-#include <PowerUpHandler.hpp>
 #include "../include/menu.hpp"
-#include "AppContext.hpp"
 #include "EDriverTypes.h"
 #include "IGUISkin.h"
-#include "VisualMap.hpp"
-#include "Player.hpp"
 #include "../include/Error.hpp"
-
+#include "Game.hpp"
+#include "SerializeHelper.hpp"
 
 char get_char(Floor::Type teip)
 {
@@ -72,58 +68,36 @@ SAppContext createContext()
 
 int main()
 {
-    SAppContext context = createContext();
-    MyEventReceiver receiver(context);
+    Game g;
+    g.play();
+//    SerializeHelper s;
+//    s.beginKey("keyMain");
+//    s.beginKey("key");
+//    s.insertValue("password");
+//    s.endKey("key");
+//    s.beginKey("key2");
+//    s.insertValue("password2");
+//    s.endKey("key2");
+//    s.endKey("keyMain");
+//    s.beginKey("keyMai2");
+//    s.beginKey("key");
+//    s.insertValue("password");
+//    s.endKey("key");
+//    s.beginKey("key2");
+//    s.insertValue("password2");
+//    s.endKey("key2");
+//    s.endKey("keyMai2");
+//    std::string basic = s.getXML();
+//
+//    SerializeHelper sh(basic);
+//
+//    std::string main = sh.GetNextKey();
+//    SerializeHelper sMain(main, false);
+//    std::cout << sMain.GetNextKey();
+//
+//    std::string main2 = sh.GetNextKey();
+//    SerializeHelper sMain2(main2, true);
+//    std::cout << sMain2.GetNextKey();
 
-    context.device->setEventReceiver(&receiver);
-    context.state = GameState::Menu;
-    irr::video::IVideoDriver *driver = context.device->getVideoDriver();
-    Menu *main_menu = build_main_menu(context);
-
-    Floor floor(1, 1, 10, 10);
-    MyList<std::pair<Floor::Type, Coordinate>> mapTemplate = floor.getTemplate();
-
-    while (context.device->run() && context.state == GameState::Menu)
-    {
-        driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
-        main_menu->guienv->drawAll();
-        context.device->getSceneManager()->drawAll();
-        driver->endScene();
-    }
-
-    VisualMap *map = nullptr;
-
-    try {
-        map = new VisualMap(context, mapTemplate);
-    } catch (AssetLoadError &e) {
-        std::cerr << e.getMessage() << std::endl;
-        return 84;
-    } catch (SceneError &e) {
-        std::cerr << e.getMessage() << std::endl;
-        return 84;
-    }
-
-    Player player(context, *map);
-    GameEventReceiver gameReceiver;
-    context.device->setEventReceiver(&gameReceiver);
-    PowerUpHandler PUHandler(context, player);
-    Timer t(1000);
-    t.startTimer();
-    bool over = false;
-    while (context.device->run()) {
-        player.update(gameReceiver);
-        driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
-        if (t.isFinished() && !over)
-        {
-            PUHandler.addPowerUp(PowerUpType::SpeedUp_t, 50, 50);
-            over = true;
-        }
-        PUHandler.loop(gameReceiver);
-        map->display();
-        driver->endScene();
-    }
-
-    context.device->drop();
-    delete map;
     return (0);
 }

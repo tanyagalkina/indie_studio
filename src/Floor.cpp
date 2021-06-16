@@ -247,3 +247,22 @@ Floor::Floor(int level, int player_nb ,int width, int height)
     set_obstacle_number_for_the_level();
     generate_template();
 }
+
+std::string Floor::getStringFromType(Floor::Type t)
+{
+    const std::map<Type, std::string> TypeStrings {
+        {Type::EMPTY, "EMPTY"},
+        {Type::BOX, "BOX"},
+        {Type::TILE, "TILE"},
+        {Type::WALL, "WALL"},
+        {Type::WALL_BOSS, "WALL_BOSS"},
+        {Type::BOSS, "BOSS"},
+        {Type::PLAYER, "PLAYER"},
+        {Type::BOMB, "BOMB"},
+        {Type::MONSTER, "MONSTER"},
+        {Type::POWER_UP, "POWER_UP"},
+        {Type::TELEPORT, "TELEPORT"},
+    };
+    auto it = TypeStrings.find(t);
+    return it == TypeStrings.end() ? "Out of range" : it->second;
+}

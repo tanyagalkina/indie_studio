@@ -11,20 +11,21 @@
 #include "SpeedUp.hpp"
 #include "FireUp.hpp"
 #include "BombUp.hpp"
+#include "Player.hpp"
+#include "Bomb.hpp"
 
 class PowerUpHandler
 {
 private:
     SAppContext *appContext;
-    MyList<std::pair<Timer, PowerUpType>> currentPowerUps;
+    MyList<std::tuple<Timer, PowerUpType, Player *>> currentPowerUps;
     MyList<PowerUp *> allPowerUps;
-    Player &playerRef;
 
-    void handlePlayerItems(PowerUpType type);
+    static void handlePlayerItems(PowerUpType type, Player *);
 
 public:
-    explicit PowerUpHandler(SAppContext &ctx, Player &pl) : appContext(&ctx), playerRef(pl){}
-    void loop(GameEventReceiver &receiver);
+    explicit PowerUpHandler(SAppContext &ctx) : appContext(&ctx){}
+    void loop(MyList<Player>& players);
     void addPowerUp(PowerUpType, float x, float z);
 };
 
