@@ -118,7 +118,7 @@ Game::~Game()
 void Game::safe()
 {
     std::ofstream os;
-    os.open("./games/" + _name + ".txt");
+    os.open("./games/" + _name + ".xml");
     SerializeHelper sh;
     sh.beginKey(_name);
     for (auto it = _players.begin(); it != _players.end(); it++)
@@ -126,7 +126,7 @@ void Game::safe()
         sh.addXML(it->serialize());
     }
     sh.endKey(_name);
-    os << sh.getXML();
+    os << R"(<?xml version="1.0" encoding="ISO-8859-1"?>)" << std::endl << sh.getXML();
     os.close();
 }
 
