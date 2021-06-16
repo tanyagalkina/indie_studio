@@ -179,3 +179,41 @@ void Player::setUnlimitedBombs(bool enabled)
 {
     unlimitedBombs = enabled;
 }
+
+std::string Player::serialize()
+{
+    SerializeHelper s;
+    s.beginKey("Player");
+
+    s.beginKey("Position");
+    s.addKeyValue("X", std::to_string(this->getBody()->getPosition().X));
+    s.addKeyValue("Y", std::to_string(this->getBody()->getPosition().Y));
+    s.addKeyValue("Z", std::to_string(this->getBody()->getPosition().Z));
+    s.endKey("Position");
+
+    s.addKeyValue("playerIndex", std::to_string(playerIndex));
+    s.addKeyValue("extraSpeedFactor", std::to_string(extraSpeedFactor));
+    s.addKeyValue("alive", std::to_string(alive));
+    s.addKeyValue("fireUp", std::to_string(fireUp));
+    s.addKeyValue("unlimitedBombs", std::to_string(unlimitedBombs));
+
+    s.endKey("Player");
+    return s.getXML();
+}
+
+void Player::deserialize(std::string xmlCode)
+{
+    std::string xpos = SerializeHelper::FindKeyValue(xmlCode, "X");
+    std::string ypos = SerializeHelper::FindKeyValue(xmlCode, "Y");
+    std::string zpos = SerializeHelper::FindKeyValue(xmlCode, "Z");
+    std::string playerIndexS = SerializeHelper::FindKeyValue(xmlCode, "playerIndex");
+    std::string aliveS = SerializeHelper::FindKeyValue(xmlCode, "alive");
+    std::string fireUpS = SerializeHelper::FindKeyValue(xmlCode, "fireUp");
+    std::string unlimitedBombsS = SerializeHelper::FindKeyValue(xmlCode, "unlimitedBombs");
+
+    body->setPosition(irr::core::vector3df(stof(xpos), stof(ypos), stof(zpos)));
+    playerIndex = stoi(playerIndexS);
+    alive = stoi(aliveS);
+    fireUp = stoi(fireUpS);
+    unlimitedBombs = stoi(unlimitedBombsS);
+}

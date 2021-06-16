@@ -12,10 +12,12 @@
 #include "menu.hpp"
 #include "PowerUpHandler.hpp"
 #include "Bomb.hpp"
+#include "fstream"
 
 class Game
 {
 private:
+    std::string _name = "gameOne";
     SAppContext _context;
     irr::video::IVideoDriver *_driver;
     Floor *_floor;
@@ -31,7 +33,7 @@ public:
     Game();
     ~Game();
     void play();
-
+    void safe();
 private:
     static SAppContext createContext();
 
@@ -100,6 +102,7 @@ void Game::play()
         _map->display();
         _driver->endScene();
     }
+    safe();
 }
 
 Game::~Game()
@@ -110,6 +113,21 @@ Game::~Game()
     delete _driver;
     delete _powerUpHandler;
     delete _floor;
+}
+
+void Game::safe()
+{
+    std::ofstream os;
+    os.open("./games/" + _name + ".txt");
+    SerializeHelper sh;
+    sh.beginKey(_name);
+    for (auto it = _players.begin(); it != _players.end(); it++)
+    {
+        sh.addXML(it->serialize());
+    }
+    sh.endKey(_name);
+    os << sh.getXML();
+    os.close();
 }
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_GAME_HPP

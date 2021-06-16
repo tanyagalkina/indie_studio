@@ -11,7 +11,7 @@
 #include "IGUISkin.h"
 #include "../include/Error.hpp"
 #include "Game.hpp"
-
+#include "SerializeHelper.hpp"
 
 char get_char(Floor::Type teip)
 {
@@ -70,5 +70,34 @@ int main()
 {
     Game g;
     g.play();
+//    SerializeHelper s;
+//    s.beginKey("keyMain");
+//    s.beginKey("key");
+//    s.insertValue("password");
+//    s.endKey("key");
+//    s.beginKey("key2");
+//    s.insertValue("password2");
+//    s.endKey("key2");
+//    s.endKey("keyMain");
+//    s.beginKey("keyMai2");
+//    s.beginKey("key");
+//    s.insertValue("password");
+//    s.endKey("key");
+//    s.beginKey("key2");
+//    s.insertValue("password2");
+//    s.endKey("key2");
+//    s.endKey("keyMai2");
+//    std::string basic = s.getXML();
+//
+//    SerializeHelper sh(basic);
+//
+//    std::string main = sh.GetNextKey();
+//    SerializeHelper sMain(main, false);
+//    std::cout << sMain.GetNextKey();
+//
+//    std::string main2 = sh.GetNextKey();
+//    SerializeHelper sMain2(main2, true);
+//    std::cout << sMain2.GetNextKey();
+
     return (0);
 }

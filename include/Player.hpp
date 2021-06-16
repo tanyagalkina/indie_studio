@@ -14,6 +14,7 @@
 #include "IAnimatedMeshMD2.h"
 #include "Timer.hpp"
 #include "PowerUpEnum.hpp"
+#include "IXML.hpp"
 
 class GameEventReceiver : public irr::IEventReceiver
 {
@@ -46,7 +47,7 @@ static const irr::EKEY_CODE keyCodes[2][5] = {
     { irr::KEY_UP, irr::KEY_RIGHT, irr::KEY_DOWN, irr::KEY_LEFT, irr::KEY_RETURN}
 };
 
-class Player
+class Player : public IXML
 {
 public:
     enum keyDirection {
@@ -66,6 +67,8 @@ public:
     void revive();
     void setFire(bool enable);
     void setUnlimitedBombs(bool enabled);
+    std::string serialize() final;
+    void deserialize(std::string xmlCode) final;
 
 private:
     /* movement */
