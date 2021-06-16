@@ -7,7 +7,17 @@
 
 #include <Bomb.hpp>
 
-Bomb::Bomb(SAppContext &ctx) {
+int calcMiddle(int coordinate) {
+    int n = coordinate / 50;
+    int min_x = 50 * n;
+    int max_x = 50 * (n + (n >= 0 && coordinate >= 0 ? + 1 : - 1));
+
+    return abs(min_x - coordinate) < abs(max_x - coordinate) ? min_x : max_x;
+}
+
+Bomb::Bomb(SAppContext &ctx, Audio *sounds, Player player) : _player(player)
+{
+    _sounds = sounds;
     context = &ctx;
     this->smgr = context->device->getSceneManager();
     this->driver = context->device->getVideoDriver();
@@ -26,27 +36,19 @@ Bomb::Bomb(SAppContext &ctx) {
 
     this->selector = this->smgr->createOctreeTriangleSelector(this->body->getMesh(), this->body, 128);
     this->body->setTriangleSelector(this->selector);
-}
 
-
-int calcMiddle(int coordinate) {
-    int n = coordinate / 50;
-    int min_x = 50 * n;
-    int max_x = 50 * (n + (n >= 0 && coordinate >= 0 ? + 1 : - 1));
-
-    return abs(min_x - coordinate) < abs(max_x - coordinate) ? min_x : max_x;
-}
-
-void Bomb::drop(const irr::core::vector3df &pos) {
-    auto position = pos;
-
-    position.X = calcMiddle(pos.X);
-    position.Z = calcMiddle(pos.Z);
+    auto position = _player.getBody()->getPosition();
+    position.X = calcMiddle(position.X);
+    position.Z = calcMiddle(position.Z);
     position.Y = 10;
 
-    this->body->setPosition(position);
     this->body->setVisible(true);
-    // @todo start timer ... explode etc.
+    this->body->setPosition(position);
+}
+
+void Bomb::drop()
+{
+    timer.startTimer();
 }
 
 void Bomb::setPosition(float x, float z) {}

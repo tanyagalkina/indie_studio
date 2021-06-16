@@ -58,7 +58,9 @@ public:
     };
     Player(SAppContext &ctx, VisualMap &map, const int &playerIdx = 0);
     ~Player();
+    int bombsMax = 2;
     bool update(GameEventReceiver &receiver);
+    bool updated = false;
     void setExtraSpeed(irr::f32 newExtraSpeed);
     irr::scene::IAnimatedMeshSceneNode *getBody();
     bool isAlive() const;
@@ -95,6 +97,7 @@ private:
     /* movement */
     irr::u32 then;
     int playerIndex;
+    std::string _name;
 	irr::f32 MOVEMENT_SPEED;
     irr::f32 frameDeltaTime;
     irr::scene::EMD2_ANIMATION_TYPE currentMovementState;
