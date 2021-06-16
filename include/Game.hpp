@@ -13,6 +13,7 @@
 #include "PowerUpHandler.hpp"
 #include "Bomb.hpp"
 #include "fstream"
+#include "Audio.hpp"
 
 class Game
 {
@@ -27,6 +28,7 @@ private:
     MyList<Player> _players;
     MyList<Bomb> _bombs;
     GameEventReceiver *_gameReceiver;
+    Audio *sounds = new Audio;
 
 
 public:
@@ -38,6 +40,8 @@ private:
     static SAppContext createContext();
 
     void createMap();
+    bool getExplosions();
+    bool isDropPossible(Player *player);
 };
 
 Game::Game()
@@ -54,6 +58,7 @@ Game::Game()
     _powerUpHandler = new PowerUpHandler(_context);
     Player p(_context, *_map);
     _players.push_back(p);
+    _bombs.clear();
 }
 
 void Game::createMap()
@@ -87,22 +92,48 @@ SAppContext Game::createContext()
 
 void Game::play()
 {
+    sounds->backMusic();
     while (_context.device->run()) {
         for (auto & player : _players)
         {
-            if (player.update(*_gameReceiver))
+            if (player.update(*_gameReceiver) && isDropPossible(&player))
             {
-                Bomb b(_context);
-                b.drop(player.getBody()->getPosition());
+                Bomb b(_context, sounds, player);
+                b.drop();
                 _bombs.push_back(b);
             }
         }
+        getExplosions();
         _driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
         _powerUpHandler->loop(_players);
         _map->display();
         _driver->endScene();
     }
     safe();
+}
+
+///func should check if there is already a Bomb at the same position
+///returns true if the position is free
+///this is a hack the real check to come
+bool Game::isDropPossible(Player *player)
+{
+    if (_bombs.size() >= player->bombsMax)
+        return false;
+
+    return true;
+}
+
+bool Game::getExplosions() {
+    //MyList<Bomb>::iterator it = _bombs.begin();
+    ///how many bombs are there in the list
+    //std::cout << _bombs.size() << std::endl;
+    if (_bombs.size() > 0 && _bombs[0].timer.isFinished())
+    {
+        _bombs[0].explosion();
+        _bombs.erase(_bombs.begin());
+        sounds->explode();
+    }
+    return true;
 }
 
 Game::~Game()
