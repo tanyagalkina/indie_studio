@@ -122,8 +122,8 @@ bool Game::isDropPossible(Player *player)
 
 bool Game::getExplosions() {
     //MyList<Bomb>::iterator it = _bombs.begin();
-
-    std::cout << _bombs.size() << std::endl;
+    ///how many bombs are there in the list
+    //std::cout << _bombs.size() << std::endl;
     if (_bombs.size() > 0 && _bombs[0].timer.isFinished())
     {
         _bombs[0].explosion();
