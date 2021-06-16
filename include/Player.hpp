@@ -2,6 +2,7 @@
 #define PLAYER_HPP_
 
 #include "AppContext.hpp"
+#include "Character.hpp"
 #include "IAnimatedMesh.h"
 #include "IAnimatedMeshMD2.h"
 #include "IEventReceiver.h"
@@ -47,9 +48,17 @@ static const irr::EKEY_CODE keyCodes[2][5] = {
     { irr::KEY_UP, irr::KEY_RIGHT, irr::KEY_DOWN, irr::KEY_LEFT, irr::KEY_RETURN}
 };
 
-class Player : public IXML
+class Player : public IXML, public Character
 {
 public:
+    Player(SAppContext &ctx, VisualMap &map, const int &playerIdx = 0);
+    virtual ~Player();
+    bool update(GameEventReceiver &receiver);
+    irr::scene::IAnimatedMeshSceneNode *getBody();
+    std::string serialize() final;
+    void deserialize(std::string xmlCode) final;
+
+private:
     enum keyDirection {
         UP = 0,
         RIGHT,
@@ -57,66 +66,12 @@ public:
         LEFT,
         DROP_BOMB,
     };
-    Player(SAppContext &ctx, VisualMap &map, const int &playerIdx = 0);
-    ~Player();
-    bool update(GameEventReceiver &receiver);
-    void setExtraSpeed(irr::f32 newExtraSpeed);
-    irr::scene::IAnimatedMeshSceneNode *getBody();
-    bool isAlive() const;
-    void kill();
-    void revive();
-    void setFire(bool enable);
-    void setUnlimitedBombs(bool enabled);
-    std::string serialize() final;
-    void deserialize(std::string xmlCode) final;
-
-private:
-    /* movement */
-    void changeMovementState();
-    void move(GameEventReceiver &receiver);
-    void moveUp(irr::core::vector3df &pos);
-    void moveDown(irr::core::vector3df &pos);
-    void moveLeft(irr::core::vector3df &pos);
-    void moveRight(irr::core::vector3df &pos);
-
-    bool dropBomb(GameEventReceiver &receiver);
-
-    /* initialize */
-    void initPlayer();
-    bool checkCollision(const irr::scene::IAnimatedMeshSceneNode *object) const;
-
-    /* collision */
-    void addCollision(irr::scene::IAnimatedMeshSceneNode *_body);
-
-private:
-    /* general */
-    SAppContext *context;
-    irr::scene::ISceneManager *smgr;
-    irr::video::IVideoDriver *driver;
-    irr::scene::IAnimatedMeshSceneNode *body;
 
     /* movement */
-    irr::u32 then;
-    int playerIndex;
-	irr::f32 MOVEMENT_SPEED;
-    irr::f32 frameDeltaTime;
-    irr::scene::EMD2_ANIMATION_TYPE currentMovementState;
-    /* collision */
-    irr::scene::ITriangleSelector *selector;
+    void move(GameEventReceiver &receiver) final;
+    bool dropBomb(GameEventReceiver &receiver) final;
 
-    /* map needed to add collision to it */
-    VisualMap *map;
-
-    /* PowerUp handling */
-    //Maybe we can use something like this to time the duration after you hit a
-    //speed powerup ... we can reuse this class for bombs too.
-    irr::f32 extraSpeedFactor; /* used for the SpeedUp_t powerUp */
-    bool alive = true;
-    bool fireUp = false;
-    bool unlimitedBombs = false;
-
-//    std::vector<Bomb> bombs; // @todo put this into the overall game class with all bombs on the field
-
+private:
     MyList<std::pair<Timer, PowerUpType>> powerUpTimers;
 };
 

@@ -1,93 +1,17 @@
 #include "../include/Player.hpp"
+#include "Character.hpp"
 #include "Error.hpp"
 #include "VisualMap.hpp"
 #include <assert.h>
 #include "Bomb.hpp"
 
-void Player::initPlayer()
-{
-    irr::scene::IAnimatedMesh *mesh;
-
-    if ((mesh = smgr->getMesh("media/sydney.md2")) == NULL) {
-        AssetLoadErrorMac("Can't load 'media/sydney.md2'");
-    }
-    if ((this->body = smgr->addAnimatedMeshSceneNode(mesh)) == NULL) {
-        SceneErrorMac("Could not add AnimatedMeshSceneNode");
-    }
-
-    this->body->setMD2Animation(currentMovementState);
-    this->body->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    this->body->setMaterialTexture(0, driver->getTexture("media/sydney.bmp"));
-
-    /* lift the player up a bit */
-    auto pos = this->body->getPosition();
-    pos.Y += 45;
-
-    if (playerIndex == 0) {
-        pos.X = -250;
-        pos.Z = 250;
-    }
-    this->body->setPosition(pos);
-}
-
 Player::Player(SAppContext &ctx, VisualMap &vmap, const int &playerIdx)
-    : context(&ctx), playerIndex(playerIdx), map(&vmap),
-    MOVEMENT_SPEED(100.f), currentMovementState(irr::scene::EMAT_STAND),
-    extraSpeedFactor(1.f)
+    : Character(ctx, vmap, irr::core::vector3df(-250, 0, 250))
 {
-    assert(playerIndex < 2); // just for now because it would crash
-    this->smgr = context->device->getSceneManager();
-    this->driver = context->device->getVideoDriver();
-    then = context->device->getTimer()->getTime();
-
-    initPlayer();
-
-    this->selector = this->smgr->createOctreeTriangleSelector(this->body->getMesh(), this->body);
-    this->body->setTriangleSelector(this->selector);
-
-    /* adding collision between the player and the map */
-    map->addCollision(body);
 }
 
 Player::~Player()
 {
-    this->selector->drop();
-}
-
-void Player::changeMovementState()
-{
-    if (currentMovementState == irr::scene::EMAT_STAND) {
-        currentMovementState = irr::scene::EMAT_RUN;
-        this->body->setMD2Animation(currentMovementState);
-    }
-}
-
-void Player::moveUp(irr::core::vector3df &pos)
-{
-    this->body->setRotation(irr::core::vector3df(0, 270, 0));
-    pos.Z += (MOVEMENT_SPEED * frameDeltaTime) * extraSpeedFactor;
-    changeMovementState();
-}
-
-void Player::moveDown(irr::core::vector3df &pos)
-{
-    this->body->setRotation(irr::core::vector3df(0, 90, 0));
-    pos.Z -= (MOVEMENT_SPEED * frameDeltaTime) * extraSpeedFactor;
-    changeMovementState();
-}
-
-void Player::moveRight(irr::core::vector3df &pos)
-{
-    this->body->setRotation(irr::core::vector3df(0, 0, 0));
-    pos.X += (MOVEMENT_SPEED * frameDeltaTime) * extraSpeedFactor;
-    changeMovementState();
-}
-
-void Player::moveLeft(irr::core::vector3df &pos)
-{
-    this->body->setRotation(irr::core::vector3df(0, 180, 0));
-    pos.X -= (MOVEMENT_SPEED * frameDeltaTime) * extraSpeedFactor;
-    changeMovementState();
 }
 
 void Player::move(GameEventReceiver &receiver)
@@ -130,54 +54,9 @@ bool Player::update(GameEventReceiver &receiver)
     // @todo look for bombs, powerups ...
 }
 
-/* use this function to create Collision between multiple Players or monsters */
-void Player::addCollision(irr::scene::IAnimatedMeshSceneNode *_body)
-{
-    auto *anim = smgr->createCollisionResponseAnimator(selector, _body,
-            irr::core::vector3df(10, 10, 10),
-            irr::core::vector3df(0, 0, 0));
-    _body->addAnimator(anim);
-    anim->drop();
-}
-
 irr::scene::IAnimatedMeshSceneNode *Player::getBody()
 {
     return this->body;
-}
-
-bool Player::checkCollision(const irr::scene::IAnimatedMeshSceneNode *object) const
-{
-    return object->getTransformedBoundingBox().intersectsWithBox(this->body->getTransformedBoundingBox());
-}
-
-void Player::setExtraSpeed(irr::f32 newExtraSpeed)
-{
-    this->extraSpeedFactor = newExtraSpeed;
-}
-
-bool Player::isAlive() const
-{
-    return alive;
-}
-
-void Player::kill()
-{
-    alive = false;
-}
-
-void Player::revive()
-{
-    alive = true;
-}
-
-void Player::setFire(bool enable)
-{
-    fireUp = enable;
-}
-
-void Player::setUnlimitedBombs(bool enabled)
-{
-    unlimitedBombs = enabled;
 }
 
 std::string Player::serialize()

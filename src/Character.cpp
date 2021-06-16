@@ -1,5 +1,98 @@
 #include "Character.hpp"
 
+Character::Character(SAppContext &ctx, VisualMap &vmap, irr::core::vector3df pos)
+    : context(&ctx), map(&vmap)
+{
+    MOVEMENT_SPEED = 100.0f;
+    currentMovementState = irr::scene::EMAT_STAND;
+    extraSpeedFactor = 1.f;
+
+
+    this->smgr = context->device->getSceneManager();
+    this->driver = context->device->getVideoDriver();
+    then = context->device->getTimer()->getTime();
+
+    initCharacter(pos);
+    this->selector = this->smgr->createOctreeTriangleSelector(this->body->getMesh(), this->body);
+    this->body->setTriangleSelector(this->selector);
+
+    map->addCollision(body);
+}
+
+Character::~Character()
+{
+    this->selector->drop();
+}
+
+
+void Character::initCharacter(irr::core::vector3df _pos)
+{
+    irr::scene::IAnimatedMesh *mesh;
+
+    if ((mesh = smgr->getMesh("media/sydney.md2")) == NULL) {
+        AssetLoadErrorMac("Can't load 'media/sydney.md2'");
+    }
+    if ((this->body = smgr->addAnimatedMeshSceneNode(mesh)) == NULL) {
+        SceneErrorMac("Could not add AnimatedMeshSceneNode");
+    }
+
+    this->body->setMD2Animation(currentMovementState);
+    this->body->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+    this->body->setMaterialTexture(0, driver->getTexture("media/sydney.bmp"));
+
+    auto pos = this->body->getPosition();
+    pos.X = _pos.X;
+    pos.Y += 45;
+    pos.Z = _pos.Z;
+
+    this->body->setPosition(pos);
+}
+
+/* use this function to create Collision between multiple Players or monsters */
+void Character::addCollision(irr::scene::IAnimatedMeshSceneNode *_body)
+{
+    auto *anim = smgr->createCollisionResponseAnimator(selector, _body,
+            irr::core::vector3df(10, 10, 10),
+            irr::core::vector3df(0, 0, 0));
+    _body->addAnimator(anim);
+    anim->drop();
+}
+
+bool Character::checkCollision(const irr::scene::IAnimatedMeshSceneNode *object) const
+{
+    return object->getTransformedBoundingBox().intersectsWithBox(this->body->getTransformedBoundingBox());
+}
+
+void Character::setExtraSpeed(irr::f32 newExtraSpeed)
+{
+    this->extraSpeedFactor = newExtraSpeed;
+}
+
+bool Character::isAlive() const
+{
+    return alive;
+}
+
+void Character::kill()
+{
+    alive = false;
+}
+
+void Character::revive()
+{
+    alive = true;
+}
+
+void Character::setFire(bool enable)
+{
+    fireUp = enable;
+}
+
+void Character::setUnlimitedBombs(bool enabled)
+{
+    unlimitedBombs = enabled;
+}
+
 void Character::changeMovementState()
 {
     if (currentMovementState == irr::scene::EMAT_STAND) {

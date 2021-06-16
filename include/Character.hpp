@@ -10,14 +10,25 @@
 
 #include "AppContext.hpp"
 #include "Coordinate.hpp"
+#include "VisualMap.hpp"
 #include <irrlicht.h>
+
+class GameEventReceiver;
 
 class Character
 {
 public:
-    Character()
-    {
-    }
+    Character(SAppContext &ctx, VisualMap &vmap, irr::core::vector3df pos);
+    ~Character();
+    bool isAlive() const;
+    void kill();
+    void revive();
+    void setFire(bool enable);
+    void setUnlimitedBombs(bool enabled);
+    void setExtraSpeed(irr::f32 newExtraSpeed);
+
+private:
+    void initCharacter(irr::core::vector3df _pos);
 
 protected:
     /* general */
@@ -36,6 +47,9 @@ protected:
     /* collision */
     irr::scene::ITriangleSelector *selector;
 
+    /* map needed to add collision to it */
+    VisualMap *map;
+
     /* powerUp handling */
     irr::f32 extraSpeedFactor; /* used for the SpeedUp_t powerUp */
     bool alive = true;
@@ -48,6 +62,12 @@ protected:
     void moveDown(irr::core::vector3df &pos);
     void moveLeft(irr::core::vector3df &pos);
     void moveRight(irr::core::vector3df &pos);
+    void addCollision(irr::scene::IAnimatedMeshSceneNode *_body);
+    bool checkCollision(const irr::scene::IAnimatedMeshSceneNode *object) const;
+
+    /* function that need to be overwritten by child classes */
+    virtual bool dropBomb(GameEventReceiver &receiver) = 0;
+    virtual void move(GameEventReceiver &receiver) = 0;
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_CHARACTER_HPP
