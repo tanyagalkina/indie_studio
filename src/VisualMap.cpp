@@ -65,3 +65,17 @@ std::vector<Cube *> VisualMap::getBlocks() const
 {
     return blocks;
 }
+
+void VisualMap::deserialize(std::string xmlCode)
+{
+}
+
+std::string VisualMap::serialize()
+{
+    SerializeHelper sh;
+    sh.beginKey("VisualMap");
+    for (auto block : blocks)
+        sh.addXML(block->serialize());
+    sh.endKey("VisualMap");
+    return sh.getXML();
+}

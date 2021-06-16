@@ -49,3 +49,25 @@ Cube::~Cube()
 {
     selector->drop();
 }
+
+std::string Cube::serialize()
+{
+    SerializeHelper sh;
+    sh.beginKey("Cube");
+
+    sh.addKeyValue("type", Floor::getStringFromType(type));
+
+    sh.beginKey("position");
+    sh.addKeyValue("X", std::to_string(body->getPosition().X));
+    sh.addKeyValue("Y", std::to_string(body->getPosition().Y));
+    sh.addKeyValue("Z", std::to_string(body->getPosition().Z));
+    sh.endKey("position");
+
+    sh.addKeyValue("isVisible", std::to_string(body->isVisible()));
+    sh.endKey("Cube");
+    return sh.getXML();
+}
+
+void Cube::deserialize(std::string xmlCode)
+{
+}

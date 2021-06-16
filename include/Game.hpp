@@ -121,10 +121,9 @@ void Game::safe()
     os.open("./games/" + _name + ".xml");
     SerializeHelper sh;
     sh.beginKey(_name);
-    for (auto it = _players.begin(); it != _players.end(); it++)
-    {
-        sh.addXML(it->serialize());
-    }
+    for (auto & _player : _players)
+        sh.addXML(_player.serialize());
+    sh.addXML(_map->serialize());
     sh.endKey(_name);
     os << R"(<?xml version="1.0" encoding="ISO-8859-1"?>)" << std::endl << sh.getXML();
     os.close();
