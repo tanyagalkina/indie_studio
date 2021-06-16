@@ -25,6 +25,7 @@ public:
     explicit Bomb(SAppContext &ctx, Audio *sounds, Player player);
     ~Bomb() override = default;
     void drop();
+    void explosion();
     void setPosition(float x, float z) final;
     bool HandleCollision(Player &player) final;
 };

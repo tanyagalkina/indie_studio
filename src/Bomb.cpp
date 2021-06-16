@@ -46,6 +46,12 @@ Bomb::Bomb(SAppContext &ctx, Audio *sounds, Player player) : _player(player)
     this->body->setPosition(position);
 }
 
+void Bomb::explosion()
+{
+    this->body->setVisible(false);
+
+}
+
 void Bomb::drop()
 {
     timer.startTimer();
