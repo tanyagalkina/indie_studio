@@ -82,9 +82,29 @@ void Game::play()
 ///this is a hack the real check to come
 bool Game::isDropPossible(Player *player)
 {
-    if (_bombs.size() >= player->bombsMax)
-        return false;
+    MyList<Bomb>::iterator it = _bombs.begin();
 
+    int i = 0;
+    if (!player->getUnlimitedBombs())
+    {
+        for (; it != _bombs.end(); it++) {
+            if (it->getPLayer() == player)
+                ++i;
+        }
+        if (i >= player->bombsMax)
+            return false;
+    }
+
+    auto position = player->getBody()->getPosition();
+    position.X = player->calcMiddle(position.X);
+    position.Z = player->calcMiddle(position.Z);
+    position.Y = 10;
+
+    for (it = _bombs.begin(); it != _bombs.end(); it++)
+    {
+        if (it->body->getPosition() == position)
+            return false;
+    }
     return true;
 }
 
