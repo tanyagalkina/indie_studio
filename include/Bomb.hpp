@@ -20,11 +20,11 @@ private:
     Audio* _sounds;
     Player *_player;
 public:
+    explicit Bomb(SAppContext &ctx, Audio *sounds, Player *player);
+    ~Bomb() override = default;
     Player *getPLayer() const;
     bool over = false;
     Timer timer = Timer(3000);
-    explicit Bomb(SAppContext &ctx, Audio *sounds, Player *player);
-    ~Bomb() override = default;
     void drop();
     void explosion();
     void setPosition(float x, float z) final;

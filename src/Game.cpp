@@ -63,7 +63,7 @@ void Game::play()
         {
             if (player.update(*_gameReceiver) && isDropPossible(&player))
             {
-                Bomb b(_context, _sounds, player);
+                Bomb b(_context, _sounds, &player);
                 b.drop();
                 _bombs.push_back(b);
             }
