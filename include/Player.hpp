@@ -54,10 +54,13 @@ public:
     Player(SAppContext &ctx, VisualMap &map, const int &playerIdx = 0);
     virtual ~Player();
     bool update(GameEventReceiver &receiver);
+    int calcMiddle(int coordinate);
     irr::scene::IAnimatedMeshSceneNode *getBody();
     std::string serialize() final;
     void deserialize(std::string xmlCode) final;
     int bombsMax = 2;
+    void upgradeBombsMax();
+    bool getUnlimitedBombs() const;
 
 private:
     enum keyDirection {

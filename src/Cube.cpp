@@ -70,4 +70,13 @@ std::string Cube::serialize()
 
 void Cube::deserialize(std::string xmlCode)
 {
+    std::string xpos = SerializeHelper::FindKeyValue(xmlCode, "X");
+    std::string ypos = SerializeHelper::FindKeyValue(xmlCode, "Y");
+    std::string zpos = SerializeHelper::FindKeyValue(xmlCode, "Z");
+    std::string t = SerializeHelper::FindKeyValue(xmlCode, "type");
+    std::string tisVisibleS = SerializeHelper::FindKeyValue(xmlCode, "isVisible");
+
+    type = Floor::getTypeFromString(t);
+    body->setPosition(irr::core::vector3df(stof(xpos), stof(ypos), stof(zpos)));
+    body->setVisible(stoi(tisVisibleS));
 }

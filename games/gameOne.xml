@@ -3,13 +3,13 @@
 	<Player>
 		<Position>
 			<X>
-				4.640389
+				96.852837
 			</X>
 			<Y>
-				44.943039
+				45.383430
 			</Y>
 			<Z>
-				241.270615
+				-246.625046
 			</Z>
 		</Position>
 		<playerIndex>
@@ -392,14 +392,14 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				WALL
 			</type>
 			<position>
 				<X>
 					-250.000000
 				</X>
 				<Y>
-					-10.000000
+					30.000000
 				</Y>
 				<Z>
 					0.000000
@@ -924,7 +924,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -943,7 +943,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -1152,7 +1152,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -1342,7 +1342,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -1570,14 +1570,14 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				BOX
 			</type>
 			<position>
 				<X>
 					0.000000
 				</X>
 				<Y>
-					-10.000000
+					30.000000
 				</Y>
 				<Z>
 					150.000000
@@ -1893,7 +1893,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -2292,7 +2292,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -2387,7 +2387,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -2444,14 +2444,14 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				WALL
 			</type>
 			<position>
 				<X>
 					150.000000
 				</X>
 				<Y>
-					-10.000000
+					30.000000
 				</Y>
 				<Z>
 					-200.000000
@@ -2672,7 +2672,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
