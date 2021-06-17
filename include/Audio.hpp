@@ -19,11 +19,24 @@ public:
     {
         exploBuffer.loadFromFile("media/sounds/explosion.ogg");
         exploSound.setBuffer(exploBuffer);
+        exploSound.setVolume(20);
         backBuffer.loadFromFile("media/sounds/arabic.ogg");
         backSound.setBuffer(backBuffer);
-        backSound.setVolume(7);
+        backSound.setVolume(2);
 
     }
+    void Mute()
+    {
+        backSound.setVolume(0);
+        exploSound.setVolume(0);
+    }
+
+    void Unmute()
+    {
+        backSound.setVolume(20);
+        exploSound.setVolume(2);
+    }
+
     void explode()
     {
         exploSound.play();       // Play queued audio

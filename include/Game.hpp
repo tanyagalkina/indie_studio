@@ -98,7 +98,7 @@ void Game::play()
         {
             if (player.update(*_gameReceiver) && isDropPossible(&player))
             {
-                Bomb b(_context, sounds, player);
+                Bomb b(_context, sounds, &player);
                 b.drop();
                 _bombs.push_back(b);
             }
@@ -114,11 +114,33 @@ void Game::play()
 
 ///func should check if there is already a Bomb at the same position
 ///returns true if the position is free
-///this is a hack the real check to come
+///do we need a some radius as well?
 bool Game::isDropPossible(Player *player)
 {
-    if (_bombs.size() >= player->bombsMax)
-        return false;
+    MyList<Bomb>::iterator it = _bombs.begin();
+
+    int i = 0;
+    if (!player->getUnlimitedBombs())
+    {
+        for (; it != _bombs.end(); it++) {
+            if (it->getPLayer() == player)
+                ++i;
+        }
+        if (i >= player->bombsMax)
+            return false;
+    }
+
+    auto position = player->getBody()->getPosition();
+    position.X = player->calcMiddle(position.X);
+    position.Z = player->calcMiddle(position.Z);
+    position.Y = 10;
+
+    for (it = _bombs.begin(); it != _bombs.end(); it++)
+    {
+        if (it->body->getPosition() == position)
+            return false;
+    }
+
 
     return true;
 }
@@ -144,6 +166,7 @@ Game::~Game()
     delete _driver;
     delete _powerUpHandler;
     delete _floor;
+    delete sounds;
 }
 
 void Game::safe()
