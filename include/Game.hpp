@@ -32,7 +32,7 @@ private:
     MyList<Bomb> _bombs;
     GameEventReceiver *_gameReceiver;
     Menu *_menu;
-    Audio *_sounds;
+    Audio *_sounds = new Audio;
 
 
 public:

@@ -16,14 +16,13 @@ Game::Game()
     _floor = new Floor(1, 1, 10, 10);
     _mapTemplate = _floor->getTemplate();
     createMap();
-    _context.device->setEventReceiver(_gameReceiver);
-    _menu = new Menu(_context);
     _gameReceiver = new GameEventReceiver();
+    _context.device->setEventReceiver(_gameReceiver);
     _powerUpHandler = new PowerUpHandler(_context);
     Player p(_context, *_map);
     _players.push_back(p);
     _bombs.clear();
-    _sounds = new Audio;
+    _menu = new Menu(_context);
 }
 
 void Game::createMap()
@@ -130,6 +129,7 @@ Game::~Game()
     delete _powerUpHandler;
     delete _floor;
     delete _menu;
+    delete _sounds;
 }
 
 void Game::safe()
