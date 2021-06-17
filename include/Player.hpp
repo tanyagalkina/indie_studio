@@ -55,7 +55,6 @@ public:
     virtual ~Player();
     bool update(GameEventReceiver &receiver) final;
     int calcMiddle(int coordinate);
-    irr::scene::IAnimatedMeshSceneNode *getBody();
     std::string serialize() final;
     void deserialize(std::string xmlCode) final;
     int bombsMax = 2;
