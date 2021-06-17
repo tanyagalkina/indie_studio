@@ -28,7 +28,7 @@ private:
     MyList<std::pair<Floor::Type, Coordinate>> _mapTemplate;
     VisualMap *_map;
     PowerUpHandler *_powerUpHandler;
-    MyList<Player> _players;
+    MyList<Character *> _players;
     MyList<Bomb> _bombs;
     GameEventReceiver *_gameReceiver;
     Menu *_menu;
@@ -46,7 +46,7 @@ private:
 
     void createMap();
     bool getExplosions();
-    bool isDropPossible(Player *player);
+    bool isDropPossible(Character *player);
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_GAME_HPP

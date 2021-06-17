@@ -20,9 +20,9 @@ public:
     explicit PowerUp(SAppContext &ctx, const irr::core::string<irr::fschar_t>& meshPath, const
     irr::core::string<irr::fschar_t> &texturePath);
     void setPosition(float x, float z) final;
-    virtual std::tuple<Timer, PowerUpType, Player *> getTimerTypeAndPlayer(Player& player)
+    virtual std::tuple<Timer, PowerUpType, Character *> getTimerTypeAndPlayer(Character& player)
     = 0;
-    bool HandleCollision(Player &player) override;
+    bool HandleCollision(Character &player) override;
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_POWERUP_HPP

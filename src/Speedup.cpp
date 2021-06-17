@@ -7,7 +7,7 @@
 
 #include "SpeedUp.hpp"
 
-std::tuple<Timer, PowerUpType, Player *> SpeedUp::getTimerTypeAndPlayer(Player& player)
+std::tuple<Timer, PowerUpType, Character *> SpeedUp::getTimerTypeAndPlayer(Character& player)
 {
     return std::make_tuple(Timer(15000), PowerUpType::SpeedUp_t, &player);
 }

@@ -6,10 +6,11 @@
 */
 
 #include "PowerUpHandler.hpp"
+#include "Character.hpp"
 
-void PowerUpHandler::loop(MyList<Player>& players)
+void PowerUpHandler::loop(MyList<Character *>& players)
 {
-    MyList<MyList<std::tuple<Timer, PowerUpType, Player *>>::iterator> erasablePair;
+    MyList<MyList<std::tuple<Timer, PowerUpType, Character *>>::iterator> erasablePair;
     MyList<MyList<PowerUp *>::iterator> erasablePowerUps;
 
 
@@ -18,11 +19,11 @@ void PowerUpHandler::loop(MyList<Player>& players)
 //    std::cout << playerRef.getBody()->getPosition().Y << std::endl;
     for (auto it = allPowerUps.begin(); it!= allPowerUps.end(); it++)
     {
-        for (auto & player : players)
+        for (auto &player : players)
         {
-            if ((*it)->HandleCollision(player))
+            if ((*it)->HandleCollision(*player))
             {
-                auto pu = (*it)->getTimerTypeAndPlayer(player);
+                auto pu = (*it)->getTimerTypeAndPlayer(*player);
                 std::get<0>(pu).startTimer();
                 currentPowerUps.push_back(pu);
                 erasablePowerUps.push_back(it);
@@ -36,9 +37,9 @@ void PowerUpHandler::loop(MyList<Player>& players)
 
     for (auto & player : players)
     {
-        player.setExtraSpeed(1);
-        player.setFire(false);
-        player.setUnlimitedBombs(false);
+        player->setExtraSpeed(1);
+        player->setFire(false);
+        player->setUnlimitedBombs(false);
     }
 
     for (auto it = currentPowerUps.begin(); it != currentPowerUps.end(); it++)
@@ -78,7 +79,7 @@ void PowerUpHandler::addPowerUp(PowerUpType type, float x, float z)
     allPowerUps.push_back(item);
 }
 
-void PowerUpHandler::handlePlayerItems(PowerUpType type, Player *playerRef)
+void PowerUpHandler::handlePlayerItems(PowerUpType type, Character *playerRef)
 {
     switch (type)
     {

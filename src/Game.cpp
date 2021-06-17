@@ -6,6 +6,7 @@
 */
 
 #include "../include/Game.hpp"
+#include "AIBot.hpp"
 
 Game::Game()
 {
@@ -19,8 +20,14 @@ Game::Game()
     _gameReceiver = new GameEventReceiver();
     _context.device->setEventReceiver(_gameReceiver);
     _powerUpHandler = new PowerUpHandler(_context);
-    Player p(_context, *_map);
+    Character *p = new Player(_context, *_map);
+    Character *p2 = new AIBot(_context, *_map, 1);
+    Character *p3 = new AIBot(_context, *_map, 2);
+    Character *p4 = new AIBot(_context, *_map, 3);
     _players.push_back(p);
+    _players.push_back(p2);
+    _players.push_back(p3);
+    _players.push_back(p4);
     _bombs.clear();
     _menu = new Menu(_context);
 }
@@ -60,9 +67,9 @@ void Game::play()
     while (_context.device->run()) {
         for (auto & player : _players)
         {
-            if (player.update(*_gameReceiver) && isDropPossible(&player))
+            if (player->update(*_gameReceiver) && isDropPossible(player))
             {
-                Bomb b(_context, _sounds, &player);
+                Bomb b(_context, _sounds, player);
                 b.drop();
                 _bombs.push_back(b);
             }
@@ -79,7 +86,7 @@ void Game::play()
 ///func should check if there is already a Bomb at the same position
 ///returns true if the position is free
 ///this is a hack the real check to come
-bool Game::isDropPossible(Player *player)
+bool Game::isDropPossible(Character *player)
 {
     MyList<Bomb>::iterator it = _bombs.begin();
 
@@ -90,7 +97,7 @@ bool Game::isDropPossible(Player *player)
             if (it->getPLayer() == player)
                 ++i;
         }
-        if (i >= player->bombsMax)
+        if (i >= player->getBombsMax())
             return false;
     }
 
@@ -139,7 +146,7 @@ void Game::safe()
     SerializeHelper sh;
     sh.beginKey(_name);
     for (auto & _player : _players)
-        sh.addXML(_player.serialize());
+        sh.addXML(_player->serialize());
     sh.addXML(_map->serialize());
     sh.endKey(_name);
     os << R"(<?xml version="1.0" encoding="ISO-8859-1"?>)" << std::endl << sh.getXML();

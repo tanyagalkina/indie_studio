@@ -8,7 +8,7 @@
 #include <Bomb.hpp>
 
 
-Bomb::Bomb(SAppContext &ctx, Audio *sounds, Player *player) : _player(player)
+Bomb::Bomb(SAppContext &ctx, Audio *sounds, Character *player) : _player(player)
 {
     _sounds = sounds;
     context = &ctx;
@@ -39,7 +39,7 @@ Bomb::Bomb(SAppContext &ctx, Audio *sounds, Player *player) : _player(player)
     this->body->setPosition(position);
 }
 
-Player *Bomb::getPLayer() const
+Character *Bomb::getPLayer() const
 {
     return _player;
 }
@@ -57,7 +57,8 @@ void Bomb::drop()
 
 void Bomb::setPosition(float x, float z) {}
 
-bool Bomb::HandleCollision(Player &player) {
+bool Bomb::HandleCollision(Character &player)
+{
     if (player.getBody()->getTransformedBoundingBox().intersectsWithBox(this->body->getTransformedBoundingBox())) {
         this->body->setVisible(false);
         std::cout << "hit" << std::endl;
