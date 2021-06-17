@@ -1,6 +1,6 @@
 #include "VisualMap.hpp"
 #include "IAnimatedMesh.h"
-#include "menu.hpp"
+#include "Menu.hpp"
 #include "Error.hpp"
 
 void VisualMap::display()
