@@ -79,7 +79,7 @@ SAppContext Game::createContext()
 {
     irr::video::E_DRIVER_TYPE driver_type = irr::driverChoiceConsole();
     irr::IrrlichtDevice *device = irr::createDevice(driver_type,
-                irr::core::dimension2d<irr::u32>(640, 480),
+                irr::core::dimension2d<irr::u32>(1280, 720),
                 16, false, false, false, nullptr);
     device->setWindowCaption(L"Best Bomberman");
     device->setResizable(true);

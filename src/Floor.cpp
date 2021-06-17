@@ -266,3 +266,22 @@ std::string Floor::getStringFromType(Floor::Type t)
     auto it = TypeStrings.find(t);
     return it == TypeStrings.end() ? "Out of range" : it->second;
 }
+
+Floor::Type Floor::getTypeFromString(std::string str)
+{
+    const std::map<std::string, Type> TypeStrings {
+        {"EMPTY",        Type::EMPTY},
+        {"BOX",          Type::BOX},
+        {"TILE",         Type::TILE},
+        {"WALL",         Type::WALL},
+        {"WALL_BOSS",    Type::WALL_BOSS},
+        {"BOSS",         Type::BOSS},
+        {"PLAYER",       Type::PLAYER},
+        {"BOMB",         Type::BOMB},
+        {"MONSTER",      Type::MONSTER},
+        {"POWER_UP",     Type::POWER_UP},
+        {"TELEPORT",     Type::TELEPORT},
+    };
+    auto it = TypeStrings.find(str);
+    return it->second;
+}

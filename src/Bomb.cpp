@@ -25,7 +25,7 @@ Bomb::Bomb(SAppContext &ctx, Audio *sounds, Player *player) : _player(player)
 
     this->body->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     this->body->setMaterialTexture(0, driver->getTexture("media/sydney.bmp"));
-    this->body->setScale(irr::core::vector3df(.1));
+    this->body->setScale(irr::core::vector3df(.4));
 
     this->selector = this->smgr->createOctreeTriangleSelector(this->body->getMesh(), this->body, 128);
     this->body->setTriangleSelector(this->selector);
