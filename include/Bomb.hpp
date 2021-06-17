@@ -12,13 +12,21 @@
 #include "ICollidable.hpp"
 //#include "Error.hpp"
 #include "Player.hpp"
+#include "Audio.hpp"
 
 class Bomb : public ICollidable
 {
+private:
+    Audio* _sounds;
+    Player *_player;
 public:
-    explicit Bomb(SAppContext &ctx);
+    explicit Bomb(SAppContext &ctx, Audio *sounds, Player *player);
     ~Bomb() override = default;
-    void drop(const irr::core::vector3df &pos);
+    Player *getPLayer() const;
+    bool over = false;
+    Timer timer = Timer(3000);
+    void drop();
+    void explosion();
     void setPosition(float x, float z) final;
     bool HandleCollision(Player &player) final;
 };

@@ -44,12 +44,31 @@ void Player::move(GameEventReceiver &receiver)
     }
     return false;
 }
+void Player::upgradeBombsMax()
+{
+    bombsMax++;
+}
+
+
+int Player::calcMiddle(int coordinate)
+{
+    int n = coordinate / 50;
+    int min_x = 50 * n;
+    int max_x = 50 * (n + (n >= 0 && coordinate >= 0 ? + 1 : - 1));
+
+    return abs(min_x - coordinate) < abs(max_x - coordinate) ? min_x : max_x;
+}
 
 bool Player::update(GameEventReceiver &receiver)
 {
     move(receiver);
     return dropBomb(receiver);
     // @todo look for bombs, powerups ...
+}
+
+bool Player::getUnlimitedBombs() const
+{
+    return unlimitedBombs;
 }
 
 std::string Player::serialize()

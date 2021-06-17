@@ -17,10 +17,12 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/include
 )
 
-add_executable(${PROJECT_NAME} ${sources} ${includes})
+add_executable(${PROJECT_NAME} ${sources} ${includes} src/Game.cpp)
 
 
 target_link_libraries(${PROJECT_NAME} ${Irrlicht_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} -lsfml-audio)
+
 
 set(DLL_IRRLICHT ${Irrlicht_DIR}/Irrlicht.dll)
 file(GLOB DLL_FILES ${DLL_IRRLICHT})

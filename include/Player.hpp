@@ -54,8 +54,13 @@ public:
     Player(SAppContext &ctx, VisualMap &map, const int &playerIdx = 0);
     virtual ~Player();
     bool update(GameEventReceiver &receiver) final;
+    int calcMiddle(int coordinate);
+    irr::scene::IAnimatedMeshSceneNode *getBody();
     std::string serialize() final;
     void deserialize(std::string xmlCode) final;
+    int bombsMax = 2;
+    void upgradeBombsMax();
+    bool getUnlimitedBombs() const;
 
 private:
     enum keyDirection {
@@ -71,6 +76,9 @@ private:
     bool dropBomb(GameEventReceiver &receiver) final;
 
 private:
+
+//    std::vector<Bomb> bombs; // @todo put this into the overall game class with all bombs on the field
+
     MyList<std::pair<Timer, PowerUpType>> powerUpTimers;
 };
 

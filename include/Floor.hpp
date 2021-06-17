@@ -37,6 +37,7 @@ public:
     };
 public:
     static std::string getStringFromType(Type t);
+    static Type getTypeFromString(std::string str);
     Floor(int level, int player_nb, int width, int height);
     MyList<std::pair<Type, Coordinate>> getTemplate(); //only for debugging
     void show_map(); //only for debugging
