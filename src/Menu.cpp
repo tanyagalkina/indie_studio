@@ -23,7 +23,6 @@ Menu::Menu(SAppContext context)
         skin->setFont(font);
 
     skin->setFont(guienv->getBuiltInFont(), irr::gui::EGDF_TOOLTIP);
-
 }
 
 void Menu::addLabel(const wchar_t *text, const irr::core::rect<irr::s32>& pos)

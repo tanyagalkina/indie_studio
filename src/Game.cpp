@@ -146,7 +146,12 @@ void Game::safe()
     os.close();
 }
 
-void Game::showMenu(int menu_enum)
+void Game::showMenu()
+{
+
+}
+
+void Game::updateMenu(int menu_enum)
 {
     switch (menu_enum) {
         case MAIN_MENU:

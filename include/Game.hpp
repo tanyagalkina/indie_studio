@@ -39,7 +39,8 @@ public:
     Game();
     ~Game();
     void play();
-    void showMenu(int menu_enum);
+    void updateMenu(int menu_enum);
+    void showMenu();
     void safe();
 private:
     static SAppContext createContext();
