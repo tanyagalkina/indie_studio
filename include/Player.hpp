@@ -53,8 +53,7 @@ class Player : public IXML, public Character
 public:
     Player(SAppContext &ctx, VisualMap &map, const int &playerIdx = 0);
     virtual ~Player();
-    bool update(GameEventReceiver &receiver);
-    irr::scene::IAnimatedMeshSceneNode *getBody();
+    bool update(GameEventReceiver &receiver) final;
     std::string serialize() final;
     void deserialize(std::string xmlCode) final;
 

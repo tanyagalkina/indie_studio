@@ -18,7 +18,7 @@ class GameEventReceiver;
 class Character
 {
 public:
-    Character(SAppContext &ctx, VisualMap &vmap, irr::core::vector3df pos);
+    Character(SAppContext &ctx, VisualMap &vmap, const int &idx);
     ~Character();
     bool isAlive() const;
     void kill();
@@ -26,6 +26,8 @@ public:
     void setFire(bool enable);
     void setUnlimitedBombs(bool enabled);
     void setExtraSpeed(irr::f32 newExtraSpeed);
+    virtual bool update(GameEventReceiver &receiver) = 0;
+    virtual irr::scene::IAnimatedMeshSceneNode *getBody();
 
 private:
     void initCharacter(irr::core::vector3df _pos);

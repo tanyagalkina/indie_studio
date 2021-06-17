@@ -1,16 +1,30 @@
 #include "Character.hpp"
 
-Character::Character(SAppContext &ctx, VisualMap &vmap, irr::core::vector3df pos)
-    : context(&ctx), map(&vmap)
+static const int positions[4][2] = {
+    {0, 0},
+    {1, 0},
+    {0, 1},
+    {1, 1}
+};
+
+Character::Character(SAppContext &ctx, VisualMap &vmap, const int &idx)
+    : context(&ctx), map(&vmap), playerIndex(idx)
 {
     MOVEMENT_SPEED = 100.0f;
     currentMovementState = irr::scene::EMAT_STAND;
     extraSpeedFactor = 1.f;
 
-
     this->smgr = context->device->getSceneManager();
     this->driver = context->device->getVideoDriver();
     then = context->device->getTimer()->getTime();
+
+    auto [x, z] = map->getMaxCoordinates();
+    auto [multX, multZ] = positions[idx];
+    int blockSize = 50;
+    x = (x - 2) * blockSize * multX;
+    z = (z - 2) * blockSize * multZ;
+
+    irr::core::vector3df pos = { static_cast<float>(-250 + x), 0, static_cast<float>(250 + z)};
 
     initCharacter(pos);
     this->selector = this->smgr->createOctreeTriangleSelector(this->body->getMesh(), this->body);
@@ -23,7 +37,6 @@ Character::~Character()
 {
     this->selector->drop();
 }
-
 
 void Character::initCharacter(irr::core::vector3df _pos)
 {
@@ -47,6 +60,12 @@ void Character::initCharacter(irr::core::vector3df _pos)
 
     this->body->setPosition(pos);
 }
+
+irr::scene::IAnimatedMeshSceneNode *Character::getBody()
+{
+    return this->body;
+}
+
 
 /* use this function to create Collision between multiple Players or monsters */
 void Character::addCollision(irr::scene::IAnimatedMeshSceneNode *_body)

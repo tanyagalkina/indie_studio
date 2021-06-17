@@ -2,11 +2,9 @@
 #include "Character.hpp"
 #include "Error.hpp"
 #include "VisualMap.hpp"
-#include <assert.h>
-#include "Bomb.hpp"
 
 Player::Player(SAppContext &ctx, VisualMap &vmap, const int &playerIdx)
-    : Character(ctx, vmap, irr::core::vector3df(-250, 0, 250))
+    : Character(ctx, vmap, playerIdx)
 {
 }
 
@@ -52,11 +50,6 @@ bool Player::update(GameEventReceiver &receiver)
     move(receiver);
     return dropBomb(receiver);
     // @todo look for bombs, powerups ...
-}
-
-irr::scene::IAnimatedMeshSceneNode *Player::getBody()
-{
-    return this->body;
 }
 
 std::string Player::serialize()

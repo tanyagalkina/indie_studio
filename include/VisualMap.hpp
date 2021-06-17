@@ -2,6 +2,7 @@
 #define VISUAL_MAP_HPP_
 
 #include "AppContext.hpp"
+#include "Coordinate.hpp"
 #include "IParticleAnimatedMeshSceneNodeEmitter.h"
 #include "ISceneManager.h"
 #include "IVideoDriver.h"
@@ -23,6 +24,7 @@ public:
     std::vector<Cube *> getBlocks() const;
     void deserialize(std::string xmlCode) final;
     std::string serialize() final;
+    Coordinate getMaxCoordinates();
 
 private:
     void initializeMap(Map &map);
@@ -33,6 +35,7 @@ private:
     SAppContext *context;
     irr::scene::ISceneManager *smgr;
     irr::video::IVideoDriver *driver;
+    Coordinate maxCoordinates;
 
     /* list of wooden blocks (that can be destroyed) */
     // @todo replace this with a class that contains more information about the
