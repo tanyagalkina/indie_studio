@@ -33,6 +33,8 @@ public:
     void stopExplosion();
     void setPosition(float x, float z) final;
     bool HandleCollision(Character &player) final;
+    bool beShureCollision(Character *calculator, const irr::core::vector3df& pos);
+    MyList<Explosion*> getExplosions();
     bool _exploded = false;
 };
 

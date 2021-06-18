@@ -87,3 +87,24 @@ bool Bomb::HandleCollision(Character &player)
     }
     return false;
 }
+
+bool Bomb::beShureCollision(Character *player, const irr::core::vector3df& pos)
+{
+    auto posx = player->calcMiddle(pos.X);
+    auto posz = player->calcMiddle(pos.Z);
+    auto posxB = player->calcMiddle(body->getPosition().X);
+    auto poszB = player->calcMiddle(body->getPosition().Z);
+    if ((posxB == posx && (poszB == posz
+                           || poszB == posz - 50 || poszB == posz - 100
+                           || poszB == posz + 50 || poszB == posz + 100) ||
+         (poszB == posz && (posxB == posx
+                            || posxB == posx - 50 || posxB == posx - 100
+                            || posxB == posx + 50 || poszB == posx + 100))))
+        return true;
+    return false;
+}
+
+MyList<Explosion *> Bomb::getExplosions()
+{
+    return _explosions;
+}

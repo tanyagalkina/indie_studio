@@ -21,7 +21,7 @@ public:
     ~VisualMap();
     void display();
     void addCollision(irr::scene::IAnimatedMeshSceneNode *body);
-    std::vector<Cube *> getBlocks() const;
+    MyList<Cube *> getBlocks() const;
     void deserialize(std::string xmlCode) final;
     std::string serialize() final;
     Coordinate getMaxCoordinates();
@@ -43,7 +43,7 @@ private:
     // at any time or is there a powerup underneath, this Class should have an
     // addCollision(just like the VisualMap class) method to make collision
     // between this box and the player possible.
-    std::vector<Cube *> blocks;
+    MyList<Cube *> blocks;
 
     /* collision */
     /* this one is just a collection of multiple selectors to act as one big
