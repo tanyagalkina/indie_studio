@@ -418,14 +418,18 @@ MyList<std::pair<Floor::Type, Coordinate>> Floor::deserializeMap(const std::stri
             (int)(x + 300) / 50,
             (int)(z-300) / -50
         };
-        if (stoi(isVisable) == true && x >= 0 && y >= 0)
+        if (x != -5000)
         {
-            std::string types = SerializeHelper::FindKeyValue(node, "type");
-            auto type = Floor::getTypeFromString(types);
-            auto o = std::make_pair(type, cor);
-            list.push_back(o);
+            if (stoi(isVisable) == true)
+            {
+                std::string types = SerializeHelper::FindKeyValue(node, "type");
+                auto type = Floor::getTypeFromString(types);
+                auto o = std::make_pair(type, cor);
+                list.push_back(o);
+            }
+            else
+                list.push_back(std::make_pair(Floor::Type::EMPTY, cor));
         }
-        else list.push_back(std::make_pair(Floor::Type::EMPTY, cor));
         node = sh.GetNextKey();
     }
     return list;
