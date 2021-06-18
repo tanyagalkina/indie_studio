@@ -62,8 +62,8 @@ void Game::play()
         {
             if (player.update(*_gameReceiver) && isDropPossible(&player))
             {
-                Bomb b(_context, _sounds, &player);
-                b.drop();
+                Bomb *b = new Bomb(_context, _sounds, &player);
+                b->drop();
                 _bombs.push_back(b);
             }
         }
@@ -81,13 +81,13 @@ void Game::play()
 ///this is a hack the real check to come
 bool Game::isDropPossible(Player *player)
 {
-    MyList<Bomb>::iterator it = _bombs.begin();
+    auto it = _bombs.begin();
 
     int i = 0;
     if (!player->getUnlimitedBombs())
     {
         for (; it != _bombs.end(); it++) {
-            if (it->getPLayer() == player)
+            if ((*it)->getPLayer() == player)
                 ++i;
         }
         if (i >= player->bombsMax)
@@ -101,23 +101,27 @@ bool Game::isDropPossible(Player *player)
 
     for (it = _bombs.begin(); it != _bombs.end(); it++)
     {
-        if (it->body->getPosition() == position)
+        if ((*it)->body->getPosition() == position)
             return false;
     }
     return true;
 }
 
-bool Game::getExplosions() {
-    //MyList<Bomb>::iterator it = _bombs.begin();
-    ///how many bombs are there in the list
-    //std::cout << _bombs.size() << std::endl;
-    if (_bombs.size() > 0 && _bombs[0].timer.isFinished())
-    {
-        _bombs[0].explosion();
-        _bombs.erase(_bombs.begin());
-        _sounds->explode();
+void Game::getExplosions() {
+    auto it = _bombs.begin();
+
+    while (it != _bombs.end()) {
+        if (!(*it)->_exploded && (*it)->timer.isFinished()) {
+            (*it)->initExplosion();
+            _sounds->explode();
+        } else if ((*it)->_exploded && (*it)->timer.isFinished()) {
+            (*it)->stopExplosion();
+            delete _bombs[it - _bombs.begin()];
+            it = _bombs.erase(it);
+            continue;
+        }
+        it++;
     }
-    return true;
 }
 
 Game::~Game()

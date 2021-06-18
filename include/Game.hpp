@@ -29,7 +29,7 @@ private:
     VisualMap *_map;
     PowerUpHandler *_powerUpHandler;
     MyList<Player> _players;
-    MyList<Bomb> _bombs;
+    std::vector<Bomb*> _bombs;
     GameEventReceiver *_gameReceiver;
     Menu *_menu;
     Audio *_sounds = new Audio;
@@ -45,7 +45,7 @@ private:
     static SAppContext createContext();
 
     void createMap();
-    bool getExplosions();
+    void getExplosions();
     bool isDropPossible(Player *player);
 };
 
