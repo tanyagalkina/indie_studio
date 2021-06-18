@@ -22,7 +22,8 @@ public:
         exploSound.setVolume(20);
         backBuffer.loadFromFile("media/sounds/arabic.ogg");
         backSound.setBuffer(backBuffer);
-        backSound.setVolume(2);
+        backSound.setLoop(true);
+        backSound.setVolume(5);
 
     }
     void Mute()
@@ -34,7 +35,7 @@ public:
     void Unmute()
     {
         backSound.setVolume(20);
-        exploSound.setVolume(2);
+        exploSound.setVolume(5);
     }
 
     void explode()

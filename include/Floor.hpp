@@ -13,17 +13,18 @@
 #include <iostream>
 #include <vector>
 #include "Coordinate.hpp"
+#include "IXML.hpp"
 
 using std::mt19937_64;
 using std::random_device;
 using std::uniform_int_distribution;
 
-class Floor
+class Floor : public IXML
 {
 public:
-    enum class Type
+    enum Type
     {
-        EMPTY,
+        EMPTY = 0,
         BOX,
         TILE,
         WALL,
@@ -39,11 +40,16 @@ public:
     static std::string getStringFromType(Type t);
     static Type getTypeFromString(std::string str);
     Floor(int level, int player_nb, int width, int height);
+    Floor(std::string xmlFloor, const std::string& xmlMap);
     MyList<std::pair<Type, Coordinate>> getTemplate(); //only for debugging
     void show_map(); //only for debugging
+    void deserialize(std::string xmlCode) final;
+    std::string serialize() final;
+    static MyList<std::pair<Type, Coordinate>> deserializeMap(const std::string& mapXML);
 
 private:
     void generate_template();
+    void create_template_from_map();
     void set_obstacle_number_for_the_level();
     void set_teleport();
     void set_monster_nb();

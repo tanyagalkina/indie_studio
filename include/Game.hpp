@@ -28,11 +28,11 @@ private:
     MyList<std::pair<Floor::Type, Coordinate>> _mapTemplate;
     VisualMap *_map;
     PowerUpHandler *_powerUpHandler;
-    MyList<Player> _players;
-    MyList<Bomb> _bombs;
+    MyList<Character *> _players;
+    std::vector<Bomb*> _bombs;
     GameEventReceiver *_gameReceiver;
     Menu *_menu;
-    Audio *_sounds;
+    Audio *_sounds = new Audio;
 
 
 public:
@@ -42,12 +42,14 @@ public:
     void updateMenu(int menu_enum);
     void showMenu();
     void safe();
+    void load(std::string name, int playerNumber, int botNumber, int width, int height);
+    void load(const std::string& game_name);
 private:
     static SAppContext createContext();
 
     void createMap();
-    bool getExplosions();
-    bool isDropPossible(Player *player);
+    void getExplosions();
+    bool isDropPossible(Character *player);
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_GAME_HPP

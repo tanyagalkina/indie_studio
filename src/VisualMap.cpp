@@ -1,4 +1,5 @@
 #include "VisualMap.hpp"
+#include "Coordinate.hpp"
 #include "IAnimatedMesh.h"
 #include "Menu.hpp"
 #include "Error.hpp"
@@ -40,6 +41,7 @@ VisualMap::VisualMap(SAppContext &ctx, Map &map)
     this->smgr->addCameraSceneNode(NULL, irr::core::vector3df(0, 400, -200),
             irr::core::vector3df(0, 0, -50));
 
+    maxCoordinates = map.back().second;
     initializeMap(map);
 
     irr::core::array<irr::scene::ISceneNode *>	walls;
@@ -64,6 +66,11 @@ VisualMap::~VisualMap()
 std::vector<Cube *> VisualMap::getBlocks() const
 {
     return blocks;
+}
+
+Coordinate VisualMap::getMaxCoordinates()
+{
+    return maxCoordinates;
 }
 
 void VisualMap::deserialize(std::string xmlCode)

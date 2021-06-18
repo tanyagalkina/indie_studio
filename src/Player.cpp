@@ -2,11 +2,9 @@
 #include "Character.hpp"
 #include "Error.hpp"
 #include "VisualMap.hpp"
-#include <assert.h>
-#include "Bomb.hpp"
 
 Player::Player(SAppContext &ctx, VisualMap &vmap, const int &playerIdx)
-    : Character(ctx, vmap, irr::core::vector3df(-250, 0, 250))
+    : Character(ctx, vmap, playerIdx)
 {
 }
 
@@ -52,14 +50,14 @@ void Player::upgradeBombsMax()
 }
 
 
-int Player::calcMiddle(int coordinate)
-{
-    int n = coordinate / 50;
-    int min_x = 50 * n;
-    int max_x = 50 * (n + (n >= 0 && coordinate >= 0 ? + 1 : - 1));
-
-    return abs(min_x - coordinate) < abs(max_x - coordinate) ? min_x : max_x;
-}
+//int Player::calcMiddle(int coordinate)
+//{
+//    int n = coordinate / 50;
+//    int min_x = 50 * n;
+//    int max_x = 50 * (n + (n >= 0 && coordinate >= 0 ? + 1 : - 1));
+//
+//    return abs(min_x - coordinate) < abs(max_x - coordinate) ? min_x : max_x;
+//}
 
 bool Player::update(GameEventReceiver &receiver)
 {
@@ -68,16 +66,10 @@ bool Player::update(GameEventReceiver &receiver)
     // @todo look for bombs, powerups ...
 }
 
-irr::scene::IAnimatedMeshSceneNode *Player::getBody()
-{
-    return this->body;
-}
-
-bool Player::getUnlimitedBombs() const
-{
-    return unlimitedBombs;
-}
-
+//bool Player::getUnlimitedBombs() const
+//{
+//    return unlimitedBombs;
+//}
 
 std::string Player::serialize()
 {

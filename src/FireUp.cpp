@@ -21,7 +21,7 @@ FireUp::FireUp(SAppContext &sac) : PowerUp(sac, "./media/asset/powerup/powerUpP.
 
 }
 
-std::tuple<Timer, PowerUpType, Player *> FireUp::getTimerTypeAndPlayer(Player& player)
+std::tuple<Timer, PowerUpType, Character *> FireUp::getTimerTypeAndPlayer(Character& player)
 {
     return std::make_tuple(Timer(5000), PowerUpType::FireUp_t, &player);
 }

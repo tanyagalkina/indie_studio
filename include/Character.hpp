@@ -15,10 +15,10 @@
 
 class GameEventReceiver;
 
-class Character
+class Character : public IXML
 {
 public:
-    Character(SAppContext &ctx, VisualMap &vmap, irr::core::vector3df pos);
+    Character(SAppContext &ctx, VisualMap &vmap, const int &idx);
     ~Character();
     bool isAlive() const;
     void kill();
@@ -26,6 +26,14 @@ public:
     void setFire(bool enable);
     void setUnlimitedBombs(bool enabled);
     void setExtraSpeed(irr::f32 newExtraSpeed);
+    irr::scene::IAnimatedMeshSceneNode *getBody();
+    bool getUnlimitedBombs() const;
+    int getBombsMax();
+    int calcMiddle(int coordinate);
+
+    virtual bool update(GameEventReceiver &receiver) = 0;
+    virtual std::string serialize() = 0;
+    virtual void deserialize(std::string xmlCode) = 0;
 
 private:
     void initCharacter(irr::core::vector3df _pos);
@@ -55,6 +63,7 @@ protected:
     bool alive = true;
     bool fireUp = false;
     bool unlimitedBombs = false;
+    int bombsMax = 2;
 
 protected:
     void changeMovementState();

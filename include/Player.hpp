@@ -48,19 +48,18 @@ static const irr::EKEY_CODE keyCodes[2][5] = {
     { irr::KEY_UP, irr::KEY_RIGHT, irr::KEY_DOWN, irr::KEY_LEFT, irr::KEY_RETURN}
 };
 
-class Player : public IXML, public Character
+class Player : public Character
 {
 public:
     Player(SAppContext &ctx, VisualMap &map, const int &playerIdx = 0);
     virtual ~Player();
-    bool update(GameEventReceiver &receiver);
-    int calcMiddle(int coordinate);
-    irr::scene::IAnimatedMeshSceneNode *getBody();
+    bool update(GameEventReceiver &receiver) final;
+    //int calcMiddle(int coordinate);
     std::string serialize() final;
     void deserialize(std::string xmlCode) final;
-    int bombsMax = 2;
+    //int bombsMax = 2;
     void upgradeBombsMax();
-    bool getUnlimitedBombs() const;
+    //bool getUnlimitedBombs() const;
 
 private:
     enum keyDirection {

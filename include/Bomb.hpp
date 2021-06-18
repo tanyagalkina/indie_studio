@@ -13,22 +13,27 @@
 //#include "Error.hpp"
 #include "Player.hpp"
 #include "Audio.hpp"
+#include "Explosion.hpp"
 
 class Bomb : public ICollidable
 {
 private:
     Audio* _sounds;
-    Player *_player;
+    Character *_player;
+    irr::core::vector3df _position;
+    MyList<Explosion*> _explosions; // 4x in each direction
 public:
-    explicit Bomb(SAppContext &ctx, Audio *sounds, Player *player);
+    explicit Bomb(SAppContext &ctx, Audio *sounds, Character *player);
     ~Bomb() override = default;
-    Player *getPLayer() const;
+    [[nodiscard]] Character *getPLayer() const;
     bool over = false;
     Timer timer = Timer(3000);
     void drop();
-    void explosion();
+    void initExplosion();
+    void stopExplosion();
     void setPosition(float x, float z) final;
-    bool HandleCollision(Player &player) final;
+    bool HandleCollision(Character &player) final;
+    bool _exploded = false;
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_BOMB_HPP
