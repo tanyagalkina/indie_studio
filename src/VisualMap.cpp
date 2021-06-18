@@ -47,8 +47,16 @@ VisualMap::VisualMap(SAppContext &ctx, Map &_map)
     if (!this->smgr->loadScene("media/skybox.irr"))
         AssetLoadErrorMac("Can't load 'media/skybox.irr'");
 
-    this->smgr->addCameraSceneNode(NULL, irr::core::vector3df(0, 400, -200),
-            irr::core::vector3df(0, 0, -50));
+    double width = _map.size();
+    if (_map.size() == 195)
+        this->smgr->addCameraSceneNode(NULL, irr::core::vector3df(70, 375, -240),
+            irr::core::vector3df(70, 0, -75));
+    if (_map.size() == 289)
+        this->smgr->addCameraSceneNode(NULL, irr::core::vector3df(100, 450, -400),
+                                       irr::core::vector3df(100, 0, -200));
+    else
+        this->smgr->addCameraSceneNode(NULL, irr::core::vector3df(85, 400, -200),
+            irr::core::vector3df(85, 0, -50));
 
     maxCoordinates = _map.back().second;
     initializeMap(_map);
