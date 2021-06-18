@@ -20,6 +20,8 @@ public:
     void addLabel(int i, const irr::core::position2d<irr::s32>& pos);
     void addButton(const irr::core::rect<irr::s32>& pos, int btn_enum, const
     wchar_t *tooltip);
+    void addCheckBox(const irr::core::rect<irr::s32>& pos, int box_enum, bool
+    value);
     void clearGUI();
 
     irr::gui::IGUIEnvironment *_guienv;

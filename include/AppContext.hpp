@@ -26,6 +26,8 @@ typedef struct
     irr::s32 counter;
     irr::gui::IGUIListBox *listbox;
     GameState state;
+    bool muteMusic;
+    bool muteSound;
 } SAppContext;
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_APPCONTEXT_HPP

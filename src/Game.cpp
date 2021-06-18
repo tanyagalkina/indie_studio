@@ -16,7 +16,7 @@ Game::Game()
     _powerUpHandler = nullptr;
     _floor = nullptr;
     _context = createContext();
-    _context.state = GameState::Game;
+    _context.state = GameState::Settings;
     _driver = _context.device->getVideoDriver();
     _gameReceiver = new GameEventReceiver();
     _context.device->setEventReceiver(_gameReceiver);
@@ -62,6 +62,8 @@ SAppContext Game::createContext()
     SAppContext context;
     context.device = device;
     context.counter = 0;
+    context.muteMusic = false;
+    context.muteSound = false;
     return context;
 }
 

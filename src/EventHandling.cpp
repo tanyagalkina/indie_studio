@@ -113,6 +113,17 @@ bool SettingsMenuEventReceiver::OnEvent(const irr::SEvent &event)
                     default:
                         break;
                 }
+            case irr::gui::EGET_CHECKBOX_CHANGED:
+                switch (id) {
+                    case GUI_CHECK_MUSIC:
+                        _context.muteMusic = !_context.muteMusic;
+                        return true;
+                    case GUI_CHECK_SOUND:
+                        _context.muteSound = !_context.muteSound;
+                        return true;
+                    default:
+                        break;
+                }
             default:
                 break;
         }

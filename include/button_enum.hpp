@@ -21,11 +21,13 @@ enum Buttons {
     GUI_BUTTON_QUIT,
     GUI_BUTTON_BACK,
     GUI_BUTTON_MAINMENU,
+    GUI_CHECK_MUSIC,
+    GUI_CHECK_SOUND,
 };
 
-#define TEXTPATHSLENGTH 10
+#define TEXTPATHSLENGTH 12
 
-const irr::io::path textPaths[10] {
+const irr::io::path textPaths[12] {
     "./media/menu/BestBomberman.png",
     "./media/menu/NewGameHeadline.png",
     "./media/menu/LoadGameHeadline.png",
@@ -36,6 +38,8 @@ const irr::io::path textPaths[10] {
     "./media/menu/Quit.png",
     "./media/menu/Back.png",
     "./media/menu/MainMenu.png",
+    "./media/menu/MuteMusic.png",
+    "./media/menu/MuteSounds.png",
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_BUTTON_ENUM_HPP

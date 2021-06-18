@@ -62,6 +62,8 @@ SAppContext createContext()
     SAppContext context;
     context.device = device;
     context.counter = 0;
+    context.muteMusic = false;
+    context.muteSound = false;
     return context;
 }
 

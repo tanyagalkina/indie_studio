@@ -27,7 +27,7 @@ Menu::Menu(SAppContext context, const std::vector<std::pair<Buttons,
     _imageList = imageList;
 }
 
-void Menu::addLabel(int i, const irr::core::position2d<irr::s32>& pos)
+void Menu::addLabel(int i, const irr::core::position2d<irr::s32> &pos)
 {
     irr::gui::IGUIImage *elem = _guienv->addImage(_imageList[i - 100].second,
                                                   pos);
@@ -49,4 +49,13 @@ void Menu::clearGUI()
     for(auto const &elem: _elementList) {
         elem->remove();
     }
+    //
+}
+
+void Menu::addCheckBox(const irr::core::rect<irr::s32>& pos, int box_enum,
+                       bool value)
+{
+    irr::gui::IGUICheckBox *elem = _guienv->addCheckBox(value, pos, nullptr,
+                                                        box_enum);
+    _elementList.push_back(elem);
 }
