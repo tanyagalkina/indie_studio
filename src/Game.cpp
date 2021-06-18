@@ -22,12 +22,8 @@ Game::Game()
     _powerUpHandler = new PowerUpHandler(_context);
     Character *p = new Player(_context, *_map);
     Character *p2 = new AIBot(_context, *_map, 1);
-    Character *p3 = new AIBot(_context, *_map, 2);
-    Character *p4 = new AIBot(_context, *_map, 3);
     _players.push_back(p);
     _players.push_back(p2);
-    _players.push_back(p3);
-    _players.push_back(p4);
     _bombs.clear();
     _menu = new Menu(_context);
 }

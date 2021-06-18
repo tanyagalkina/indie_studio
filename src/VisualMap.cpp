@@ -4,6 +4,11 @@
 #include "Menu.hpp"
 #include "Error.hpp"
 
+Map VisualMap::getMap()
+{
+    return *this->map;
+}
+
 void VisualMap::display()
 {
     this->smgr->drawAll();
@@ -27,8 +32,8 @@ void VisualMap::addCollision(irr::scene::IAnimatedMeshSceneNode *body)
         block->addCollision(body);
 }
 
-VisualMap::VisualMap(SAppContext &ctx, Map &map)
-    : context(&ctx)
+VisualMap::VisualMap(SAppContext &ctx, Map &_map)
+    : context(&ctx), map(&_map)
 {
     this->smgr = context->device->getSceneManager();
     this->driver = context->device->getVideoDriver();
@@ -41,8 +46,8 @@ VisualMap::VisualMap(SAppContext &ctx, Map &map)
     this->smgr->addCameraSceneNode(NULL, irr::core::vector3df(0, 400, -200),
             irr::core::vector3df(0, 0, -50));
 
-    maxCoordinates = map.back().second;
-    initializeMap(map);
+    maxCoordinates = _map.back().second;
+    initializeMap(_map);
 
     irr::core::array<irr::scene::ISceneNode *>	walls;
     smgr->getSceneNodesFromType(irr::scene::ESNT_CUBE, walls);
