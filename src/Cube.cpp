@@ -48,6 +48,7 @@ void Cube::addCollision(irr::scene::IAnimatedMeshSceneNode *_body)
 Cube::~Cube()
 {
     selector->drop();
+//    body->drop();
 }
 
 std::string Cube::serialize()

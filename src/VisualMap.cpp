@@ -36,7 +36,7 @@ void VisualMap::addCollision(irr::scene::IAnimatedMeshSceneNode *body)
         block->addCollision(body);
 }
 
-VisualMap::VisualMap(SAppContext &ctx, Map &_map)
+VisualMap::VisualMap(SAppContext &ctx, Map &_map, int size)
     : context(&ctx), map(&_map)
 {
     this->smgr = context->device->getSceneManager();
@@ -47,8 +47,16 @@ VisualMap::VisualMap(SAppContext &ctx, Map &_map)
     if (!this->smgr->loadScene("media/skybox.irr"))
         AssetLoadErrorMac("Can't load 'media/skybox.irr'");
 
-    this->smgr->addCameraSceneNode(NULL, irr::core::vector3df(0, 400, -200),
-            irr::core::vector3df(0, 0, -50));
+    _size = size;
+    if (size == 1)
+        this->smgr->addCameraSceneNode(NULL, irr::core::vector3df(70, 375, -240),
+            irr::core::vector3df(70, 0, -75));
+    else if (size == 3)
+        this->smgr->addCameraSceneNode(NULL, irr::core::vector3df(100, 450, -400),
+                                       irr::core::vector3df(100, 0, -200));
+    else
+        this->smgr->addCameraSceneNode(NULL, irr::core::vector3df(85, 400, -200),
+            irr::core::vector3df(85, 0, -50));
 
     maxCoordinates = _map.back().second;
     initializeMap(_map);

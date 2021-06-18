@@ -46,6 +46,8 @@ public:
     void deserialize(std::string xmlCode) final;
     std::string serialize() final;
     static MyList<std::pair<Type, Coordinate>> deserializeMap(const std::string& mapXML);
+    int getLevel() const;
+    void nextLevel();
 
 private:
     void generate_template();

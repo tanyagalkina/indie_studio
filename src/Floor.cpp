@@ -434,3 +434,16 @@ MyList<std::pair<Floor::Type, Coordinate>> Floor::deserializeMap(const std::stri
     }
     return list;
 }
+
+int Floor::getLevel() const
+{
+    return _level;
+}
+
+void Floor::nextLevel()
+{
+    _level++;
+    set_obstacle_number_for_the_level();
+    _template.clear();
+    generate_template();
+}

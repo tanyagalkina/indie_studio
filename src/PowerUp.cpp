@@ -84,3 +84,8 @@ bool PowerUp::HandleCollision(Character &player)
     }
     return false;
 }
+
+PowerUp::~PowerUp()
+{
+//    body->drop();
+}
