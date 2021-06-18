@@ -64,8 +64,7 @@ void Game::play()
             }
 
         }
-        for (auto &bomb : _bombs)
-            bomb->HandleExplosion(_players, _map->getBlocks());
+        HandleExplosion();
         getExplosions();
         _driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
         _powerUpHandler->loop(_players);
@@ -241,4 +240,62 @@ void Game::load(const std::string& gamename)
          }
         node = sh.GetNextKey();
     }
+}
+
+void Game::randomPowerUpSpawn(float x, float z)
+{
+    srand(time(NULL));
+    int i = rand() % 3;
+    if (i == 0)
+    {
+        _powerUpHandler->addPowerUp(SpeedUp_t, x, z);
+    }
+    if (i == 1)
+    {
+        _powerUpHandler->addPowerUp(FireUp_t, x, z);
+    }
+    if (i == 2)
+    {
+        _powerUpHandler->addPowerUp(BombUp_t, x, z);
+    }
+}
+
+
+bool Game::HandleExplosion()
+{
+
+    for (auto &bomb : _bombs)
+    {
+        auto expos = bomb->getExplosions();
+        for (auto &expo : expos)
+        {
+            for (auto &player : _players)
+            {
+                if (player->checkCollision(
+                    expo->_particleSystemSceneNode->getTransformedBoundingBox()))
+                {
+                    if (bomb->beShureCollision(player, player->getBody()->getPosition()))
+                        player->kill();
+                }
+            }
+            auto blocks = _map->getBlocks();
+            for (auto &box : blocks)
+            {
+                if (box->getbody()->isVisible())
+                {
+                    if (box->HandleCollision(
+                        expo->_particleSystemSceneNode->getTransformedBoundingBox()))
+                    {
+                        if (bomb->beShureCollision(_players[0], box->getbody()->getPosition()))
+                        {
+                            box->getbody()->setVisible(false);
+                            randomPowerUpSpawn(box->getbody()->getPosition().X,
+                                               box->getbody()->getPosition().Z);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return true;
 }

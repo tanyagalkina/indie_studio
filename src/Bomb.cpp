@@ -88,29 +88,6 @@ bool Bomb::HandleCollision(Character &player)
     return false;
 }
 
-void Bomb::HandleExplosion(MyList<Character *> players, MyList<Cube *> boxes)
-{
-    for (auto &expo : _explosions)
-    {
-        for (auto &player : players)
-        {
-            if (player->checkCollision(expo->_particleSystemSceneNode->getTransformedBoundingBox()))
-            {
-                if (beShureCollision(player, player->getBody()->getPosition()))
-                    player->kill();
-            }
-        }
-        for (auto &box : boxes)
-        {
-            if (box->HandleCollision(expo->_particleSystemSceneNode->getTransformedBoundingBox()))
-            {
-                if (beShureCollision(_player, box->getbody()->getPosition()))
-                    box->getbody()->setVisible(false);
-            }
-        }
-    }
-}
-
 bool Bomb::beShureCollision(Character *player, const irr::core::vector3df& pos)
 {
     auto posx = player->calcMiddle(pos.X);
@@ -125,4 +102,9 @@ bool Bomb::beShureCollision(Character *player, const irr::core::vector3df& pos)
                             || posxB == posx + 50 || poszB == posx + 100))))
         return true;
     return false;
+}
+
+MyList<Explosion *> Bomb::getExplosions()
+{
+    return _explosions;
 }

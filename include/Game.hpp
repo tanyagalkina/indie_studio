@@ -45,10 +45,13 @@ public:
     void load(const std::string& game_name);
 private:
     static SAppContext createContext();
+    bool HandleExplosion();
 
     void createMap();
     void getExplosions();
     bool isDropPossible(Character *player);
+
+    void randomPowerUpSpawn(float x, float z);
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_GAME_HPP
