@@ -16,7 +16,7 @@ class PowerUp : public ICollidable
 protected:
     bool isExisting = true;
 public:
-    ~PowerUp() override = default;
+    ~PowerUp() override;
     explicit PowerUp(SAppContext &ctx, const irr::core::string<irr::fschar_t>& meshPath, const
     irr::core::string<irr::fschar_t> &texturePath);
     void setPosition(float x, float z) final;

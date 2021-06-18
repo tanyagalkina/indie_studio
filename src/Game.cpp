@@ -40,7 +40,7 @@ Game::Game()
 void Game::createMap()
 {
     try {
-        _map = new VisualMap(_context, _mapTemplate);
+        _map = new VisualMap(_context, _mapTemplate, _size);
     } catch (AssetLoadError &e) {
         std::cerr << e.getMessage() << std::endl;
         exit(84);
@@ -86,6 +86,7 @@ void Game::play()
         _map->display();
         this->updateMenu();
         _driver->endScene();
+        checkLevel();
     }
     safe();
 }
@@ -155,6 +156,8 @@ void Game::safe()
     os.open("./games/" + _name + ".xml");
     SerializeHelper sh;
     sh.beginKey(_name);
+    sh.beginKey("size");
+    sh.addKeyValue("size", std::to_string(_size));
     sh.addXML(_floor->serialize());
     for (auto & _player : _players)
         sh.addXML(_player->serialize());
@@ -225,10 +228,13 @@ void Game::updateMenu()
 
 }
 
-void Game::load(std::string name, int playerNumber, int botNumber, int width, int height)
+void Game::load(std::string name, int playerNumber, int botNumber, int size)
 {
+    _size = size;
+    _playerNumber = playerNumber;
+    _botNumber = botNumber;
     _name = std::move(name);
-    _floor = new Floor(1, playerNumber, width, height);
+    _floor = new Floor(1, playerNumber, size * 5, size * 5);
     _mapTemplate = _floor->getTemplate();
     createMap();
     _powerUpHandler = new PowerUpHandler(_context);
@@ -263,12 +269,16 @@ void Game::load(const std::string& gamename)
     else throw std::runtime_error("file for game was not found");
     std::string code = ss.str();
     SerializeHelper sh(code, true);
+
+    std::string size = SerializeHelper::FindKeyValue(code, "size");
+    _size = stoi(size);
+
     std::string sub_node;
     std::string xmlFloor = SerializeHelper::FindKeyValue(code, "Floor");
     std::string xmlVisualMap = SerializeHelper::FindKeyValue(code, "VisualMap");
     _floor = new Floor(xmlFloor, xmlVisualMap);
     _mapTemplate = _floor->getTemplate();
-    _map = new VisualMap(_context, _mapTemplate);
+    _map = new VisualMap(_context, _mapTemplate, _size);
 
     _powerUpHandler = new PowerUpHandler(_context);
 
@@ -352,4 +362,38 @@ bool Game::HandleExplosion()
         }
     }
     return true;
+}
+
+void Game::nextLevel()
+{
+    delete _context.device;
+    _context = createContext();
+    _context.state = GameState::Game;
+    _driver = _context.device->getVideoDriver();
+
+    _players.clear();
+    _bombs.clear();
+    delete _map;
+    _mapTemplate.clear();
+    delete _powerUpHandler;
+    _floor->nextLevel();
+    _mapTemplate = _floor->getTemplate();
+    _map = new VisualMap(_context, _mapTemplate, _size);
+    _powerUpHandler = new PowerUpHandler(_context);
+    for (int i = 0; i < _playerNumber; i++)
+        _players.push_back(new Player(_context, *_map, i));
+    for (int i = 0; i < _botNumber; i++)
+        _players.push_back(new AIBot(_context, *_map, i));
+}
+
+void Game::checkLevel()
+{
+    int i = 0;
+    for (auto &player : _players)
+    {
+        if (player->isAlive())
+            i++;
+    }
+    if (i < 2)
+        nextLevel();
 }

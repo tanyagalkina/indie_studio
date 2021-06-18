@@ -17,7 +17,7 @@ using Map = MyList<std::pair<Floor::Type, Coordinate>>;
 class VisualMap : IXML
 {
 public:
-    VisualMap(SAppContext &ctx, Map &_map);
+    VisualMap(SAppContext &ctx, Map &_map, int size);
     ~VisualMap();
     void display();
     void addCollision(irr::scene::IAnimatedMeshSceneNode *body);
@@ -46,6 +46,7 @@ private:
     // addCollision(just like the VisualMap class) method to make collision
     // between this box and the player possible.
     MyList<Cube *> blocks;
+    int _size;
 
     /* collision */
     /* this one is just a collection of multiple selectors to act as one big

@@ -69,7 +69,7 @@ SAppContext createContext()
 int main()
 {
     Game g;
-    g.load("test", 2, 2, 15, 15);
+    g.load("test", 2, 2, 1);
     g.play();
 //    SerializeHelper s;
 //    s.beginKey("keyMain");

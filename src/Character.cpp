@@ -36,6 +36,7 @@ Character::Character(SAppContext &ctx, VisualMap &vmap, const int &idx)
 Character::~Character()
 {
     this->selector->drop();
+//    body->drop();
 }
 
 bool Character::getUnlimitedBombs() const

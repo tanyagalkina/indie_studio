@@ -23,6 +23,7 @@ class Game
 private:
     std::string _name = "gameOne";
     SAppContext _context;
+    int _size;
     irr::video::IVideoDriver *_driver;
     Floor *_floor;
     MyList<std::pair<Floor::Type, Coordinate>> _mapTemplate;
@@ -32,6 +33,8 @@ private:
     std::vector<Bomb*> _bombs;
     GameEventReceiver *_gameReceiver;
     Audio *_sounds = new Audio;
+    int _playerNumber;
+    int _botNumber;
     std::vector<std::pair<Buttons, irr::video::ITexture *>> _imageList;
 
 public:
@@ -41,7 +44,7 @@ public:
     void updateMenu();
     void showMenu(GameState state, Menu *menu);
     void safe();
-    void load(std::string name, int playerNumber, int botNumber, int width, int height);
+    void load(std::string name, int playerNumber, int botNumber, int size);
     void load(const std::string& game_name);
 private:
     static SAppContext createContext();
@@ -52,6 +55,10 @@ private:
     bool isDropPossible(Character *player);
 
     void randomPowerUpSpawn(float x, float z);
+
+    void nextLevel();
+
+    void checkLevel();
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_GAME_HPP
