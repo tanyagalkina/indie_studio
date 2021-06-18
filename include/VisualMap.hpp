@@ -17,7 +17,7 @@ using Map = MyList<std::pair<Floor::Type, Coordinate>>;
 class VisualMap : IXML
 {
 public:
-    VisualMap(SAppContext &ctx, Map &map);
+    VisualMap(SAppContext &ctx, Map &_map);
     ~VisualMap();
     void display();
     void addCollision(irr::scene::IAnimatedMeshSceneNode *body);
@@ -25,6 +25,7 @@ public:
     void deserialize(std::string xmlCode) final;
     std::string serialize() final;
     Coordinate getMaxCoordinates();
+    Map getMap();
     void eraseCubes(const MyList<MyList<Cube *>::iterator>& eares);
 
 private:
@@ -50,6 +51,7 @@ private:
     /* this one is just a collection of multiple selectors to act as one big
      * selector */
     irr::scene::IMetaTriangleSelector *metaSelector;
+    Map *map;
 };
 
 #endif //VISUAL_MAP_HPP_

@@ -6,7 +6,6 @@
 #include <functional>
 
 
-
 class AIBot : public Character
 {
 public:
@@ -18,7 +17,9 @@ public:
 private:
     /* movement */
     void move(GameEventReceiver &receiver) final;
+    bool customMove(irr::core::vector3df target);
     bool dropBomb(GameEventReceiver &receiver) final;
+    Floor::Type checkNextMove(irr::core::vector3df &target);
 
 private:
     int moveIdx;
