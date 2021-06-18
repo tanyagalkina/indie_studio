@@ -12,18 +12,18 @@
 
 Game::Game()
 {
+    _map = nullptr;
+    _powerUpHandler = nullptr;
+    _floor = nullptr;
     _context = createContext();
-    //    Bomb b(_context);
-    _context.state = GameState::Menu;
+    _context.state = GameState::Game;
     _driver = _context.device->getVideoDriver();
     _gameReceiver = new GameEventReceiver();
     _context.device->setEventReceiver(_gameReceiver);
-    _menu = new Menu(_context);
 }
 
 void Game::createMap()
 {
-    _map = nullptr;
     try {
         _map = new VisualMap(_context, _mapTemplate);
     } catch (AssetLoadError &e) {
@@ -67,6 +67,7 @@ void Game::play()
         _driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
         _powerUpHandler->loop(_players);
         _map->display();
+        this->updateMenu();
         _driver->endScene();
     }
     safe();
@@ -122,13 +123,12 @@ void Game::getExplosions() {
 
 Game::~Game()
 {
-    //    _context.device->drop();
+    //_context.device->drop();
     delete _map;
     delete _gameReceiver;
     delete _driver;
     delete _powerUpHandler;
     delete _floor;
-    delete _menu;
     delete _sounds;
 }
 
@@ -147,32 +147,53 @@ void Game::safe()
     os.close();
 }
 
-void Game::showMenu()
+void Game::showMenu(GameState state, Menu *menu)
 {
-
+    while (_context.device->run() && _context.state == state)
+    {
+        _driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
+        menu->guienv->drawAll();
+        _driver->endScene();
+    }
 }
 
-void Game::updateMenu(int menu_enum)
+void Game::updateMenu()
 {
-    switch (menu_enum) {
-        case MAIN_MENU:
-            build_main_menu(_context);
-            break;
-        case NEW_MENU:
-            build_main_menu(_context);
-            break;
-        case LOAD_MENU:
-            build_main_menu(_context);
-            break;
-        case SETTINGS_MENU:
-            build_main_menu(_context);
-            break;
-        case PAUSE_MENU:
-            build_main_menu(_context);
-            break;
+    switch (_context.state) {
+        case GameState::Menu: {
+            Menu *menu = build_main_menu(_context);
+            auto *reciever = new MainMenuEventReceiver(_context);
+            _context.device->setEventReceiver(reciever);
+            showMenu(GameState::Menu, menu);
+            delete reciever;
+            menu->clearGUI();
+            delete menu;
+        }
+        case GameState::New: {
+            Menu *menu = build_main_menu(_context);
+            menu->clearGUI();
+            delete menu;
+        }
+        case GameState::Load: {
+            Menu *menu = build_main_menu(_context);
+            menu->clearGUI();
+            delete menu;
+        }
+        case GameState::Settings: {
+            Menu *menu = build_main_menu(_context);
+            menu->clearGUI();
+            delete menu;
+        }
+        case GameState::PauseMenu: {
+            Menu *menu = build_main_menu(_context);
+            menu->clearGUI();
+            delete menu;
+        }
         default:
+            _context.device->setEventReceiver(_gameReceiver);
             break;
     }
+
 }
 
 void Game::load(std::string name, int playerNumber, int botNumber, int width, int height)

@@ -7,12 +7,12 @@
 
 #include "../include/EventHandling.hpp"
 
-bool MyEventReceiver::OnEvent(const irr::SEvent &event)
+bool MainMenuEventReceiver::OnEvent(const irr::SEvent &event)
 {
     if (event.EventType == irr::EET_GUI_EVENT)
     {
         irr::s32 id = event.GUIEvent.Caller->getID();
-        irr::gui::IGUIEnvironment *env = Context.device->getGUIEnvironment();
+
         switch (event.GUIEvent.EventType)
         {
             case irr::gui::EGET_SCROLL_BAR_CHANGED:
@@ -21,14 +21,16 @@ bool MyEventReceiver::OnEvent(const irr::SEvent &event)
                 switch (id)
                 {
                     case GUI_BUTTON_QUIT:
-                        Context.device->closeDevice();
+                        _context.device->closeDevice();
                         return true;
                     case GUI_BUTTON_NEW:
-                        Context.state = GameState::Game;
-                        // create new game here
+                        _context.state = GameState::New;
                         return true;
                     case GUI_BUTTON_LOAD:
-                        // load file with old game information here
+                        _context.state = GameState::Load;
+                        return true;
+                    case GUI_BUTTON_SETTINGS:
+                        _context.state = GameState::Settings;
                         return true;
                     default:
                         break;
@@ -37,5 +39,25 @@ bool MyEventReceiver::OnEvent(const irr::SEvent &event)
                 break;
         }
     }
+    return false;
+}
+
+bool NewMenuEventReceiver::OnEvent(const irr::SEvent &event)
+{
+    return false;
+}
+
+bool LoadMenuEventReceiver::OnEvent(const irr::SEvent &event)
+{
+    return false;
+}
+
+bool SettingsMenuEventReceiver::OnEvent(const irr::SEvent &event)
+{
+    return false;
+}
+
+bool PauseMenuEventReceiver::OnEvent(const irr::SEvent &event)
+{
     return false;
 }

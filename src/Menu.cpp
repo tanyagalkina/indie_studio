@@ -27,11 +27,21 @@ Menu::Menu(SAppContext context)
 
 void Menu::addLabel(const wchar_t *text, const irr::core::rect<irr::s32>& pos)
 {
-    guienv->addStaticText(text, pos, true);
+    irr::gui::IGUIStaticText *elem = guienv->addStaticText(text, pos, true);
+    _elementList.push_back(elem);
 }
 
 void Menu::addButton(const irr::core::rect<irr::s32>& pos, int btn_enum, const wchar_t
 *text, const wchar_t *tooltip)
 {
-    guienv->addButton(pos, nullptr, btn_enum, text, tooltip);
+    irr::gui::IGUIButton *elem = guienv->addButton(pos, nullptr, btn_enum,
+                                                   text, tooltip);
+    _elementList.push_back(elem);
+}
+
+void Menu::clearGUI()
+{
+    for(auto const &elem: _elementList) {
+        elem->remove();
+    }
 }

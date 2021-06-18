@@ -13,7 +13,9 @@
 enum class GameState {
     Menu,
     PauseMenu,
-    PreGame, // maybe character draft or something like this
+    New, // maybe character draft or something like this
+    Load,
+    Settings,
     Game,
     End,
 };
