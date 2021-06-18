@@ -19,20 +19,20 @@ class Bomb : public ICollidable
 {
 private:
     Audio* _sounds;
-    Player *_player;
+    Character *_player;
     irr::core::vector3df _position;
     MyList<Explosion*> _explosions; // 4x in each direction
 public:
-    explicit Bomb(SAppContext &ctx, Audio *sounds, Player *player);
+    explicit Bomb(SAppContext &ctx, Audio *sounds, Character *player);
     ~Bomb() override = default;
-    [[nodiscard]] Player *getPLayer() const;
+    [[nodiscard]] Character *getPLayer() const;
     bool over = false;
     Timer timer = Timer(3000);
     void drop();
     void initExplosion();
     void stopExplosion();
     void setPosition(float x, float z) final;
-    bool HandleCollision(Player &player) final;
+    bool HandleCollision(Character &player) final;
     bool _exploded = false;
 };
 

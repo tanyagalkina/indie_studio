@@ -24,7 +24,7 @@ Character::Character(SAppContext &ctx, VisualMap &vmap, const int &idx)
     x = (x - 2) * blockSize * multX;
     z = (z - 2) * blockSize * multZ;
 
-    irr::core::vector3df pos = { static_cast<float>(-250 + x), 0, static_cast<float>(250 + z)};
+    irr::core::vector3df pos = { static_cast<float>(-250 + x), 0, static_cast<float>(250 - z)};
 
     initCharacter(pos);
     this->selector = this->smgr->createOctreeTriangleSelector(this->body->getMesh(), this->body);
@@ -36,6 +36,24 @@ Character::Character(SAppContext &ctx, VisualMap &vmap, const int &idx)
 Character::~Character()
 {
     this->selector->drop();
+}
+
+bool Character::getUnlimitedBombs() const
+{
+    return unlimitedBombs;
+}
+
+int Character::getBombsMax() {
+    return this->bombsMax;
+}
+
+int Character::calcMiddle(int coordinate)
+{
+    int n = coordinate / 50;
+    int min_x = 50 * n;
+    int max_x = 50 * (n + (n >= 0 && coordinate >= 0 ? + 1 : - 1));
+
+    return abs(min_x - coordinate) < abs(max_x - coordinate) ? min_x : max_x;
 }
 
 void Character::initCharacter(irr::core::vector3df _pos)

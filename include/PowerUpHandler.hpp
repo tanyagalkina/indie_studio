@@ -18,14 +18,14 @@ class PowerUpHandler
 {
 private:
     SAppContext *appContext;
-    MyList<std::tuple<Timer, PowerUpType, Player *>> currentPowerUps;
+    MyList<std::tuple<Timer, PowerUpType, Character *>> currentPowerUps;
     MyList<PowerUp *> allPowerUps;
 
-    static void handlePlayerItems(PowerUpType type, Player *);
+    static void handlePlayerItems(PowerUpType type, Character *);
 
 public:
     explicit PowerUpHandler(SAppContext &ctx) : appContext(&ctx){}
-    void loop(MyList<Player>& players);
+    void loop(MyList<Character *>& players);
     void addPowerUp(PowerUpType, float x, float z);
 };
 

@@ -14,7 +14,7 @@ class FireUp : public PowerUp
 {
 public:
     explicit FireUp(SAppContext &sac);
-    std::tuple<Timer, PowerUpType, Player *> getTimerTypeAndPlayer(Player& player) final;
+    std::tuple<Timer, PowerUpType, Character *> getTimerTypeAndPlayer(Character& player) final;
 
 };
 

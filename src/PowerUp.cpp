@@ -73,7 +73,7 @@ void PowerUp::setPosition(float x, float z)
     this->body->setPosition(irr::core::vector3d<irr::f32>(x, 45, z));
 }
 
-bool PowerUp::HandleCollision(Player &player)
+bool PowerUp::HandleCollision(Character &player)
 {
     if (player.getBody()->getTransformedBoundingBox().intersectsWithBox(
         this->body->getTransformedBoundingBox()))

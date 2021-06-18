@@ -7,12 +7,12 @@
 
 
 
-class AIBot : public IXML, public Character
+class AIBot : public Character
 {
 public:
     AIBot(SAppContext &ctx, VisualMap &map, const int &playerIdx = 0);
     virtual ~AIBot();
-    bool update();
+    bool update(GameEventReceiver &receiver) final;
     std::string serialize() final;
     void deserialize(std::string xmlCode) final;
 private:

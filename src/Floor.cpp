@@ -3,6 +3,7 @@
 //
 
 #include <ctime>
+#include <utility>
 #include "../include/Floor.hpp"
 
 void Floor::set_monster_nb()
@@ -191,6 +192,62 @@ void Floor::create_map() {
     }
 }
 
+void Floor::create_template_from_map() {
+    _template.clear();
+    for (int y = 0; y < _height; y++)
+    {
+        std::string tmp;
+        for (int x = 0; x < _width; x++)
+        {
+            tmp += " ";
+        }
+        _template.push_back(tmp);
+    }
+    for (auto block : _map)
+    {
+        char c = '\0';
+        switch (block.first)
+        {
+            case Floor::Type::EMPTY:
+                c = ' ';
+                break;
+            case Floor::Type::WALL:
+                c = '#';
+                break;
+            case Floor::Type::WALL_BOSS:
+                c = '#';
+                break;
+            case Floor::Type::BOSS:
+                c = 'B';
+                break;
+            case Floor::Type::BOX:
+                c = '+';
+                break;
+            case Floor::Type::TILE:
+                c = '*';
+                break;
+            case Floor::Type::BOMB:
+                c = 'B';
+                break;
+            case Floor::Type::POWER_UP:
+                c = 'U';
+                break;
+            case Floor::Type::MONSTER:
+                c = 'M';
+                break;
+            case Floor::Type::PLAYER:
+                c = 'P';
+                break;
+            case Floor::Type::TELEPORT:
+                c = 'X';
+                break;
+            default:
+                break;
+        }
+        _template[block.second.y][block.second.x] = c;
+    }
+}
+
 void Floor::check_and_fit_in_sizes() {
     if (_height % 2 == 0)
         _height++;
@@ -282,6 +339,94 @@ Floor::Type Floor::getTypeFromString(std::string str)
         {"POWER_UP",     Type::POWER_UP},
         {"TELEPORT",     Type::TELEPORT},
     };
-    auto it = TypeStrings.find(str);
+    auto it = TypeStrings.find(str.substr(0, str.size() - 1));
     return it->second;
+}
+
+void Floor::deserialize(std::string xmlCode)
+{
+    std::string levels = SerializeHelper::FindKeyValue(xmlCode, "level");
+    std::string player_nbs = SerializeHelper::FindKeyValue(xmlCode, "player_nb");
+    std::string widths = SerializeHelper::FindKeyValue(xmlCode, "width");
+    std::string heights = SerializeHelper::FindKeyValue(xmlCode, "height");
+    std::string nb_monsterss = SerializeHelper::FindKeyValue(xmlCode, "nb_monsters");
+    std::string nb_free_squaress = SerializeHelper::FindKeyValue(xmlCode, "nb_free_squares");
+    std::string nb_boxess = SerializeHelper::FindKeyValue(xmlCode, "nb_boxes");
+    std::string types = SerializeHelper::FindKeyValue(xmlCode, "type");
+    std::string nb_tiless = SerializeHelper::FindKeyValue(xmlCode, "nb_tiles");
+    std::string nb_of_item_at_starts = SerializeHelper::FindKeyValue(xmlCode, "nb_of_item_at_start");
+    std::string nb_of_item_per_levels = SerializeHelper::FindKeyValue(xmlCode, "nb_of_item_per_level");
+
+    _level = stoi(levels);
+    _player_nb = stoi(player_nbs);
+    _width = stoi(widths);
+    _height = stoi(heights);
+    _nb_monsters = stoi(nb_monsterss);
+    _nb_free_squares = stoi(nb_free_squaress);
+    _nb_boxes = stoi(nb_boxess);
+    _type = Floor::getTypeFromString(types);
+    _nb_tiles = stoi(nb_tiless);
+    _nb_of_item_at_start = stoi(nb_of_item_at_starts);
+    _nb_of_item_per_level = stoi(nb_of_item_per_levels);
+}
+
+std::string Floor::serialize()
+{
+    SerializeHelper sh;
+    sh.beginKey("Floor");
+
+    sh.addKeyValue("level", std::to_string(_level));
+    sh.addKeyValue("player_nb", std::to_string(_player_nb));
+    sh.addKeyValue("width", std::to_string(_width));
+    sh.addKeyValue("height", std::to_string(_height));
+    sh.addKeyValue("nb_monsters", std::to_string(_nb_monsters));
+    sh.addKeyValue("nb_free_squares", std::to_string(_nb_free_squares));
+    sh.addKeyValue("nb_boxes", std::to_string(_nb_boxes));
+    sh.addKeyValue("type", Floor::getStringFromType(_type));
+    sh.addKeyValue("nb_tiles", std::to_string(_nb_tiles));
+    sh.addKeyValue("nb_of_item_at_start", std::to_string(_nb_of_item_at_start));
+    sh.addKeyValue("nb_of_item_per_level", std::to_string(_nb_of_item_per_level));
+
+    sh.endKey("Floor");
+    return sh.getXML();
+}
+
+Floor::Floor(std::string floorXML, const std::string& mapXML)
+{
+    deserialize(std::move(floorXML));
+    _map = deserializeMap(mapXML);
+    create_template_from_map();
+}
+
+MyList<std::pair<Floor::Type, Coordinate>> Floor::deserializeMap(const std::string& mapXML)
+{
+    MyList<std::pair<Type, Coordinate>> list;
+    SerializeHelper sh(mapXML);
+    std::string node = sh.GetNextKey();
+    while (!node.empty())
+    {
+        std::string isVisable = SerializeHelper::FindKeyValue(node, "isVisible");
+
+        std::string ypos = SerializeHelper::FindKeyValue(node, "Y");
+        std::string xpos = SerializeHelper::FindKeyValue(node, "X");
+        std::string zpos = SerializeHelper::FindKeyValue(node, "Z");
+        float x = stof(xpos);
+        float y = stof(ypos);
+        float z = stof(zpos);
+        Coordinate cor
+        {
+            (int)(x + 300) / 50,
+            (int)(z-300) / -50
+        };
+        if (stoi(isVisable) == true)
+        {
+            std::string types = SerializeHelper::FindKeyValue(node, "type");
+            auto type = Floor::getTypeFromString(types);
+            auto o = std::make_pair(type, cor);
+            list.push_back(o);
+        }
+        else list.push_back(std::make_pair(Floor::Type::EMPTY, cor));
+        node = sh.GetNextKey();
+    }
+    return list;
 }
