@@ -12,6 +12,9 @@
 
 enum Buttons {
     GUI_TEXT_HEADLINE = 100,
+    GUI_TEXT_NEWGAME,
+    GUI_TEXT_LOADGAME,
+    GUI_TEXT_SETTINGS,
     GUI_BUTTON_NEW,
     GUI_BUTTON_LOAD,
     GUI_BUTTON_SETTINGS,
@@ -20,16 +23,19 @@ enum Buttons {
     GUI_BUTTON_MAINMENU,
 };
 
-#define TEXTPATHSLENGTH 7
+#define TEXTPATHSLENGTH 10
 
-const irr::io::path textPaths[7] {
-    "./media/menu/Best Bomberman.png",
-    "./media/menu/New Game.png",
-    "./media/menu/Load Game.png",
+const irr::io::path textPaths[10] {
+    "./media/menu/BestBomberman.png",
+    "./media/menu/NewGameHeadline.png",
+    "./media/menu/LoadGameHeadline.png",
+    "./media/menu/SettingsHeadline.png",
+    "./media/menu/NewGame.png",
+    "./media/menu/LoadGame.png",
     "./media/menu/Settings.png",
     "./media/menu/Quit.png",
     "./media/menu/Back.png",
-    "./media/menu/Main Menu.png",
+    "./media/menu/MainMenu.png",
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_BUTTON_ENUM_HPP

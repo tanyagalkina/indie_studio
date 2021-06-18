@@ -34,6 +34,10 @@ Menu *build_main_menu(SAppContext context, const std::vector<std::pair<Buttons,
                       irr::video::ITexture *>> &_imageList);
 Menu *build_new_menu(SAppContext context, const std::vector<std::pair<Buttons,
                      irr::video::ITexture *>> &imageList);
+Menu *build_load_menu(SAppContext context, const std::vector<std::pair<Buttons,
+    irr::video::ITexture *>> &imageList);
+Menu *build_settings_menu(SAppContext context, const
+    std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList);
 
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_MENU_HPP
