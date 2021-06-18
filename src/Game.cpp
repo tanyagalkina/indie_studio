@@ -288,9 +288,10 @@ bool Game::HandleExplosion()
                     {
                         if (bomb->beShureCollision(_players[0], box->getbody()->getPosition()))
                         {
-                            box->getbody()->setVisible(false);
                             randomPowerUpSpawn(box->getbody()->getPosition().X,
                                                box->getbody()->getPosition().Z);
+                            box->getbody()->setPosition(irr::core::vector3df(-5000));
+//                            box->getbody()->setVisible(false);
                         }
                     }
                 }

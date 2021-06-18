@@ -25,6 +25,7 @@ public:
     void deserialize(std::string xmlCode) final;
     std::string serialize() final;
     Coordinate getMaxCoordinates();
+    void eraseCubes(const MyList<MyList<Cube *>::iterator>& eares);
 
 private:
     void initializeMap(Map &map);

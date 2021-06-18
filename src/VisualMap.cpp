@@ -12,7 +12,11 @@ void VisualMap::display()
 void VisualMap::initializeMap(Map &map)
 {
     for (auto [type, coord] : map)
+    {
+        if (type == Floor::BOX)
+            this->blocks.push_back(new Cube(*this->context, Floor::EMPTY, coord));
         this->blocks.push_back(new Cube(*this->context, type, coord));
+    }
 }
 
 void VisualMap::addCollision(irr::scene::IAnimatedMeshSceneNode *body)
@@ -85,4 +89,10 @@ std::string VisualMap::serialize()
         sh.addXML(block->serialize());
     sh.endKey("VisualMap");
     return sh.getXML();
+}
+
+void VisualMap::eraseCubes(const MyList<MyList<Cube *>::iterator>& eares)
+{
+    for (auto &it : eares)
+        blocks.erase(it);
 }

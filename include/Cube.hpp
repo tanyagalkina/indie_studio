@@ -24,10 +24,13 @@ public:
     bool HandleCollision(const irr::core::aabbox3d<irr::f32>& object);
     irr::scene::IAnimatedMeshSceneNode *getbody();
 
+    bool isVisible() const;
+    void setVisible(bool enable);
 private:
     Floor::Type type;
     Coordinate coordinate;
     irr::scene::ISceneManager *smgr;
     irr::scene::IAnimatedMeshSceneNode *body;
     irr::scene::ITriangleSelector *selector;
+    bool _visible = true;
 };

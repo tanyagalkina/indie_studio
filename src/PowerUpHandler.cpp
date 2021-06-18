@@ -15,7 +15,7 @@ void PowerUpHandler::loop(MyList<Character *>& players)
     int s = allPowerUps.size();
 
 //    std::cout << playerRef.getBody()->getPosition().X << " ";
-//    std::cout << playerRef.getBody()->getPosition().Z << " ";
+//    std::cout << playerRef.getBody()->getPosition().Z << " ";f
 //    std::cout << playerRef.getBody()->getPosition().Y << std::endl;
     for (auto it = allPowerUps.begin(); it!= allPowerUps.end(); it++)
     {
