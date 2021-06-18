@@ -32,7 +32,7 @@ private:
     std::vector<Bomb*> _bombs;
     GameEventReceiver *_gameReceiver;
     Audio *_sounds = new Audio;
-
+    std::vector<std::pair<Buttons, irr::video::ITexture *>> _imageList;
 
 public:
     Game();

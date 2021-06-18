@@ -16,10 +16,20 @@ Game::Game()
     _powerUpHandler = nullptr;
     _floor = nullptr;
     _context = createContext();
-    _context.state = GameState::Game;
+    _context.state = GameState::Menu;
     _driver = _context.device->getVideoDriver();
     _gameReceiver = new GameEventReceiver();
     _context.device->setEventReceiver(_gameReceiver);
+
+    for (int i = 0; i < TEXTPATHSLENGTH; i += 1) {
+        std::pair<Buttons, irr::video::ITexture *> tmp;
+        tmp.first = static_cast<Buttons>(i + 100);
+        tmp.second = _driver->getTexture(textPaths[i]);
+        //_driver->makeColorKeyTexture(tmp.second,
+        //                              irr::core::position2d<irr::s32>
+        //    (0, 0));
+        _imageList.push_back(tmp);
+    }
 }
 
 void Game::createMap()
@@ -154,7 +164,7 @@ void Game::showMenu(GameState state, Menu *menu)
     while (_context.device->run() && _context.state == state)
     {
         _driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
-        menu->guienv->drawAll();
+        menu->_guienv->drawAll();
         _driver->endScene();
     }
 }
@@ -163,7 +173,7 @@ void Game::updateMenu()
 {
     switch (_context.state) {
         case GameState::Menu: {
-            Menu *menu = build_main_menu(_context);
+            Menu *menu = build_main_menu(_context, _imageList);
             auto *reciever = new MainMenuEventReceiver(_context);
             _context.device->setEventReceiver(reciever);
             showMenu(GameState::Menu, menu);
@@ -172,22 +182,22 @@ void Game::updateMenu()
             delete menu;
         }
         case GameState::New: {
-            Menu *menu = build_main_menu(_context);
+            Menu *menu = build_main_menu(_context, _imageList);
             menu->clearGUI();
             delete menu;
         }
         case GameState::Load: {
-            Menu *menu = build_main_menu(_context);
+            Menu *menu = build_main_menu(_context, _imageList);
             menu->clearGUI();
             delete menu;
         }
         case GameState::Settings: {
-            Menu *menu = build_main_menu(_context);
+            Menu *menu = build_main_menu(_context, _imageList);
             menu->clearGUI();
             delete menu;
         }
         case GameState::PauseMenu: {
-            Menu *menu = build_main_menu(_context);
+            Menu *menu = build_main_menu(_context, _imageList);
             menu->clearGUI();
             delete menu;
         }

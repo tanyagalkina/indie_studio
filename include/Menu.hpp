@@ -14,20 +14,26 @@
 class Menu
 {
 public:
-    Menu(SAppContext context);
+    Menu(SAppContext context, const std::vector<std::pair<Buttons,
+         irr::video::ITexture *>> &imageList);
     ~Menu() = default;
-    void addLabel(const wchar_t *text, const irr::core::rect<irr::s32>& pos);
-    void addButton(const irr::core::rect<irr::s32>& pos, int btn_enum, const wchar_t
-    *text, const wchar_t *tooltip);
+    void addLabel(int i, const irr::core::position2d<irr::s32>& pos);
+    void addButton(const irr::core::rect<irr::s32>& pos, int btn_enum, const
+    wchar_t *tooltip);
     void clearGUI();
 
-    irr::IrrlichtDevice *device;
-    irr::gui::IGUIEnvironment *guienv;
+    irr::gui::IGUIEnvironment *_guienv;
+private:
+    irr::IrrlichtDevice *_device;
     std::vector<irr::gui::IGUIElement *> _elementList;
+    std::vector<std::pair<Buttons, irr::video::ITexture *>> _imageList;
+
 };
 
-Menu *build_main_menu(SAppContext context);
-Menu *build_new_menu(SAppContext context);
+Menu *build_main_menu(SAppContext context, const std::vector<std::pair<Buttons,
+                      irr::video::ITexture *>> &_imageList);
+Menu *build_new_menu(SAppContext context, const std::vector<std::pair<Buttons,
+                     irr::video::ITexture *>> &imageList);
 
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_MENU_HPP
