@@ -33,6 +33,7 @@ public:
     void stopExplosion();
     void setPosition(float x, float z) final;
     bool HandleCollision(Character &player) final;
+    MyList<Explosion *> getExplosionList();
     bool _exploded = false;
 };
 

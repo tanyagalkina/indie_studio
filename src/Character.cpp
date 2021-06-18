@@ -95,9 +95,9 @@ void Character::addCollision(irr::scene::IAnimatedMeshSceneNode *_body)
     anim->drop();
 }
 
-bool Character::checkCollision(const irr::scene::IAnimatedMeshSceneNode *object) const
+bool Character::checkCollision(const irr::core::aabbox3d<irr::f32>& object) const
 {
-    return object->getTransformedBoundingBox().intersectsWithBox(this->body->getTransformedBoundingBox());
+    return object.intersectsWithBox(this->body->getTransformedBoundingBox());
 }
 
 void Character::setExtraSpeed(irr::f32 newExtraSpeed)
@@ -113,6 +113,8 @@ bool Character::isAlive() const
 void Character::kill()
 {
     alive = false;
+    body->setVisible(false);
+    bombsMax = 0;
 }
 
 void Character::revive()

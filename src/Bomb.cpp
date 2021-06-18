@@ -87,3 +87,8 @@ bool Bomb::HandleCollision(Character &player)
     }
     return false;
 }
+
+MyList<Explosion *> Bomb::getExplosionList()
+{
+    return _explosions;
+}

@@ -38,13 +38,13 @@
 	<Player>
 		<Position>
 			<X>
-				106.343277
+				-149.404282
 			</X>
 			<Y>
-				45.277748
+				44.553795
 			</Y>
 			<Z>
-				37.500191
+				59.457397
 			</Z>
 		</Position>
 		<playerIndex>
@@ -54,7 +54,7 @@
 			1.000000
 		</extraSpeedFactor>
 		<alive>
-			1
+			0
 		</alive>
 		<fireUp>
 			0
@@ -72,7 +72,7 @@
 				45.660667
 			</Y>
 			<Z>
-				2957.891846
+				8750.169922
 			</Z>
 		</Position>
 		<playerIndex>
