@@ -41,6 +41,8 @@ public:
     void play();
     void showMenu(int menu_enum);
     void safe();
+    void load(std::string name, int playerNumber, int botNumber, int width, int height);
+    void load(const std::string& game_name);
 private:
     static SAppContext createContext();
 

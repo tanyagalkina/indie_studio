@@ -46,20 +46,34 @@ void SerializeHelper::addKeyValue(const std::string &key, const std::string &val
 std::string SerializeHelper::FindKeyValue(const std::string& xml, const std::string &key)
 {
     std::string search = "<" + key + ">";
+    std::string searchEnd = "</" + key + ">";
     std::stringstream code(xml);
     std::string line = "somethingThatShouldTest";
-    std::string found;
+    std::stringstream found;
     std::string before;
     while (line != search && line != before)
     {
         before  = line;
         code >> line;
     }
-    if (before != line)
-        code >> found;
-    else
+    if (before == line)
         throw std::runtime_error("Key not found");
-    return found;
+    code >> line;
+    while (line != searchEnd && line != before)
+    {
+        found << line << std::endl;
+        before  = line;
+        code >> line;
+    }
+    return found.str();
+}
+
+std::string SerializeHelper::GetKeyName(const std::string& xmlCode)
+{
+    std::string line;
+    std::stringstream ss(xmlCode);
+    ss >> line;
+    return line.substr(line.find('<') + 1, line.find_last_of('>') - line.find('<') - 1);
 }
 
 std::string SerializeHelper::GetNextKey()
@@ -70,6 +84,8 @@ std::string SerializeHelper::GetNextKey()
     std::string before;
     std::string check;
     getline(xmlCode, line);
+    if (line.empty())
+        return std::string();
     std::stringstream tmp1(line);
     tmp1 >> key;
     xml << line << std::endl;
