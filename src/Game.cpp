@@ -62,17 +62,10 @@ void Game::play()
                 b->drop();
                 _bombs.push_back(b);
             }
-            for (auto &bomb : _bombs)
-            {
-                auto expos = bomb->getExplosionList();
-                for (auto &expo : expos)
-                {
-                    if (player->checkCollision
-                    (expo->_particleSystemSceneNode->getTransformedBoundingBox()))
-                        player->kill();
-                }
-            }
+
         }
+        for (auto &bomb : _bombs)
+            bomb->HandleExplosion(_players, _map->getBlocks());
         getExplosions();
         _driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
         _powerUpHandler->loop(_players);

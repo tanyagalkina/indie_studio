@@ -88,7 +88,41 @@ bool Bomb::HandleCollision(Character &player)
     return false;
 }
 
-MyList<Explosion *> Bomb::getExplosionList()
+void Bomb::HandleExplosion(MyList<Character *> players, MyList<Cube *> boxes)
 {
-    return _explosions;
+    for (auto &expo : _explosions)
+    {
+        for (auto &player : players)
+        {
+            if (player->checkCollision(expo->_particleSystemSceneNode->getTransformedBoundingBox()))
+            {
+                if (beShureCollision(player, player->getBody()->getPosition()))
+                    player->kill();
+            }
+        }
+        for (auto &box : boxes)
+        {
+            if (box->HandleCollision(expo->_particleSystemSceneNode->getTransformedBoundingBox()))
+            {
+                if (beShureCollision(_player, box->getbody()->getPosition()))
+                    box->getbody()->setVisible(false);
+            }
+        }
+    }
+}
+
+bool Bomb::beShureCollision(Character *player, const irr::core::vector3df& pos)
+{
+    auto posx = player->calcMiddle(pos.X);
+    auto posz = player->calcMiddle(pos.Z);
+    auto posxB = player->calcMiddle(body->getPosition().X);
+    auto poszB = player->calcMiddle(body->getPosition().Z);
+    if ((posxB == posx && (poszB == posz
+                           || poszB == posz - 50 || poszB == posz - 100
+                           || poszB == posz + 50 || poszB == posz + 100) ||
+         (poszB == posz && (posxB == posx
+                            || posxB == posx - 50 || posxB == posx - 100
+                            || posxB == posx + 50 || poszB == posx + 100))))
+        return true;
+    return false;
 }

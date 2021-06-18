@@ -63,7 +63,7 @@ VisualMap::~VisualMap()
         delete block;
 }
 
-std::vector<Cube *> VisualMap::getBlocks() const
+MyList<Cube *> VisualMap::getBlocks() const
 {
     return blocks;
 }
