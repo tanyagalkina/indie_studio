@@ -31,7 +31,6 @@ private:
     MyList<Character *> _players;
     std::vector<Bomb*> _bombs;
     GameEventReceiver *_gameReceiver;
-    Menu *_menu;
     Audio *_sounds = new Audio;
 
 
@@ -39,7 +38,8 @@ public:
     Game();
     ~Game();
     void play();
-    void showMenu(int menu_enum);
+    void updateMenu();
+    void showMenu(GameState state, Menu *menu);
     void safe();
     void load(std::string name, int playerNumber, int botNumber, int width, int height);
     void load(const std::string& game_name);
