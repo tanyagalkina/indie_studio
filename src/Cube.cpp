@@ -80,3 +80,28 @@ void Cube::deserialize(std::string xmlCode)
     body->setPosition(irr::core::vector3df(stof(xpos), stof(ypos), stof(zpos)));
     body->setVisible(stoi(tisVisibleS));
 }
+
+bool Cube::HandleCollision(const irr::core::aabbox3d<irr::f32> &object)
+{
+    if (type == Floor::BOX)
+    {
+        if (body->getTransformedBoundingBox().intersectsWithBox(object))
+            return true;
+    }
+    return false;
+}
+
+irr::scene::IAnimatedMeshSceneNode *Cube::getbody()
+{
+    return body;
+}
+
+bool Cube::isVisible() const
+{
+    return _visible;
+}
+
+void Cube::setVisible(bool enable)
+{
+    _visible = enable;
+}

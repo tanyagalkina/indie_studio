@@ -20,13 +20,14 @@ public:
     SerializeHelper() = default;
     explicit SerializeHelper(const std::string& code, bool subXML) : xmlCode(
         subXML ?
-        code.substr(code.find('\n') + 1, code.find_last_of('\n'))
+        code.substr(code.find('\n') + 1, code.find_last_of('<') - code.find('\n') - 1)
         :
         code)
     {
     }
     explicit SerializeHelper(const std::string& code) : xmlCode(code) {}
     static std::string FindKeyValue(const std::string& xmlCode, const std::string& key);
+    static std::string GetKeyName(const std::string& xmlCode);
     std::string GetNextKey();
     void addKeyValue(const std::string& key, const std::string& value);
     void beginKey(const std::string& key);

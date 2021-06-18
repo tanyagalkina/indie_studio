@@ -11,14 +11,56 @@
 #include "AppContext.hpp"
 #include "button_enum.hpp"
 
-class MyEventReceiver : public irr::IEventReceiver
+class MainMenuEventReceiver : public irr::IEventReceiver
 {
 private:
-    SAppContext &Context;
+    SAppContext &_context;
 public:
-    MyEventReceiver(SAppContext &context) : Context(context){}
+    MainMenuEventReceiver(SAppContext &context) : _context(context){}
 
     virtual bool OnEvent(const irr::SEvent &event);
 };
+
+class NewMenuEventReceiver : public irr::IEventReceiver
+{
+private:
+    SAppContext &_context;
+public:
+    NewMenuEventReceiver(SAppContext &context) : _context(context){}
+
+    virtual bool OnEvent(const irr::SEvent &event);
+};
+
+class LoadMenuEventReceiver : public irr::IEventReceiver
+{
+private:
+    SAppContext &_context;
+public:
+    LoadMenuEventReceiver(SAppContext &context) : _context(context){}
+
+    virtual bool OnEvent(const irr::SEvent &event);
+};
+
+class SettingsMenuEventReceiver : public irr::IEventReceiver
+{
+private:
+    SAppContext &_context;
+public:
+    SettingsMenuEventReceiver(SAppContext &context) : _context(context){}
+
+    virtual bool OnEvent(const irr::SEvent &event);
+};
+
+class PauseMenuEventReceiver : public irr::IEventReceiver
+{
+private:
+    SAppContext &_context;
+public:
+    PauseMenuEventReceiver(SAppContext &context) : _context(context){}
+
+    virtual bool OnEvent(const irr::SEvent &event);
+};
+
+
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_EVENTHANDLING_HPP

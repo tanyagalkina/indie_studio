@@ -16,7 +16,34 @@
 #include "../include/Error.hpp"
 
 
-Menu *build_main_menu(SAppContext context)
+Menu *build_main_menu(SAppContext context, const
+std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
+{
+    irr::core::dimension2d<irr::u32> dimensions =
+        context.device->getVideoDriver()->getScreenSize();
+    int size_y = (int)(dimensions.Height * 0.05);
+    int size_x = (int)(dimensions.Width * 0.6);
+    int begin_x = (int)(dimensions.Width * 0.2);
+
+    Menu *menu = new Menu(context, imageList);
+    menu->addLabel(GUI_TEXT_HEADLINE, irr::core::position2d<irr::s32>
+        (begin_x * 1.375, size_y));
+    menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 7, begin_x
++ size_x, size_y * 9), GUI_BUTTON_NEW, L"Create New Game");
+    menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 10,
+                                                   begin_x + size_x,size_y *
+                                                   12), GUI_BUTTON_LOAD, L"Load Previous Game");
+    menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 13,
+                                                   begin_x + size_x, size_y *
+                                                   15),GUI_BUTTON_SETTINGS,
+                    L"Open Settings Menu");
+    menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 16,
+                                                   begin_x + size_x,size_y * 18), GUI_BUTTON_QUIT, L"Exit ""Program");
+    return menu;
+}
+
+Menu *build_new_menu(SAppContext context, const
+std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
 {
     irr::core::dimension2d<irr::u32> dimensions =
         context.device->getVideoDriver()->getScreenSize();
@@ -24,17 +51,13 @@ Menu *build_main_menu(SAppContext context)
     int size_x = (int)(dimensions.Width * 0.6);
     int begin_x = (int)(dimensions.Width * 0.1);
 
-    Menu *main_menu = new Menu(context);
-    main_menu->addLabel(L"BOMBERMAN", irr::core::rect<irr::s32>(begin_x,
-size_y, begin_x + size_x, size_y * 6));
-    main_menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 7, begin_x
-+ size_x, size_y * 10), GUI_BUTTON_NEW, L"NEW", L"Create New Game");
-    main_menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 10,
-                                                   begin_x + size_x,size_y * 14), GUI_BUTTON_LOAD, L"LOAD", L"Load Previous Game");
-    main_menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 13,
+    Menu *menu = new Menu(context, imageList);
+    menu->addLabel(GUI_TEXT_HEADLINE, irr::core::position2d<irr::s32>(begin_x,
+                                                                size_y));
+    menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 13,
                                                    begin_x + size_x, size_y *
-                                                   14),GUI_BUTTON_SETTINGS, L"SETTINGS", L"Open Settings Menu");
-    main_menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 16,
-                                                   begin_x + size_x,size_y * 18), GUI_BUTTON_QUIT, L"QUIT", L"Exit ""Program");
-    return main_menu;
+                                                                     14),GUI_BUTTON_SETTINGS, L"Open Settings Menu");
+    menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 16,
+                                                   begin_x + size_x,size_y * 18), GUI_BUTTON_QUIT, L"Exit Program");
+    return menu;
 }

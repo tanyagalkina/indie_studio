@@ -12,10 +12,10 @@ void PowerUpHandler::loop(MyList<Character *>& players)
 {
     MyList<MyList<std::tuple<Timer, PowerUpType, Character *>>::iterator> erasablePair;
     MyList<MyList<PowerUp *>::iterator> erasablePowerUps;
-
+    int s = allPowerUps.size();
 
 //    std::cout << playerRef.getBody()->getPosition().X << " ";
-//    std::cout << playerRef.getBody()->getPosition().Z << " ";
+//    std::cout << playerRef.getBody()->getPosition().Z << " ";f
 //    std::cout << playerRef.getBody()->getPosition().Y << std::endl;
     for (auto it = allPowerUps.begin(); it!= allPowerUps.end(); it++)
     {

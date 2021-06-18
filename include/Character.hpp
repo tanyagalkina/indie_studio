@@ -30,6 +30,7 @@ public:
     bool getUnlimitedBombs() const;
     int getBombsMax();
     int calcMiddle(int coordinate);
+    bool checkCollision(const irr::core::aabbox3d<irr::f32>& object) const;
 
     virtual bool update(GameEventReceiver &receiver) = 0;
     virtual std::string serialize() = 0;
@@ -72,7 +73,6 @@ protected:
     void moveLeft(irr::core::vector3df &pos);
     void moveRight(irr::core::vector3df &pos);
     void addCollision(irr::scene::IAnimatedMeshSceneNode *_body);
-    bool checkCollision(const irr::scene::IAnimatedMeshSceneNode *object) const;
 
     /* function that need to be overwritten by child classes */
     virtual bool dropBomb(GameEventReceiver &receiver) = 0;

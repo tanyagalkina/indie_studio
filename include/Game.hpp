@@ -29,24 +29,29 @@ private:
     VisualMap *_map;
     PowerUpHandler *_powerUpHandler;
     MyList<Character *> _players;
-    MyList<Bomb> _bombs;
+    std::vector<Bomb*> _bombs;
     GameEventReceiver *_gameReceiver;
-    Menu *_menu;
     Audio *_sounds = new Audio;
-
+    std::vector<std::pair<Buttons, irr::video::ITexture *>> _imageList;
 
 public:
     Game();
     ~Game();
     void play();
-    void showMenu(int menu_enum);
+    void updateMenu();
+    void showMenu(GameState state, Menu *menu);
     void safe();
+    void load(std::string name, int playerNumber, int botNumber, int width, int height);
+    void load(const std::string& game_name);
 private:
     static SAppContext createContext();
+    bool HandleExplosion();
 
     void createMap();
-    bool getExplosions();
+    void getExplosions();
     bool isDropPossible(Character *player);
+
+    void randomPowerUpSpawn(float x, float z);
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_GAME_HPP

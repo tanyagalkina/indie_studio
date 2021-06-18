@@ -1,15 +1,50 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<gameOne>
+<test>
+	<Floor>
+		<level>
+			1
+		</level>
+		<player_nb>
+			1
+		</player_nb>
+		<width>
+			15
+		</width>
+		<height>
+			13
+		</height>
+		<nb_monsters>
+			1
+		</nb_monsters>
+		<nb_free_squares>
+			57
+		</nb_free_squares>
+		<nb_boxes>
+			1
+		</nb_boxes>
+		<type>
+			EMPTY
+		</type>
+		<nb_tiles>
+			10
+		</nb_tiles>
+		<nb_of_item_at_start>
+			19
+		</nb_of_item_at_start>
+		<nb_of_item_per_level>
+			1
+		</nb_of_item_per_level>
+	</Floor>
 	<Player>
 		<Position>
 			<X>
-				96.852837
+				131.499954
 			</X>
 			<Y>
-				45.383430
+				45.000000
 			</Y>
 			<Z>
-				-246.625046
+				-48.000031
 			</Z>
 		</Position>
 		<playerIndex>
@@ -28,6 +63,34 @@
 			0
 		</unlimitedBombs>
 	</Player>
+	<AIBot>
+		<Position>
+			<X>
+				-249.681305
+			</X>
+			<Y>
+				45.588943
+			</Y>
+			<Z>
+				312.456146
+			</Z>
+		</Position>
+		<playerIndex>
+			0
+		</playerIndex>
+		<extraSpeedFactor>
+			1.000000
+		</extraSpeedFactor>
+		<alive>
+			1
+		</alive>
+		<fireUp>
+			0
+		</fireUp>
+		<unlimitedBombs>
+			0
+		</unlimitedBombs>
+	</AIBot>
 	<VisualMap>
 		<Cube>
 			<type>
@@ -392,14 +455,14 @@
 		</Cube>
 		<Cube>
 			<type>
-				WALL
+				EMPTY
 			</type>
 			<position>
 				<X>
 					-250.000000
 				</X>
 				<Y>
-					30.000000
+					-10.000000
 				</Y>
 				<Z>
 					0.000000
@@ -696,7 +759,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -810,14 +873,14 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				WALL
 			</type>
 			<position>
 				<X>
 					-150.000000
 				</X>
 				<Y>
-					-10.000000
+					30.000000
 				</Y>
 				<Z>
 					200.000000
@@ -848,7 +911,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -886,7 +949,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -905,7 +968,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -924,7 +987,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -1152,7 +1215,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -1304,7 +1367,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -1323,7 +1386,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -1342,7 +1405,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -1380,7 +1443,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -1399,7 +1462,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -1418,7 +1481,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -1570,14 +1633,14 @@
 		</Cube>
 		<Cube>
 			<type>
-				BOX
+				EMPTY
 			</type>
 			<position>
 				<X>
 					0.000000
 				</X>
 				<Y>
-					30.000000
+					-10.000000
 				</Y>
 				<Z>
 					150.000000
@@ -1646,7 +1709,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -1779,14 +1842,14 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				WALL
 			</type>
 			<position>
 				<X>
 					50.000000
 				</X>
 				<Y>
-					-10.000000
+					30.000000
 				</Y>
 				<Z>
 					250.000000
@@ -1874,14 +1937,14 @@
 		</Cube>
 		<Cube>
 			<type>
-				BOX
+				EMPTY
 			</type>
 			<position>
 				<X>
 					50.000000
 				</X>
 				<Y>
-					30.000000
+					-10.000000
 				</Y>
 				<Z>
 					0.000000
@@ -1893,7 +1956,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -1969,14 +2032,14 @@
 		</Cube>
 		<Cube>
 			<type>
-				WALL
+				EMPTY
 			</type>
 			<position>
 				<X>
 					50.000000
 				</X>
 				<Y>
-					30.000000
+					-10.000000
 				</Y>
 				<Z>
 					-250.000000
@@ -2292,7 +2355,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -2330,14 +2393,14 @@
 		</Cube>
 		<Cube>
 			<type>
-				WALL
+				TILE
 			</type>
 			<position>
 				<X>
 					150.000000
 				</X>
 				<Y>
-					30.000000
+					-10.000000
 				</Y>
 				<Z>
 					100.000000
@@ -2368,7 +2431,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -2387,7 +2450,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -2444,14 +2507,14 @@
 		</Cube>
 		<Cube>
 			<type>
-				WALL
+				EMPTY
 			</type>
 			<position>
 				<X>
 					150.000000
 				</X>
 				<Y>
-					30.000000
+					-10.000000
 				</Y>
 				<Z>
 					-200.000000
@@ -2672,7 +2735,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -2900,7 +2963,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -3052,7 +3115,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -3128,7 +3191,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -3735,4 +3798,4 @@
 			</isVisible>
 		</Cube>
 	</VisualMap>
-</gameOne>
+</test>
