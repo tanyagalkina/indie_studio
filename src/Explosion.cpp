@@ -15,15 +15,15 @@ Explosion::Explosion(irr::core::vector3df const &position, irr::core::vector3df 
     irr::scene::IParticleEmitter *particleEmitter = _particleSystemSceneNode->createBoxEmitter(
             irr::core::aabbox3d<irr::f32>(position.X - 10.0f, 20.0f, position.Z - 10.0f, position.X + 10.0f, 40.0f, position.Z + 10.0f),
                     direction,
-                    2080, 2100,
+                    1800, 2300,
                     irr::video::SColor(0, 255, 255, 255), irr::video::SColor(0, 255, 255, 255),
                     500, 500,
                     0,
-                    irr::core::dimension2df(8.0f, 8.0f),irr::core::dimension2df(14.0f, 14.0f));
+                    irr::core::dimension2df(8.5f, 8.5f),irr::core::dimension2df(15.0f, 15.0f));
 
     _particleSystemSceneNode->setEmitter(particleEmitter);
     particleEmitter->drop();
-    irr::scene::IParticleAffector *particelAffector = _particleSystemSceneNode->createFadeOutParticleAffector(irr::video::SColor(0, 0, 0, 0), 50);
+    irr::scene::IParticleAffector *particelAffector = _particleSystemSceneNode->createFadeOutParticleAffector(irr::video::SColor(0, 0, 0, 0), 45);
     _particleSystemSceneNode->addAffector(particelAffector);
     particelAffector->drop();
     _particleSystemSceneNode->setMaterialFlag(irr::video::EMF_LIGHTING, false);
