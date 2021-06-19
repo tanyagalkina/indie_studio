@@ -34,7 +34,6 @@ private:
     GameEventReceiver *_gameReceiver;
     Audio *_sounds = new Audio;
     int _playerNumber;
-    int _botNumber;
     std::vector<std::pair<Buttons, irr::video::ITexture *>> _imageList;
 
 public:
@@ -44,8 +43,7 @@ public:
     void updateMenu();
     void showMenu(GameState state, Menu *menu);
     void safe(int n);
-    void createGame(std::string name, int playerNumber, int botNumber, int
-    size);
+    void createGame();
     void load(int n);
     void unload();
     void checkSaveOrLoad();

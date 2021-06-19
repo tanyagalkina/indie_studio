@@ -27,6 +27,8 @@ class NewMenuEventReceiver : public irr::IEventReceiver
 private:
     SAppContext &_context;
     std::vector<irr::gui::IGUIElement *> _elemList;
+    int _mapSize = 0;
+    int _playerNbr = 0;
 public:
     NewMenuEventReceiver(SAppContext &context,
                          std::vector<irr::gui::IGUIElement *> elemList) :
@@ -80,6 +82,15 @@ public:
     virtual bool OnEvent(const irr::SEvent &event);
 };
 
+class GameOverMenuEventReceiver : public irr::IEventReceiver
+{
+private:
+    SAppContext &_context;
+public:
+    GameOverMenuEventReceiver(SAppContext &context) : _context(context){}
+
+    virtual bool OnEvent(const irr::SEvent &event);
+};
 
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_EVENTHANDLING_HPP

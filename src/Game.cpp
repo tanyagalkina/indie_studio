@@ -16,7 +16,7 @@ Game::Game()
     _powerUpHandler = nullptr;
     _floor = nullptr;
     _context = createContext();
-    _context.state = GameState::Game;
+    _context.state = GameState::Menu;
     _driver = _context.device->getVideoDriver();
     _gameReceiver = new GameEventReceiver();
     _context.device->setEventReceiver(_gameReceiver);
@@ -68,6 +68,9 @@ SAppContext Game::createContext()
     context.saveState = 0;
     context.needSave = false;
     context.needLoad = false;
+    context.needGame = false;
+    context.playerNbr = 0;
+    context.mapSize = 0;
     return context;
 }
 
@@ -76,6 +79,17 @@ void Game::play()
 {
     _sounds->backMusic();
     while (_context.device->run()) {
+        this->updateMenu();
+
+        if (_context.needGame) {
+            if (_context.mapSize != 0 && _context.playerNbr != 0)
+                createGame();
+            else {
+                _context.state = GameState::New;
+                continue;
+            }
+        }
+
         for (auto & player : _players)
         {
             if (player->update(*_gameReceiver) && isDropPossible(player))
@@ -97,7 +111,6 @@ void Game::play()
         _driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
         _powerUpHandler->loop(_players);
         _map->display();
-        this->updateMenu();
         _driver->endScene();
         checkLevel();
         checkSaveOrLoad();
@@ -253,23 +266,21 @@ void Game::updateMenu()
 
 }
 
-void Game::createGame(std::string name, int playerNumber, int botNumber, int
-size)
+void Game::createGame()
 {
-    _size = size;
-    _playerNumber = playerNumber;
-    _botNumber = botNumber;
-    _name = std::move(name);
-    _floor = new Floor(1, playerNumber, size * 5, size * 5);
+    _size = _context.mapSize;
+    _playerNumber = _context.playerNbr;
+    _floor = new Floor(1, _playerNumber, _size * 5, _size * 5);
     _mapTemplate = _floor->getTemplate();
     createMap();
     _powerUpHandler = new PowerUpHandler(_context);
     int i;
-    for (i = 0; i < playerNumber; i++)
+    for (i = 0; i < _playerNumber; i++)
         _players.push_back(new Player(_context, *_map, i));
-    for (int j = i; j < botNumber + i; j++)
+    for (int j = i; j < (4 - _playerNumber) + i; j++)
         _players.push_back(new AIBot(_context, *_map, j));
     _bombs.clear();
+    _context.needGame = false;
 }
 
 void Game::load(int n)
@@ -428,7 +439,7 @@ void Game::nextLevel()
     _powerUpHandler = new PowerUpHandler(_context);
     for (int i = 0; i < _playerNumber; i++)
         _players.push_back(new Player(_context, *_map, i));
-    for (int i = 0; i < _botNumber; i++)
+    for (int i = 0; i < (4 - _playerNumber); i++)
         _players.push_back(new AIBot(_context, *_map, i));
 }
 

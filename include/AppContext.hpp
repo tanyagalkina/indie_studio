@@ -35,6 +35,10 @@ typedef struct
     int saveState;
     bool needSave;
     bool needLoad;
+
+    bool needGame;
+    int playerNbr;
+    int mapSize;
 } SAppContext;
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_APPCONTEXT_HPP

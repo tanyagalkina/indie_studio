@@ -59,6 +59,9 @@ bool NewMenuEventReceiver::OnEvent(const irr::SEvent &event)
                         _context.state = GameState::Menu;
                         return true;
                     case GUI_BUTTON_CREATE:
+                        _context.needGame = true;
+                        _context.playerNbr = _playerNbr;
+                        _context.mapSize = _mapSize;
                         _context.state = GameState::Game;
                         return true;
                     default:
@@ -69,18 +72,23 @@ bool NewMenuEventReceiver::OnEvent(const irr::SEvent &event)
                 {
                     case GUI_RADIO_PLAYER1:
                         updatePlayer(GUI_RADIO_PLAYER1);
+                        _playerNbr = 1;
                         return true;
                     case GUI_RADIO_PLAYER2:
                         updatePlayer(GUI_RADIO_PLAYER2);
+                        _playerNbr = 2;
                         return true;
                     case GUI_RADIO_SMALL:
                         updateMap(GUI_RADIO_SMALL);
+                        _mapSize = 1;
                         return true;
                     case GUI_RADIO_MEDIUM:
                         updateMap(GUI_RADIO_MEDIUM);
+                        _mapSize = 2;
                         return true;
                     case GUI_RADIO_LARGE:
                         updateMap(GUI_RADIO_LARGE);
+                        _mapSize = 3;
                         return true;
                     default:
                         break;
@@ -290,3 +298,32 @@ bool SaveMenuEventReceiver::OnEvent(const irr::SEvent &event)
     return false;
 }
 
+bool GameOverMenuEventReceiver::OnEvent(const irr::SEvent &event)
+{
+    if (event.EventType == irr::EET_GUI_EVENT)
+    {
+        irr::s32 id = event.GUIEvent.Caller->getID();
+
+        switch (event.GUIEvent.EventType)
+        {
+            case irr::gui::EGET_SCROLL_BAR_CHANGED:
+                break;
+            case irr::gui::EGET_BUTTON_CLICKED:
+                switch (id)
+                {
+                    case GUI_BUTTON_MAINMENU:
+                        _context.isPaused = false;
+                        _context.state = GameState::Menu;
+                        return true;
+                    case GUI_BUTTON_QUIT:
+                        _context.device->closeDevice();
+                        return true;
+                    default:
+                        break;
+                }
+            default:
+                break;
+        }
+    }
+    return false;
+}
