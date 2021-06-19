@@ -43,9 +43,10 @@ public:
     void play();
     void updateMenu();
     void showMenu(GameState state, Menu *menu);
-    void safe();
+    void safe(int n);
     void load(std::string name, int playerNumber, int botNumber, int size);
-    void load(const std::string& game_name);
+    void load(int n);
+    void checkSaveOrLoad();
 private:
     static SAppContext createContext();
     bool HandleExplosion();

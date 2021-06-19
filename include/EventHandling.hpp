@@ -42,7 +42,7 @@ class LoadMenuEventReceiver : public irr::IEventReceiver
 private:
     SAppContext &_context;
 public:
-    LoadMenuEventReceiver(SAppContext &context) : _context(context){}
+    LoadMenuEventReceiver(SAppContext &context) : _context(context) {};
 
     virtual bool OnEvent(const irr::SEvent &event);
 };

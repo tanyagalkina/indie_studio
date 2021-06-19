@@ -64,6 +64,10 @@ SAppContext Game::createContext()
     context.counter = 0;
     context.muteMusic = false;
     context.muteSound = false;
+    context.isPaused = false;
+    context.saveState = 0;
+    context.needSave = false;
+    context.needLoad = false;
     return context;
 }
 
@@ -85,6 +89,7 @@ void Game::play()
         getExplosions();
         if (_gameReceiver->IsKeyDown(irr::KEY_ESCAPE) ||
         _gameReceiver->IsKeyDown(irr::KEY_KEY_P)) {
+            _context.isPaused = true;
             _context.state = GameState::PauseMenu;
             _gameReceiver->setIsKeyDown(irr::KEY_ESCAPE, false);
             _gameReceiver->setIsKeyDown(irr::KEY_KEY_P, false);
@@ -95,8 +100,8 @@ void Game::play()
         this->updateMenu();
         _driver->endScene();
         checkLevel();
+        checkSaveOrLoad();
     }
-    safe();
 }
 
 ///func should check if there is already a Bomb at the same position
@@ -158,18 +163,18 @@ Game::~Game()
     delete _sounds;
 }
 
-void Game::safe()
+void Game::safe(int n)
 {
     std::ofstream os;
-    os.open("./games/" + _name + ".xml");
+    os.open("./games/save" + std::to_string(n) + ".xml");
     SerializeHelper sh;
-    sh.beginKey(_name);
+    sh.beginKey("save" + std::to_string(n));
     sh.addKeyValue("size", std::to_string(_size));
     sh.addXML(_floor->serialize());
     for (auto & _player : _players)
         sh.addXML(_player->serialize());
     sh.addXML(_map->serialize());
-    sh.endKey(_name);
+    sh.endKey("save" + std::to_string(n));
     os << R"(<?xml version="1.0" encoding="ISO-8859-1"?>)" << std::endl << sh.getXML();
     os.close();
 }
@@ -266,10 +271,9 @@ void Game::load(std::string name, int playerNumber, int botNumber, int size)
     _bombs.clear();
 }
 
-void Game::load(const std::string& gamename)
+void Game::load(int n)
 {
-    _name = gamename;
-    std::ifstream file("./games/" + gamename + ".xml");
+    std::ifstream file("./games/save" + std::to_string(n) + ".xml");
     std::stringstream ss;
     std::string line;
     std::string before;
@@ -417,4 +421,16 @@ void Game::checkLevel()
     }
     if (i < 2)
         nextLevel();
+}
+
+void Game::checkSaveOrLoad()
+{
+    if (_context.needSave) {
+        safe(_context.saveState);
+        _context.needSave = false;
+    }
+    if (_context.needLoad) {
+        load(_context.saveState);
+        _context.needLoad = false;
+    }
 }

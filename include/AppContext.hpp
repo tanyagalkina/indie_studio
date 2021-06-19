@@ -29,6 +29,12 @@ typedef struct
     GameState state;
     bool muteMusic;
     bool muteSound;
+
+    bool isPaused;
+
+    int saveState;
+    bool needSave;
+    bool needLoad;
 } SAppContext;
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_APPCONTEXT_HPP
