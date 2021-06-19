@@ -81,7 +81,6 @@ void Game::play()
                 _bombs.push_back(b);
             }
         }
-        isPaused(*_gameReceiver);
         HandleExplosion();
         getExplosions();
         _driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
