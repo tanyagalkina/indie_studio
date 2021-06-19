@@ -395,10 +395,27 @@ bool Game::HandleExplosion()
 
 void Game::nextLevel()
 {
-    delete _context.device;
-    _context = createContext();
+    _context.device->closeDevice();
+    _context.device->run();
+    _context.device->drop();
+    irr::video::E_DRIVER_TYPE driver_type = irr::video::EDT_OPENGL;
+    irr::IrrlichtDevice *device = irr::createDevice(driver_type,
+                                                    irr::core::dimension2d<irr::u32>(1920, 1080),
+                                                    16, false, false, false, nullptr);
+    device->setWindowCaption(L"Best Bomberman");
+    device->setResizable(true);
+    _context.device = device;
     _context.state = GameState::Game;
+    _context.counter = 0;
     _driver = _context.device->getVideoDriver();
+
+    _imageList.clear();
+    for (int i = 0; i < TEXTPATHSLENGTH; i += 1) {
+        std::pair<Buttons, irr::video::ITexture *> tmp;
+        tmp.first = static_cast<Buttons>(i + 100);
+        tmp.second = _driver->getTexture(textPaths[i]);
+        _imageList.push_back(tmp);
+    }
 
     _players.clear();
     _bombs.clear();
@@ -452,6 +469,7 @@ void Game::unload()
     device->setResizable(true);
     _context.device = device;
     _driver = _context.device->getVideoDriver();
+
     _imageList.clear();
     for (int i = 0; i < TEXTPATHSLENGTH; i += 1) {
         std::pair<Buttons, irr::video::ITexture *> tmp;
@@ -459,6 +477,7 @@ void Game::unload()
         tmp.second = _driver->getTexture(textPaths[i]);
         _imageList.push_back(tmp);
     }
+
     _context.counter = 0;
     _players.clear();
     _bombs.clear();
