@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <test>
 	<size>
-		1
+		2
 	</size>
 	<Floor>
 		<level>
@@ -47,7 +47,7 @@
 				45.000000
 			</Y>
 			<Z>
-				250.000000
+				61.799892
 			</Z>
 		</Position>
 		<playerIndex>
@@ -85,7 +85,7 @@
 			1.000000
 		</extraSpeedFactor>
 		<alive>
-			0
+			1
 		</alive>
 		<fireUp>
 			0
@@ -97,51 +97,23 @@
 	<AIBot>
 		<Position>
 			<X>
-				-20.499935
+				367.267731
 			</X>
 			<Y>
 				45.000000
 			</Y>
 			<Z>
-				151.532211
+				151.500122
 			</Z>
 		</Position>
 		<playerIndex>
-			0
+			2
 		</playerIndex>
 		<extraSpeedFactor>
 			1.000000
 		</extraSpeedFactor>
 		<alive>
 			1
-		</alive>
-		<fireUp>
-			0
-		</fireUp>
-		<unlimitedBombs>
-			0
-		</unlimitedBombs>
-	</AIBot>
-	<AIBot>
-		<Position>
-			<X>
-				350.000000
-			</X>
-			<Y>
-				45.000000
-			</Y>
-			<Z>
-				300.600006
-			</Z>
-		</Position>
-		<playerIndex>
-			1
-		</playerIndex>
-		<extraSpeedFactor>
-			1.000000
-		</extraSpeedFactor>
-		<alive>
-			0
 		</alive>
 		<fireUp>
 			0
@@ -514,14 +486,14 @@
 		</Cube>
 		<Cube>
 			<type>
-				WALL
+				EMPTY
 			</type>
 			<position>
 				<X>
 					-250.000000
 				</X>
 				<Y>
-					30.000000
+					-10.000000
 				</Y>
 				<Z>
 					0.000000
@@ -951,7 +923,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -970,7 +942,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -989,7 +961,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -1198,7 +1170,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -1274,7 +1246,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -1521,7 +1493,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -1551,253 +1523,6 @@
 				</Y>
 				<Z>
 					-100.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				EMPTY
-			</type>
-			<position>
-				<X>
-					-50.000000
-				</X>
-				<Y>
-					-10.000000
-				</Y>
-				<Z>
-					-150.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				WALL
-			</type>
-			<position>
-				<X>
-					-50.000000
-				</X>
-				<Y>
-					30.000000
-				</Y>
-				<Z>
-					-200.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				EMPTY
-			</type>
-			<position>
-				<X>
-					-50.000000
-				</X>
-				<Y>
-					-10.000000
-				</Y>
-				<Z>
-					-250.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				WALL
-			</type>
-			<position>
-				<X>
-					-50.000000
-				</X>
-				<Y>
-					30.000000
-				</Y>
-				<Z>
-					-300.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				WALL
-			</type>
-			<position>
-				<X>
-					0.000000
-				</X>
-				<Y>
-					30.000000
-				</Y>
-				<Z>
-					300.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				EMPTY
-			</type>
-			<position>
-				<X>
-					0.000000
-				</X>
-				<Y>
-					-10.000000
-				</Y>
-				<Z>
-					250.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				WALL
-			</type>
-			<position>
-				<X>
-					0.000000
-				</X>
-				<Y>
-					30.000000
-				</Y>
-				<Z>
-					200.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				EMPTY
-			</type>
-			<position>
-				<X>
-					0.000000
-				</X>
-				<Y>
-					-10.000000
-				</Y>
-				<Z>
-					150.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				WALL
-			</type>
-			<position>
-				<X>
-					0.000000
-				</X>
-				<Y>
-					30.000000
-				</Y>
-				<Z>
-					100.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				EMPTY
-			</type>
-			<position>
-				<X>
-					0.000000
-				</X>
-				<Y>
-					-10.000000
-				</Y>
-				<Z>
-					50.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				WALL
-			</type>
-			<position>
-				<X>
-					0.000000
-				</X>
-				<Y>
-					30.000000
-				</Y>
-				<Z>
-					0.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				EMPTY
-			</type>
-			<position>
-				<X>
-					0.000000
-				</X>
-				<Y>
-					-10.000000
-				</Y>
-				<Z>
-					-50.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				EMPTY
-			</type>
-			<position>
-				<X>
-					0.000000
-				</X>
-				<Y>
-					-10.000000
-				</Y>
-				<Z>
-					-50.000000
 				</Z>
 			</position>
 			<isVisible>
@@ -1810,10 +1535,238 @@
 			</type>
 			<position>
 				<X>
+					-50.000000
+				</X>
+				<Y>
+					30.000000
+				</Y>
+				<Z>
+					-100.000000
+				</Z>
+			</position>
+			<isVisible>
+				1
+			</isVisible>
+		</Cube>
+		<Cube>
+			<type>
+				EMPTY
+			</type>
+			<position>
+				<X>
+					-50.000000
+				</X>
+				<Y>
+					-10.000000
+				</Y>
+				<Z>
+					-150.000000
+				</Z>
+			</position>
+			<isVisible>
+				1
+			</isVisible>
+		</Cube>
+		<Cube>
+			<type>
+				EMPTY
+			</type>
+			<position>
+				<X>
+					-50.000000
+				</X>
+				<Y>
+					-10.000000
+				</Y>
+				<Z>
+					-200.000000
+				</Z>
+			</position>
+			<isVisible>
+				1
+			</isVisible>
+		</Cube>
+		<Cube>
+			<type>
+				EMPTY
+			</type>
+			<position>
+				<X>
+					-50.000000
+				</X>
+				<Y>
+					-10.000000
+				</Y>
+				<Z>
+					-250.000000
+				</Z>
+			</position>
+			<isVisible>
+				1
+			</isVisible>
+		</Cube>
+		<Cube>
+			<type>
+				WALL
+			</type>
+			<position>
+				<X>
+					-50.000000
+				</X>
+				<Y>
+					30.000000
+				</Y>
+				<Z>
+					-300.000000
+				</Z>
+			</position>
+			<isVisible>
+				1
+			</isVisible>
+		</Cube>
+		<Cube>
+			<type>
+				WALL
+			</type>
+			<position>
+				<X>
 					0.000000
 				</X>
 				<Y>
 					30.000000
+				</Y>
+				<Z>
+					300.000000
+				</Z>
+			</position>
+			<isVisible>
+				1
+			</isVisible>
+		</Cube>
+		<Cube>
+			<type>
+				EMPTY
+			</type>
+			<position>
+				<X>
+					0.000000
+				</X>
+				<Y>
+					-10.000000
+				</Y>
+				<Z>
+					250.000000
+				</Z>
+			</position>
+			<isVisible>
+				1
+			</isVisible>
+		</Cube>
+		<Cube>
+			<type>
+				WALL
+			</type>
+			<position>
+				<X>
+					0.000000
+				</X>
+				<Y>
+					30.000000
+				</Y>
+				<Z>
+					200.000000
+				</Z>
+			</position>
+			<isVisible>
+				1
+			</isVisible>
+		</Cube>
+		<Cube>
+			<type>
+				EMPTY
+			</type>
+			<position>
+				<X>
+					0.000000
+				</X>
+				<Y>
+					-10.000000
+				</Y>
+				<Z>
+					150.000000
+				</Z>
+			</position>
+			<isVisible>
+				1
+			</isVisible>
+		</Cube>
+		<Cube>
+			<type>
+				WALL
+			</type>
+			<position>
+				<X>
+					0.000000
+				</X>
+				<Y>
+					30.000000
+				</Y>
+				<Z>
+					100.000000
+				</Z>
+			</position>
+			<isVisible>
+				1
+			</isVisible>
+		</Cube>
+		<Cube>
+			<type>
+				EMPTY
+			</type>
+			<position>
+				<X>
+					0.000000
+				</X>
+				<Y>
+					-10.000000
+				</Y>
+				<Z>
+					50.000000
+				</Z>
+			</position>
+			<isVisible>
+				1
+			</isVisible>
+		</Cube>
+		<Cube>
+			<type>
+				WALL
+			</type>
+			<position>
+				<X>
+					0.000000
+				</X>
+				<Y>
+					30.000000
+				</Y>
+				<Z>
+					0.000000
+				</Z>
+			</position>
+			<isVisible>
+				1
+			</isVisible>
+		</Cube>
+		<Cube>
+			<type>
+				EMPTY
+			</type>
+			<position>
+				<X>
+					0.000000
+				</X>
+				<Y>
+					-10.000000
 				</Y>
 				<Z>
 					-50.000000
@@ -1939,14 +1892,14 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				WALL
 			</type>
 			<position>
 				<X>
 					50.000000
 				</X>
 				<Y>
-					-10.000000
+					30.000000
 				</Y>
 				<Z>
 					250.000000
@@ -1958,7 +1911,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -2034,14 +1987,14 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				WALL
 			</type>
 			<position>
 				<X>
 					50.000000
 				</X>
 				<Y>
-					-10.000000
+					30.000000
 				</Y>
 				<Z>
 					0.000000
@@ -2528,7 +2481,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -2604,7 +2557,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -2748,82 +2701,6 @@
 				</Y>
 				<Z>
 					100.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				EMPTY
-			</type>
-			<position>
-				<X>
-					200.000000
-				</X>
-				<Y>
-					-10.000000
-				</Y>
-				<Z>
-					50.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				WALL
-			</type>
-			<position>
-				<X>
-					200.000000
-				</X>
-				<Y>
-					30.000000
-				</Y>
-				<Z>
-					0.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				EMPTY
-			</type>
-			<position>
-				<X>
-					200.000000
-				</X>
-				<Y>
-					-10.000000
-				</Y>
-				<Z>
-					-50.000000
-				</Z>
-			</position>
-			<isVisible>
-				1
-			</isVisible>
-		</Cube>
-		<Cube>
-			<type>
-				WALL
-			</type>
-			<position>
-				<X>
-					200.000000
-				</X>
-				<Y>
-					30.000000
-				</Y>
-				<Z>
-					-100.000000
 				</Z>
 			</position>
 			<isVisible>
@@ -2842,6 +2719,82 @@
 					-10.000000
 				</Y>
 				<Z>
+					50.000000
+				</Z>
+			</position>
+			<isVisible>
+				1
+			</isVisible>
+		</Cube>
+		<Cube>
+			<type>
+				WALL
+			</type>
+			<position>
+				<X>
+					200.000000
+				</X>
+				<Y>
+					30.000000
+				</Y>
+				<Z>
+					0.000000
+				</Z>
+			</position>
+			<isVisible>
+				1
+			</isVisible>
+		</Cube>
+		<Cube>
+			<type>
+				EMPTY
+			</type>
+			<position>
+				<X>
+					200.000000
+				</X>
+				<Y>
+					-10.000000
+				</Y>
+				<Z>
+					-50.000000
+				</Z>
+			</position>
+			<isVisible>
+				1
+			</isVisible>
+		</Cube>
+		<Cube>
+			<type>
+				WALL
+			</type>
+			<position>
+				<X>
+					200.000000
+				</X>
+				<Y>
+					30.000000
+				</Y>
+				<Z>
+					-100.000000
+				</Z>
+			</position>
+			<isVisible>
+				1
+			</isVisible>
+		</Cube>
+		<Cube>
+			<type>
+				EMPTY
+			</type>
+			<position>
+				<X>
+					200.000000
+				</X>
+				<Y>
+					-10.000000
+				</Y>
+				<Z>
 					-150.000000
 				</Z>
 			</position>
@@ -3022,7 +2975,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -3041,7 +2994,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -3060,7 +3013,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				EMPTY
+				TILE
 			</type>
 			<position>
 				<X>
@@ -3079,7 +3032,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>
@@ -3098,7 +3051,7 @@
 		</Cube>
 		<Cube>
 			<type>
-				TILE
+				EMPTY
 			</type>
 			<position>
 				<X>

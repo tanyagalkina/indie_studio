@@ -239,10 +239,11 @@ void Game::load(std::string name, int playerNumber, int botNumber, int size)
     _mapTemplate = _floor->getTemplate();
     createMap();
     _powerUpHandler = new PowerUpHandler(_context);
-    for (int i = 0; i < playerNumber; i++)
+    int i;
+    for (i = 0; i < playerNumber; i++)
         _players.push_back(new Player(_context, *_map, i));
-    for (int i = 0; i < botNumber; i++)
-        _players.push_back(new AIBot(_context, *_map, i));
+    for (int j = i; j < botNumber + i; j++)
+        _players.push_back(new AIBot(_context, *_map, j));
     _bombs.clear();
 }
 
