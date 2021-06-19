@@ -56,7 +56,6 @@ public:
     bool update(GameEventReceiver &receiver) final;
     //int calcMiddle(int coordinate);
     std::string serialize() final;
-    void deserialize(std::string xmlCode) final;
     //int bombsMax = 2;
     void upgradeBombsMax();
     //bool getUnlimitedBombs() const;

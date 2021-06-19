@@ -16,7 +16,7 @@ Game::Game()
     _powerUpHandler = nullptr;
     _floor = nullptr;
     _context = createContext();
-    _context.state = GameState::Settings;
+    _context.state = GameState::Game;
     _driver = _context.device->getVideoDriver();
     _gameReceiver = new GameEventReceiver();
     _context.device->setEventReceiver(_gameReceiver);
@@ -157,7 +157,6 @@ void Game::safe()
     os.open("./games/" + _name + ".xml");
     SerializeHelper sh;
     sh.beginKey(_name);
-    sh.beginKey("size");
     sh.addKeyValue("size", std::to_string(_size));
     sh.addXML(_floor->serialize());
     for (auto & _player : _players)
@@ -239,10 +238,11 @@ void Game::load(std::string name, int playerNumber, int botNumber, int size)
     _mapTemplate = _floor->getTemplate();
     createMap();
     _powerUpHandler = new PowerUpHandler(_context);
-    for (int i = 0; i < playerNumber; i++)
+    int i;
+    for (i = 0; i < playerNumber; i++)
         _players.push_back(new Player(_context, *_map, i));
-    for (int i = 0; i < botNumber; i++)
-        _players.push_back(new AIBot(_context, *_map, i));
+    for (int j = i; j < botNumber + i; j++)
+        _players.push_back(new AIBot(_context, *_map, j));
     _bombs.clear();
 }
 
