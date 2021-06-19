@@ -196,8 +196,23 @@ bool PauseMenuEventReceiver::OnEvent(const irr::SEvent &event)
             case irr::gui::EGET_BUTTON_CLICKED:
                 switch (id)
                 {
-                    case GUI_BUTTON_BACK:
+                    case GUI_BUTTON_CONTINUE:
+                        _context.state = GameState::Game;
+                        return true;
+                    case GUI_BUTTON_SAVE:
+                        _context.state = GameState::Save;
+                        return true;
+                    case GUI_BUTTON_LOAD:
+                        _context.state = GameState::Load;
+                        return true;
+                    case GUI_BUTTON_SETTINGS:
+                        _context.state = GameState::Settings;
+                        return true;
+                    case GUI_BUTTON_MAINMENU:
                         _context.state = GameState::Menu;
+                        return true;
+                    case GUI_BUTTON_QUIT:
+                        _context.device->closeDevice();
                         return true;
                     default:
                         break;
