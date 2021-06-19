@@ -32,6 +32,11 @@ public:
 		return KeyIsDown[keyCode];
 	}
 
+	void setIsKeyDown(irr::EKEY_CODE keyCode, bool value)
+	{
+        KeyIsDown[keyCode] = value;
+    }
+
 	GameEventReceiver()
 	{
 		for (irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; i++)

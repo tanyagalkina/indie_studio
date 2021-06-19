@@ -83,6 +83,12 @@ void Game::play()
         }
         HandleExplosion();
         getExplosions();
+        if (_gameReceiver->IsKeyDown(irr::KEY_ESCAPE) ||
+        _gameReceiver->IsKeyDown(irr::KEY_KEY_P)) {
+            _context.state = GameState::PauseMenu;
+            _gameReceiver->setIsKeyDown(irr::KEY_ESCAPE, false);
+            _gameReceiver->setIsKeyDown(irr::KEY_KEY_P, false);
+        }
         _driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
         _powerUpHandler->loop(_players);
         _map->display();
