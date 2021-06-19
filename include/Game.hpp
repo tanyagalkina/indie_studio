@@ -54,6 +54,7 @@ private:
     void getExplosions();
     bool isDropPossible(Character *player);
 
+
     void randomPowerUpSpawn(float x, float z);
 
     void nextLevel();

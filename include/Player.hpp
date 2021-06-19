@@ -42,7 +42,7 @@ private:
 	bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
 };
 
-/* up, right, down, left */
+/* up, right, down, left, bomb */
 static const irr::EKEY_CODE keyCodes[2][5] = {
     { irr::KEY_KEY_W, irr::KEY_KEY_D, irr::KEY_KEY_S, irr::KEY_KEY_A, irr::KEY_SPACE},
     { irr::KEY_UP, irr::KEY_RIGHT, irr::KEY_DOWN, irr::KEY_LEFT,

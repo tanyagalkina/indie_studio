@@ -223,3 +223,8 @@ bool PauseMenuEventReceiver::OnEvent(const irr::SEvent &event)
     }
     return false;
 }
+
+bool SaveMenuEventReceiver::OnEvent(const irr::SEvent &event)
+{
+    return false;
+}

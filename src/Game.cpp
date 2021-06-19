@@ -16,7 +16,7 @@ Game::Game()
     _powerUpHandler = nullptr;
     _floor = nullptr;
     _context = createContext();
-    _context.state = GameState::Load;
+    _context.state = GameState::Game;
     _driver = _context.device->getVideoDriver();
     _gameReceiver = new GameEventReceiver();
     _context.device->setEventReceiver(_gameReceiver);
@@ -67,6 +67,7 @@ SAppContext Game::createContext()
     return context;
 }
 
+
 void Game::play()
 {
     _sounds->backMusic();
@@ -80,11 +81,9 @@ void Game::play()
                 _bombs.push_back(b);
             }
         }
+        isPaused(*_gameReceiver);
         HandleExplosion();
         getExplosions();
-        if (_gameReceiver->IsKeyDown(irr::KEY_ESCAPE) ||
-        _gameReceiver->IsKeyDown(irr::KEY_KEY_P))
-            _context.state = GameState::PauseMenu;
         _driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
         _powerUpHandler->loop(_players);
         _map->display();
@@ -197,6 +196,15 @@ void Game::updateMenu()
             auto *reciever = new NewMenuEventReceiver(_context, menu->_elementList);
             _context.device->setEventReceiver(reciever);
             showMenu(GameState::New, menu);
+            delete reciever;
+            menu->clearGUI();
+            delete menu;
+        }
+        case GameState::Save: {
+            Menu *menu = build_save_menu(_context, _imageList);
+            auto *reciever = new SaveMenuEventReceiver(_context);
+            _context.device->setEventReceiver(reciever);
+            showMenu(GameState::Save, menu);
             delete reciever;
             menu->clearGUI();
             delete menu;
