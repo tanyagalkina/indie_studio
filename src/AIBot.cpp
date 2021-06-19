@@ -20,8 +20,7 @@ AIBot::~AIBot()
 bool AIBot::dropBomb(GameEventReceiver &receiver)
 {
     shouldDropBomb = true;
-    goingBack = 5;
-    lastSteps.pop();
+    goingBack = 10;
     return true;
 }
 
@@ -100,33 +99,56 @@ void AIBot::move(GameEventReceiver &receiver)
         lastSteps.push(next);
     }
     if (goingBack != 0 && lastSteps.size() > 2) {
-        customMove(lastSteps.top());
+        lastSteps.pop();
+
+        auto last = lastSteps.top();
+
+        if (last.Z < next.Z) {
+            this->body->setRotation(irr::core::vector3df(0, 90, 0));
+        }
+        if (last.Z > next.Z) {
+            this->body->setRotation(irr::core::vector3df(0, 180, 0));
+        }
+        if (last.X < next.X) {
+            this->body->setRotation(irr::core::vector3df(0, 270, 0));
+        }
+        if (last.X > next.X) {
+            this->body->setRotation(irr::core::vector3df(0, 0, 0));
+        }
+
+        customMove(last);
         lastSteps.pop();
         return;
     }
 
+
     //printf("current\t%d - %d\n", abs((int)(next.X + 300) / 50), abs((int)(next.Z - 350) / 50));
     switch (moveIdx % 4) {
         case 0: //UP
+            this->body->setRotation(irr::core::vector3df(0, 270, 0));
             next.Z += blockSize;
             break;
         case 1: //right
+            this->body->setRotation(irr::core::vector3df(0, 90, 0));
             next.X += blockSize;
             break;
         case 2: //down
+            this->body->setRotation(irr::core::vector3df(0, 0, 0));
             next.Z -= blockSize;
             break;
         case 3: //left
+            this->body->setRotation(irr::core::vector3df(0, 180, 0));
             next.X -= blockSize;
             break;
     }
+    changeMovementState();
 
     auto type = checkNextMove(next);
 
     if (type == Floor::Type::WALL || type == Floor::Type::TELEPORT) {
         moveIdx++;
     }
-    if (type == Floor::Type::BOX || type == Floor::Type::TILE /*|| type == Floor::Type::PLAYER*/) {
+    if (type == Floor::Type::BOX || type == Floor::Type::TILE || type == Floor::Type::PLAYER) {
         dropBomb(receiver);
     } else {
         shouldDropBomb = false;
