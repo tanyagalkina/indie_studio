@@ -70,12 +70,12 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
         (begin_x * 1.9, size_y));
     menu->addCheckBox(irr::core::rect<irr::s32>(begin_x * 1.25, size_y * 7,
         begin_x * 1.25 + size_x * 0.02,size_y * 7.4 + size_x * 0.02),
-                      GUI_CHECK_MUSIC, context.muteMusic);
+        GUI_CHECK_MUSIC, context.muteMusic);
     menu->addLabel(GUI_CHECK_MUSIC, irr::core::position2d<irr::s32>
         (begin_x * 1.5, size_y * 7));
     menu->addCheckBox(irr::core::rect<irr::s32>(begin_x * 1.25, size_y * 9,
-                                                begin_x * 1.25 + size_x * 0.02, size_y * 9.4 + size_x * 0.02),
-                      GUI_CHECK_SOUND, context.muteSound);
+        begin_x * 1.25 + size_x * 0.02, size_y * 9.4 + size_x * 0.02),
+        GUI_CHECK_SOUND, context.muteSound);
     menu->addLabel(GUI_CHECK_SOUND, irr::core::position2d<irr::s32>
         (begin_x * 1.5, size_y * 9));
     menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 17,
@@ -95,7 +95,17 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
     Menu *menu = new Menu(context, imageList);
     menu->addLabel(GUI_TEXT_NEWGAME, irr::core::position2d<irr::s32>
         (begin_x * 1.9, size_y));
+    menu->addCheckBox(irr::core::rect<irr::s32>(begin_x * 1.25, size_y * 7,
+        begin_x * 1.25 + size_x * 0.02,size_y * 7.4 + size_x * 0.02),
+        GUI_RADIO_PLAYER1, context.muteMusic);
+    menu->addLabel(GUI_CHECK_MUSIC, irr::core::position2d<irr::s32>
+        (begin_x * 1.5, size_y * 7));
+    menu->addCheckBox(irr::core::rect<irr::s32>(begin_x * 1.25, size_y * 9,
+        begin_x * 1.25 + size_x * 0.02, size_y * 9.4 + size_x * 0.02),
+        GUI_RADIO_PLAYER2, context.muteSound);
+    menu->addLabel(GUI_CHECK_SOUND, irr::core::position2d<irr::s32>
+        (begin_x * 1.5, size_y * 9));
     menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 17,
-                                              begin_x + size_x,size_y * 19), GUI_BUTTON_BACK, L"Go back");
+        begin_x + size_x,size_y * 19), GUI_BUTTON_BACK, L"Go back");
     return menu;
 }

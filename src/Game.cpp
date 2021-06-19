@@ -79,7 +79,6 @@ void Game::play()
                 b->drop();
                 _bombs.push_back(b);
             }
-
         }
         HandleExplosion();
         getExplosions();
@@ -193,7 +192,7 @@ void Game::updateMenu()
         }
         case GameState::New: {
             Menu *menu = build_new_menu(_context, _imageList);
-            auto *reciever = new NewMenuEventReceiver(_context);
+            auto *reciever = new NewMenuEventReceiver(_context, menu->_elementList);
             _context.device->setEventReceiver(reciever);
             showMenu(GameState::New, menu);
             delete reciever;
@@ -211,7 +210,7 @@ void Game::updateMenu()
         }
         case GameState::Settings: {
             Menu *menu = build_settings_menu(_context, _imageList);
-            auto *reciever = new SettingsMenuEventReceiver(_context);
+            auto *reciever = new SettingsMenuEventReceiver(_context, _sounds);
             _context.device->setEventReceiver(reciever);
             showMenu(GameState::Settings, menu);
             delete reciever;

@@ -16,7 +16,6 @@
 Menu::Menu(SAppContext context, const std::vector<std::pair<Buttons,
            irr::video::ITexture *>> &imageList)
 {
-    _device = context.device;
     _guienv = context.device->getGUIEnvironment();
 
     irr::gui::IGUISkin* skin = _guienv->getSkin();
@@ -49,11 +48,18 @@ void Menu::clearGUI()
     for(auto const &elem: _elementList) {
         elem->remove();
     }
-    //
 }
 
 void Menu::addCheckBox(const irr::core::rect<irr::s32>& pos, int box_enum,
                        bool value)
+{
+    irr::gui::IGUICheckBox *elem = _guienv->addCheckBox(value, pos, nullptr,
+                                                        box_enum);
+    _elementList.push_back(elem);
+}
+
+void Menu::addRadioButton(const irr::core::rect<irr::s32> &pos, int box_enum,
+                          bool value, int btn_index)
 {
     irr::gui::IGUICheckBox *elem = _guienv->addCheckBox(value, pos, nullptr,
                                                         box_enum);

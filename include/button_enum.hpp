@@ -11,6 +11,7 @@
 #include "irrlicht.h"
 
 enum Buttons {
+    // Main Menu
     GUI_TEXT_HEADLINE = 100,
     GUI_TEXT_NEWGAME,
     GUI_TEXT_LOADGAME,
@@ -21,8 +22,15 @@ enum Buttons {
     GUI_BUTTON_QUIT,
     GUI_BUTTON_BACK,
     GUI_BUTTON_MAINMENU,
+    // Settings
     GUI_CHECK_MUSIC,
     GUI_CHECK_SOUND,
+    // New Game
+    GUI_RADIO_PLAYER1,
+    GUI_RADIO_PLAYER2,
+    GUI_RADIO_SMALL,
+    GUI_RADIO_MEDIUM,
+    GUI_RADIO_LARGE,
 };
 
 #define TEXTPATHSLENGTH 12

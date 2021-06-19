@@ -26,16 +26,21 @@ public:
         backSound.setVolume(5);
 
     }
-    void Mute()
+
+    void MuteMusic(bool mute)
     {
-        backSound.setVolume(0);
-        exploSound.setVolume(0);
+        if (mute)
+            backSound.setVolume(0);
+        else
+            backSound.setVolume(20);
     }
 
-    void Unmute()
+    void MuteSound(bool mute)
     {
-        backSound.setVolume(20);
-        exploSound.setVolume(5);
+        if (mute)
+            exploSound.setVolume(0);
+        else
+            exploSound.setVolume(5);
     }
 
     void explode()

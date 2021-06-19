@@ -10,6 +10,7 @@
 
 #include "AppContext.hpp"
 #include "button_enum.hpp"
+#include "Audio.hpp"
 
 class MainMenuEventReceiver : public irr::IEventReceiver
 {
@@ -25,9 +26,14 @@ class NewMenuEventReceiver : public irr::IEventReceiver
 {
 private:
     SAppContext &_context;
+    std::vector<irr::gui::IGUIElement *> _elemList;
 public:
-    NewMenuEventReceiver(SAppContext &context) : _context(context){}
+    NewMenuEventReceiver(SAppContext &context,
+                         std::vector<irr::gui::IGUIElement *> elemList) :
+                         _context(context), _elemList(elemList) {};
 
+    void updatePlayer(int id);
+    void updateMap(int id);
     virtual bool OnEvent(const irr::SEvent &event);
 };
 
@@ -45,8 +51,10 @@ class SettingsMenuEventReceiver : public irr::IEventReceiver
 {
 private:
     SAppContext &_context;
+    Audio *_sounds;
 public:
-    SettingsMenuEventReceiver(SAppContext &context) : _context(context){}
+    SettingsMenuEventReceiver(SAppContext &context, Audio *sounds) : _context
+    (context), _sounds(sounds){}
 
     virtual bool OnEvent(const irr::SEvent &event);
 };

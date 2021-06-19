@@ -61,11 +61,58 @@ bool NewMenuEventReceiver::OnEvent(const irr::SEvent &event)
                     default:
                         break;
                 }
+            case irr::gui::EGET_CHECKBOX_CHANGED:
+                switch (id)
+                {
+                    case GUI_RADIO_PLAYER1:
+                        updatePlayer(GUI_RADIO_PLAYER1);
+                        return true;
+                    case GUI_RADIO_PLAYER2:
+                        updatePlayer(GUI_RADIO_PLAYER2);
+                        return true;
+                    case GUI_RADIO_SMALL:
+                        updateMap(GUI_RADIO_SMALL);
+                        return true;
+                    case GUI_RADIO_MEDIUM:
+                        updateMap(GUI_RADIO_MEDIUM);
+                        return true;
+                    case GUI_RADIO_LARGE:
+                        updateMap(GUI_RADIO_LARGE);
+                        return true;
+                    default:
+                        break;
+                }
             default:
                 break;
         }
     }
     return false;
+}
+
+void NewMenuEventReceiver::updatePlayer(int id)
+{
+    for (int i = 0; i < _elemList.size(); i += 1) {
+        if (_elemList[i]->getID() == GUI_RADIO_PLAYER1 ||
+        _elemList[i]->getID() == GUI_RADIO_PLAYER2)
+            ((irr::gui::IGUICheckBox *)_elemList[i])->setChecked(false);
+        if (_elemList[i]->getID() == id)
+            ((irr::gui::IGUICheckBox *)_elemList[i])->setChecked(true);
+
+    }
+}
+
+void NewMenuEventReceiver::updateMap(int id)
+{
+
+    for (int i = 0; i < _elemList.size(); i += 1) {
+        if (_elemList[i]->getID() == GUI_RADIO_SMALL ||
+            _elemList[i]->getID() == GUI_RADIO_MEDIUM ||
+            _elemList[i]->getID() == GUI_RADIO_LARGE)
+            ((irr::gui::IGUICheckBox *)_elemList[i])->setChecked(false);
+        if (_elemList[i]->getID() == id)
+            ((irr::gui::IGUICheckBox *)_elemList[i])->setChecked(true);
+
+    }
 }
 
 bool LoadMenuEventReceiver::OnEvent(const irr::SEvent &event)
@@ -117,9 +164,11 @@ bool SettingsMenuEventReceiver::OnEvent(const irr::SEvent &event)
                 switch (id) {
                     case GUI_CHECK_MUSIC:
                         _context.muteMusic = !_context.muteMusic;
+                        _sounds->MuteMusic(_context.muteMusic);
                         return true;
                     case GUI_CHECK_SOUND:
                         _context.muteSound = !_context.muteSound;
+                        _sounds->MuteSound(_context.muteSound);
                         return true;
                     default:
                         break;

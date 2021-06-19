@@ -22,14 +22,14 @@ public:
     wchar_t *tooltip);
     void addCheckBox(const irr::core::rect<irr::s32>& pos, int box_enum, bool
     value);
+    void addRadioButton(const irr::core::rect<irr::s32>& pos, int box_enum, bool
+    value, int btn_index);
     void clearGUI();
 
     irr::gui::IGUIEnvironment *_guienv;
-private:
-    irr::IrrlichtDevice *_device;
     std::vector<irr::gui::IGUIElement *> _elementList;
+private:
     std::vector<std::pair<Buttons, irr::video::ITexture *>> _imageList;
-
 };
 
 Menu *build_main_menu(SAppContext context, const std::vector<std::pair<Buttons,
