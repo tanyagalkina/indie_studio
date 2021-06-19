@@ -68,7 +68,7 @@ SAppContext Game::createContext()
     context.saveState = 0;
     context.needSave = false;
     context.needLoad = false;
-    context.needGame = false;
+    context.needGame = true;
     context.playerNbr = 0;
     context.mapSize = 0;
     return context;
@@ -79,7 +79,14 @@ void Game::play()
 {
     _sounds->backMusic();
     while (_context.device->run()) {
-        this->updateMenu();
+        if (_context.state != GameState::Game) {
+            this->updateMenu();
+            continue;
+        }
+        if (!checkSaveOrLoad()) {
+            _context.state = GameState::Load;
+            continue;
+        }
 
         if (_context.needGame) {
             if (_context.mapSize != 0 && _context.playerNbr != 0)
@@ -113,7 +120,6 @@ void Game::play()
         _map->display();
         _driver->endScene();
         checkLevel();
-        checkSaveOrLoad();
     }
 }
 
@@ -292,7 +298,7 @@ void Game::createGame()
     _context.needGame = false;
 }
 
-void Game::load(int n)
+bool Game::load(int n)
 {
     std::ifstream file("./games/save" + std::to_string(n) + ".xml");
     std::stringstream ss;
@@ -313,9 +319,10 @@ void Game::load(int n)
         file.close();
     } else {
         std::cerr << "Could not open File from save state " << n << std::endl;
-        return;
+        return false;
     }
-    unload();
+    if (!_context.needGame)
+        unload();
     std::string code = ss.str();
     SerializeHelper sh(code, true);
 
@@ -352,6 +359,8 @@ void Game::load(int n)
          }
         node = sh.GetNextKey();
     }
+    _context.needGame = false;
+    return true;
 }
 
 void Game::randomPowerUpSpawn(float x, float z)
@@ -475,16 +484,20 @@ void Game::checkLevel()
         //nextLevel();
 }
 
-void Game::checkSaveOrLoad()
+bool Game::checkSaveOrLoad()
 {
     if (_context.needSave) {
         safe(_context.saveState);
         _context.needSave = false;
+        return true;
     }
     if (_context.needLoad) {
-        load(_context.saveState);
-        _context.needLoad = false;
+        if (load(_context.saveState))
+            _context.needLoad = false;
+        else
+            return false;
     }
+    return true;
 }
 
 void Game::unload()
