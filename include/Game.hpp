@@ -35,6 +35,7 @@ private:
     Audio *_sounds = new Audio;
     int _playerNumber;
     std::vector<std::pair<Buttons, irr::video::ITexture *>> _imageList;
+    int _winner;
 
 public:
     Game();

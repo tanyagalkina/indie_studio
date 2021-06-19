@@ -20,7 +20,7 @@ Game::Game()
     _driver = _context.device->getVideoDriver();
     _gameReceiver = new GameEventReceiver();
     _context.device->setEventReceiver(_gameReceiver);
-
+    _winner = 0;
     //_powerUpHandler = new PowerUpHandler(_context);
     //Character *p = new Player(_context, *_map);
     //Character *p2 = new AIBot(_context, *_map, 1);
@@ -259,6 +259,15 @@ void Game::updateMenu()
             menu->clearGUI();
             delete menu;
         }
+        case GameState::GameOver: {
+            Menu *menu = build_game_over_menu(_context, _imageList, _winner);
+            auto *reciever = new GameOverMenuEventReceiver(_context);
+            _context.device->setEventReceiver(reciever);
+            showMenu(GameState::GameOver, menu);
+            delete reciever;
+            menu->clearGUI();
+            delete menu;
+        }
         default:
             _context.device->setEventReceiver(_gameReceiver);
             break;
@@ -451,8 +460,19 @@ void Game::checkLevel()
         if (player->isAlive())
             i++;
     }
-    if (i < 2)
-        nextLevel();
+    if (i < 2 ||
+        (!_players[0]->isAlive() && _playerNumber == 1) ||
+        (!_players[0]->isAlive() && !_players[1]->isAlive() &&
+        _playerNumber == 2)) {
+        _context.state = GameState::GameOver;
+        if (_players[0]->isAlive())
+            _winner = 1;
+        else if (_players[1]->isAlive() && _playerNumber == 2)
+            _winner = 2;
+        else
+            _winner = 0;
+    }
+        //nextLevel();
 }
 
 void Game::checkSaveOrLoad()

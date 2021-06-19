@@ -209,7 +209,7 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
 
     Menu *menu = new Menu(context, imageList);
     menu->addLabel(GUI_TEXT_PAUSED, irr::core::position2d<irr::s32>
-        (begin_x * 1.375, size_y));
+        (begin_x * 1.8, size_y));
 
     menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 4, begin_x
         + size_x, size_y * 5.5),GUI_BUTTON_CONTINUE, L"Continue the game");
@@ -228,6 +228,44 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
 
     menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 16,
     begin_x + size_x,size_y * 17.5),GUI_BUTTON_QUIT, L"Exit Program");
+
+    return menu;
+}
+
+Menu *build_game_over_menu(SAppContext context, const
+std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, int winner)
+{
+    irr::core::dimension2d<irr::u32> dimensions =
+        context.device->getVideoDriver()->getScreenSize();
+    int size_y = (int)(dimensions.Height * 0.05);
+    int size_x = (int)(dimensions.Width * 0.6);
+    int begin_x = (int)(dimensions.Width * 0.2);
+
+    Menu *menu = new Menu(context, imageList);
+    switch (winner) {
+        case 1:
+            menu->addLabel(GUI_TEXT_PLAYER1, irr::core::position2d<irr::s32>
+                (begin_x * 1.25, size_y * 4));
+            break;
+        case 2:
+            menu->addLabel(GUI_TEXT_PLAYER2, irr::core::position2d<irr::s32>
+                (begin_x * 1.25, size_y * 4));
+            break;
+        case 0:
+            menu->addLabel(GUI_TEXT_AI, irr::core::position2d<irr::s32>
+                (begin_x * 1.6, size_y* 4));
+            break;
+        default:
+            break;
+    }
+
+    menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 11,
+                                              begin_x + size_x,size_y * 13),
+                    GUI_BUTTON_MAINMENU, L"Go to Main Menu");
+
+    menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 14,
+                                              begin_x + size_x,size_y * 16),
+                    GUI_BUTTON_QUIT, L"Exit Program");
 
     return menu;
 }

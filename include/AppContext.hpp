@@ -13,12 +13,12 @@
 enum class GameState {
     Menu,
     PauseMenu,
-    New, // maybe character draft or something like this
+    New,
     Save,
     Load,
     Settings,
     Game,
-    End,
+    GameOver,
 };
 
 typedef struct
