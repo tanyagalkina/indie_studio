@@ -4,6 +4,7 @@
 #include "AppContext.hpp"
 #include "Character.hpp"
 #include <functional>
+#include <stack>
 
 
 class AIBot : public Character
@@ -22,6 +23,9 @@ private:
 
 private:
     int moveIdx;
+    bool shouldDropBomb;
+    std::stack<irr::core::vector3df> lastSteps;
+    int goingBack;
 };
 
 #endif //AI_BOT_HPP_
