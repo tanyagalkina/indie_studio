@@ -16,7 +16,7 @@ Game::Game()
     _powerUpHandler = nullptr;
     _floor = nullptr;
     _context = createContext();
-    _context.state = GameState::Settings;
+    _context.state = GameState::Game;
     _driver = _context.device->getVideoDriver();
     _gameReceiver = new GameEventReceiver();
     _context.device->setEventReceiver(_gameReceiver);
@@ -158,7 +158,6 @@ void Game::safe()
     os.open("./games/" + _name + ".xml");
     SerializeHelper sh;
     sh.beginKey(_name);
-    sh.beginKey("size");
     sh.addKeyValue("size", std::to_string(_size));
     sh.addXML(_floor->serialize());
     for (auto & _player : _players)

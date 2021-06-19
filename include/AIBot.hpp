@@ -13,7 +13,6 @@ public:
     virtual ~AIBot();
     bool update(GameEventReceiver &receiver) final;
     std::string serialize() final;
-    void deserialize(std::string xmlCode) final;
 private:
     /* movement */
     void move(GameEventReceiver &receiver) final;
