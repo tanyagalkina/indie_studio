@@ -28,14 +28,19 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
     Menu *menu = new Menu(context, imageList);
     menu->addLabel(GUI_TEXT_HEADLINE, irr::core::position2d<irr::s32>
         (begin_x * 1.375, size_y));
+
     menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 7, begin_x
         + size_x, size_y * 9), GUI_BUTTON_NEW, L"Create New Game");
+
     menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 10,
         begin_x + size_x,size_y * 12), GUI_BUTTON_LOAD, L"Load Previous Game");
+
     menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 13,
         begin_x + size_x, size_y * 15),GUI_BUTTON_SETTINGS,L"Open Settings Menu");
+
     menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 16,
         begin_x + size_x,size_y * 18), GUI_BUTTON_QUIT, L"Exit Program");
+
     return menu;
 }
 
@@ -50,9 +55,26 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
 
     Menu *menu = new Menu(context, imageList);
     menu->addLabel(GUI_TEXT_LOADGAME, irr::core::position2d<irr::s32>
-        (begin_x * 1.9, size_y));
+        (begin_x * 1.85, size_y));
+
+    menu->addButton(irr::core::rect<irr::s32>(begin_x * 1.2, size_y * 6, begin_x
+        + size_x * 0.93, size_y * 7.5), GUI_BUTTON_SAVE1, L"Load State No. 1");
+
+    menu->addButton(irr::core::rect<irr::s32>(begin_x * 1.2, size_y * 8.5,
+        begin_x + size_x * 0.93,size_y * 10),
+        GUI_BUTTON_SAVE2, L"Load State No. 2");
+
+    menu->addButton(irr::core::rect<irr::s32>(begin_x * 1.2, size_y * 11,
+        begin_x + size_x * 0.93, size_y * 12.5),
+        GUI_BUTTON_SAVE3,L"Load State No. 3");
+
+    menu->addButton(irr::core::rect<irr::s32>(begin_x * 1.2, size_y * 13.5,
+        begin_x + size_x * 0.93,size_y * 15),
+        GUI_BUTTON_SAVE4, L"Load State No. 4");
+
     menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 17,
     begin_x + size_x,size_y * 19), GUI_BUTTON_BACK, L"Go back");
+
     return menu;
 }
 

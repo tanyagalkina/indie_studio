@@ -22,8 +22,6 @@ public:
     wchar_t *tooltip);
     void addCheckBox(const irr::core::rect<irr::s32>& pos, int box_enum, bool
     value);
-    void addRadioButton(const irr::core::rect<irr::s32>& pos, int box_enum, bool
-    value, int btn_index);
     void clearGUI();
 
     irr::gui::IGUIEnvironment *_guienv;

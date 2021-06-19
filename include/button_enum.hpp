@@ -33,11 +33,16 @@ enum Buttons {
     GUI_RADIO_MEDIUM,
     GUI_RADIO_LARGE,
     GUI_BUTTON_CREATE,
+    // Load Game
+    GUI_BUTTON_SAVE1,
+    GUI_BUTTON_SAVE2,
+    GUI_BUTTON_SAVE3,
+    GUI_BUTTON_SAVE4,
 };
 
-#define TEXTPATHSLENGTH 19
+#define TEXTPATHSLENGTH 23
 
-const irr::io::path textPaths[19] {
+const irr::io::path textPaths[23] {
     "./media/menu/BestBomberman.png",
     "./media/menu/NewGameHeadline.png",
     "./media/menu/LoadGameHeadline.png",
@@ -57,6 +62,10 @@ const irr::io::path textPaths[19] {
     "./media/menu/Medium.png",
     "./media/menu/Large.png",
     "./media/menu/CreateGame.png",
+    "./media/menu/SaveState1.png",
+    "./media/menu/SaveState2.png",
+    "./media/menu/SaveState3.png",
+    "./media/menu/SaveState4.png",
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_BUTTON_ENUM_HPP

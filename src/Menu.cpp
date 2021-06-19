@@ -39,7 +39,6 @@ void Menu::addButton(const irr::core::rect<irr::s32>& pos, int btn_enum, const w
                                                    nullptr, tooltip);
     elem->setImage(_imageList[btn_enum - 100].second);
     elem->setUseAlphaChannel();
-    elem->setIsPushButton();
     _elementList.push_back(elem);
 }
 
@@ -58,10 +57,3 @@ void Menu::addCheckBox(const irr::core::rect<irr::s32>& pos, int box_enum,
     _elementList.push_back(elem);
 }
 
-void Menu::addRadioButton(const irr::core::rect<irr::s32> &pos, int box_enum,
-                          bool value, int btn_index)
-{
-    irr::gui::IGUICheckBox *elem = _guienv->addCheckBox(value, pos, nullptr,
-                                                        box_enum);
-    _elementList.push_back(elem);
-}
