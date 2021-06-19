@@ -52,7 +52,7 @@ void Game::createMap()
 
 SAppContext Game::createContext()
 {
-    irr::video::E_DRIVER_TYPE driver_type = irr::driverChoiceConsole();
+    irr::video::E_DRIVER_TYPE driver_type = irr::video::EDT_OPENGL;
     irr::IrrlichtDevice *device = irr::createDevice(driver_type,
                                                     irr::core::dimension2d<irr::u32>(1920, 1080),
                                                     16, false, false, false, nullptr);
@@ -253,7 +253,8 @@ void Game::updateMenu()
 
 }
 
-void Game::load(std::string name, int playerNumber, int botNumber, int size)
+void Game::createGame(std::string name, int playerNumber, int botNumber, int
+size)
 {
     _size = size;
     _playerNumber = playerNumber;
@@ -290,8 +291,11 @@ void Game::load(int n)
             file >> line;
         }
         file.close();
+    } else {
+        std::cerr << "Could not open File from save state " << n << std::endl;
+        return;
     }
-    else throw std::runtime_error("file for game was not found");
+    unload();
     std::string code = ss.str();
     SerializeHelper sh(code, true);
 
@@ -433,4 +437,39 @@ void Game::checkSaveOrLoad()
         load(_context.saveState);
         _context.needLoad = false;
     }
+}
+
+void Game::unload()
+{
+    _context.device->closeDevice();
+    _context.device->run();
+    _context.device->drop();
+    irr::video::E_DRIVER_TYPE driver_type = irr::video::EDT_OPENGL;
+    irr::IrrlichtDevice *device = irr::createDevice(driver_type,
+                                                    irr::core::dimension2d<irr::u32>(1920, 1080),
+                                                    16, false, false, false, nullptr);
+    device->setWindowCaption(L"Best Bomberman");
+    device->setResizable(true);
+    _context.device = device;
+    _driver = _context.device->getVideoDriver();
+    _imageList.clear();
+    for (int i = 0; i < TEXTPATHSLENGTH; i += 1) {
+        std::pair<Buttons, irr::video::ITexture *> tmp;
+        tmp.first = static_cast<Buttons>(i + 100);
+        tmp.second = _driver->getTexture(textPaths[i]);
+        _imageList.push_back(tmp);
+    }
+    _context.counter = 0;
+    _players.clear();
+    _bombs.clear();
+    delete _map;
+    _mapTemplate.clear();
+    delete _powerUpHandler;
+    _mapTemplate = _floor->getTemplate();
+    //_map = new VisualMap(_context, _mapTemplate, _size);
+    _powerUpHandler = new PowerUpHandler(_context);
+    /*for (int i = 0; i < _playerNumber; i++)
+        _players[i].push_back(new Player(_context, *_map, i));
+    for (int i = 0; i < _botNumber; i++)
+        _players.push_back(new AIBot(_context, *_map, i));*/
 }

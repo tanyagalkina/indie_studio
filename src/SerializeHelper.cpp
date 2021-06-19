@@ -53,7 +53,7 @@ std::string SerializeHelper::FindKeyValue(const std::string& xml, const std::str
     std::string before;
     while (line != search && line != before)
     {
-        before  = line;
+        before = line;
         code >> line;
     }
     if (before == line)
