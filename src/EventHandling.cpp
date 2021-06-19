@@ -58,6 +58,9 @@ bool NewMenuEventReceiver::OnEvent(const irr::SEvent &event)
                     case GUI_BUTTON_BACK:
                         _context.state = GameState::Menu;
                         return true;
+                    case GUI_BUTTON_CREATE:
+                        _context.state = GameState::Game;
+                        return true;
                     default:
                         break;
                 }
