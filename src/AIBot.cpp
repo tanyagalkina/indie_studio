@@ -7,6 +7,10 @@ AIBot::AIBot(SAppContext &ctx, VisualMap &map, const int &playerIdx)
     : Character(ctx, map, playerIdx)
 {
     moveIdx = 0;
+    goingBack = 0;
+    shouldDropBomb = false;
+    bombsMax = 1;
+    lastSteps.push(this->body->getPosition());
 }
 
 AIBot::~AIBot()
@@ -15,13 +19,17 @@ AIBot::~AIBot()
 
 bool AIBot::dropBomb(GameEventReceiver &receiver)
 {
-    return false;
+    shouldDropBomb = true;
+    goingBack = 5;
+    lastSteps.pop();
+    return true;
 }
 
 bool AIBot::update(GameEventReceiver &receiver)
 {
     move(receiver);
-    return dropBomb(receiver);
+
+    return shouldDropBomb;
 }
 
 std::string AIBot::serialize()
@@ -41,9 +49,10 @@ bool AIBot::customMove(irr::core::vector3df target)
     auto currentPos = this->body->getPosition();
     auto dir = target - currentPos;
 
-    //if (target == currentPos) {
-        //return true;
-    //}
+    if (goingBack != 0 && target.getDistanceFrom(currentPos) < 10) {
+        std::cout << "Reducing this shit" << std::endl;
+        goingBack--;
+    }
 
     frameDeltaTime = (irr::f32)(now - then) / 1000.f;
     then = now;
@@ -59,12 +68,10 @@ bool AIBot::customMove(irr::core::vector3df target)
     return false;
 }
 
-void show_template(MyList<std::pair<Floor::Type, Coordinate>> mapTemplate);
-
 Floor::Type AIBot::checkNextMove(irr::core::vector3df &target)
 {
-    int x = (target.X + 250) / 50;
-    int y = (target.Z - 250) / 50;
+    int x = abs((target.X + 300) / 50);
+    int y = abs((target.Z - 350) / 50);
 
     //printf("x: %d, y: %d\n", x, y);
 
@@ -72,7 +79,7 @@ Floor::Type AIBot::checkNextMove(irr::core::vector3df &target)
 
     for (auto [type, coord] : currentMap) {
         if (coord.x == x && coord.y == y) {
-            printf("next\t%d - %d -> %d\n", coord.x, coord.y, (int)type);
+            //printf("next\t%d - %d -> %d\n", coord.x, coord.y, (int)type);
             return type;
         }
     }
@@ -85,8 +92,20 @@ void AIBot::move(GameEventReceiver &receiver)
     auto next = this->body->getPosition();
     int blockSize = 50;
 
-    printf("current\t%d - %d\n", (int)((next.X + 250) / 50), (int)((next.Z - 250) / 50));
-    std::cout << moveIdx << std::endl;
+    //std::cout << "X: " << next.X << " Z: " << next.Z << std::endl;
+    //
+    std::cout << lastSteps.size() << std::endl;
+
+    if (goingBack == 0 && lastSteps.size() != 0 && lastSteps.top() != next) {
+        lastSteps.push(next);
+    }
+    if (goingBack != 0 && lastSteps.size() > 2) {
+        customMove(lastSteps.top());
+        lastSteps.pop();
+        return;
+    }
+
+    //printf("current\t%d - %d\n", abs((int)(next.X + 300) / 50), abs((int)(next.Z - 350) / 50));
     switch (moveIdx % 4) {
         case 0: //UP
             next.Z += blockSize;
@@ -104,13 +123,13 @@ void AIBot::move(GameEventReceiver &receiver)
 
     auto type = checkNextMove(next);
 
-    //std::cout << "type: " << (int)type << std::endl;
-
-    if (type == Floor::Type::WALL) {
+    if (type == Floor::Type::WALL || type == Floor::Type::TELEPORT) {
         moveIdx++;
     }
-    if (type == Floor::Type::BOX || type == Floor::Type::TILE) {
+    if (type == Floor::Type::BOX || type == Floor::Type::TILE /*|| type == Floor::Type::PLAYER*/) {
         dropBomb(receiver);
+    } else {
+        shouldDropBomb = false;
     }
     if (type == Floor::Type::EMPTY) {
         customMove(next);
