@@ -131,8 +131,27 @@ bool LoadMenuEventReceiver::OnEvent(const irr::SEvent &event)
             case irr::gui::EGET_BUTTON_CLICKED:
                 switch (id)
                 {
+                    case GUI_BUTTON_SAVE1:
+                        _context.needLoad = true;
+                        _context.saveState = 1;
+                        return true;
+                    case GUI_BUTTON_SAVE2:
+                        _context.needLoad = true;
+                        _context.saveState = 2;
+                        return true;
+                    case GUI_BUTTON_SAVE3:
+                        _context.needLoad = true;
+                        _context.saveState = 3;
+                        return true;
+                    case GUI_BUTTON_SAVE4:
+                        _context.needLoad = true;
+                        _context.saveState = 4;
+                        return true;
                     case GUI_BUTTON_BACK:
-                        _context.state = GameState::Menu;
+                        if (_context.isPaused)
+                            _context.state = GameState::PauseMenu;
+                        else
+                            _context.state = GameState::Menu;
                         return true;
                     default:
                         break;
@@ -158,7 +177,10 @@ bool SettingsMenuEventReceiver::OnEvent(const irr::SEvent &event)
                 switch (id)
                 {
                     case GUI_BUTTON_BACK:
-                        _context.state = GameState::Menu;
+                        if (_context.isPaused)
+                            _context.state = GameState::PauseMenu;
+                        else
+                            _context.state = GameState::Menu;
                         return true;
                     default:
                         break;
@@ -197,6 +219,7 @@ bool PauseMenuEventReceiver::OnEvent(const irr::SEvent &event)
                 switch (id)
                 {
                     case GUI_BUTTON_CONTINUE:
+                        _context.isPaused = false;
                         _context.state = GameState::Game;
                         return true;
                     case GUI_BUTTON_SAVE:
@@ -209,6 +232,7 @@ bool PauseMenuEventReceiver::OnEvent(const irr::SEvent &event)
                         _context.state = GameState::Settings;
                         return true;
                     case GUI_BUTTON_MAINMENU:
+                        _context.isPaused = false;
                         _context.state = GameState::Menu;
                         return true;
                     case GUI_BUTTON_QUIT:
@@ -226,5 +250,43 @@ bool PauseMenuEventReceiver::OnEvent(const irr::SEvent &event)
 
 bool SaveMenuEventReceiver::OnEvent(const irr::SEvent &event)
 {
+    if (event.EventType == irr::EET_GUI_EVENT)
+    {
+        irr::s32 id = event.GUIEvent.Caller->getID();
+
+        switch (event.GUIEvent.EventType)
+        {
+            case irr::gui::EGET_SCROLL_BAR_CHANGED:
+                break;
+            case irr::gui::EGET_BUTTON_CLICKED:
+                switch (id)
+                {
+                    case GUI_BUTTON_SAVE1:
+                        _context.needSave = true;
+                        _context.saveState = 1;
+                        return true;
+                    case GUI_BUTTON_SAVE2:
+                        _context.needSave = true;
+                        _context.saveState = 2;
+                        return true;
+                    case GUI_BUTTON_SAVE3:
+                        _context.needSave = true;
+                        _context.saveState = 3;
+                        return true;
+                    case GUI_BUTTON_SAVE4:
+                        _context.needSave = true;
+                        _context.saveState = 4;
+                        return true;
+                    case GUI_BUTTON_BACK:
+                        _context.state = GameState::PauseMenu;
+                        return true;
+                    default:
+                        break;
+                }
+            default:
+                break;
+        }
+    }
     return false;
 }
+
