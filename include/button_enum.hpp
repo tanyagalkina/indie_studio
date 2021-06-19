@@ -28,14 +28,16 @@ enum Buttons {
     // New Game
     GUI_RADIO_PLAYER1,
     GUI_RADIO_PLAYER2,
+    GUI_TEXT_MAP,
     GUI_RADIO_SMALL,
     GUI_RADIO_MEDIUM,
     GUI_RADIO_LARGE,
+    GUI_BUTTON_CREATE,
 };
 
-#define TEXTPATHSLENGTH 12
+#define TEXTPATHSLENGTH 19
 
-const irr::io::path textPaths[12] {
+const irr::io::path textPaths[19] {
     "./media/menu/BestBomberman.png",
     "./media/menu/NewGameHeadline.png",
     "./media/menu/LoadGameHeadline.png",
@@ -48,6 +50,13 @@ const irr::io::path textPaths[12] {
     "./media/menu/MainMenu.png",
     "./media/menu/MuteMusic.png",
     "./media/menu/MuteSounds.png",
+    "./media/menu/1Player.png",
+    "./media/menu/2Players.png",
+    "./media/menu/MapHeadline.png",
+    "./media/menu/Small.png",
+    "./media/menu/Medium.png",
+    "./media/menu/Large.png",
+    "./media/menu/CreateGame.png",
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_BUTTON_ENUM_HPP
