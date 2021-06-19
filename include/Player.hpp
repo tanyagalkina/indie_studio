@@ -45,7 +45,8 @@ private:
 /* up, right, down, left */
 static const irr::EKEY_CODE keyCodes[2][5] = {
     { irr::KEY_KEY_W, irr::KEY_KEY_D, irr::KEY_KEY_S, irr::KEY_KEY_A, irr::KEY_SPACE},
-    { irr::KEY_UP, irr::KEY_RIGHT, irr::KEY_DOWN, irr::KEY_LEFT, irr::KEY_RETURN}
+    { irr::KEY_UP, irr::KEY_RIGHT, irr::KEY_DOWN, irr::KEY_LEFT,
+      irr::KEY_RETURN}
 };
 
 class Player : public Character

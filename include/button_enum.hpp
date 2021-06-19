@@ -38,11 +38,15 @@ enum Buttons {
     GUI_BUTTON_SAVE2,
     GUI_BUTTON_SAVE3,
     GUI_BUTTON_SAVE4,
+    // Pause Game
+    GUI_TEXT_PAUSED,
+    GUI_BUTTON_CONTINUE,
+    GUI_BUTTON_SAVE,
 };
 
-#define TEXTPATHSLENGTH 23
+#define TEXTPATHSLENGTH 26
 
-const irr::io::path textPaths[23] {
+const irr::io::path textPaths[26] {
     "./media/menu/BestBomberman.png",
     "./media/menu/NewGameHeadline.png",
     "./media/menu/LoadGameHeadline.png",
@@ -66,6 +70,9 @@ const irr::io::path textPaths[23] {
     "./media/menu/SaveState2.png",
     "./media/menu/SaveState3.png",
     "./media/menu/SaveState4.png",
+    "./media/menu/GamePaused.png",
+    "./media/menu/Continue.png",
+    "./media/menu/SaveGame.png",
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_BUTTON_ENUM_HPP
