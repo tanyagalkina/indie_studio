@@ -1,17 +1,9 @@
-#include <cstddef>
 #include <driverChoice.h>
 #include <Floor.hpp>
 #include <utility>
 #include "../include/Menu.hpp"
 #include "AppContext.hpp"
-#include "AssetLoadError.hpp"
-#include "EDriverTypes.h"
 #include "IGUISkin.h"
-#include "SceneError.hpp"
-#include "VisualMap.hpp"
-#include "Player.hpp"
-#include "../include/Error.hpp"
-#include "PowerUpHandler.hpp"
 
 Menu::Menu(SAppContext context, const std::vector<std::pair<Buttons,
            irr::video::ITexture *>> &imageList, irr::video::IVideoDriver
@@ -56,5 +48,20 @@ void Menu::addCheckBox(const irr::core::rect<irr::s32>& pos, int box_enum,
     irr::gui::IGUICheckBox *elem = _guienv->addCheckBox(value, pos, nullptr,
                                                         box_enum);
     _elementList.push_back(elem);
+}
+
+irr::video::IVideoDriver *Menu::getDriver()
+{
+    return _driver;
+}
+
+irr::gui::IGUIEnvironment *Menu::getGuiEnv()
+{
+    return _guienv;
+}
+
+std::vector<irr::gui::IGUIElement *> Menu::getElementList()
+{
+    return _elementList;
 }
 

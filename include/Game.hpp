@@ -21,7 +21,6 @@
 class Game
 {
 private:
-    std::string _name = "gameOne";
     SAppContext _context;
     int _size;
     irr::video::IVideoDriver *_driver;

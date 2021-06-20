@@ -12,10 +12,12 @@
 
 class Explosion
 {
+    irr::scene::IParticleSystemSceneNode *_particleSystemSceneNode;
 public:
     Explosion(irr::core::vector3df const &position, irr::core::vector3df const &direction, irr::IrrlichtDevice *device);
     ~Explosion();
-    irr::scene::IParticleSystemSceneNode *_particleSystemSceneNode;
+
+    irr::scene::IParticleSystemSceneNode * getParticleSceneNode();
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_EXPLOSION_HPP

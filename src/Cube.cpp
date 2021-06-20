@@ -1,6 +1,5 @@
 #include "Cube.hpp"
 #include "Floor.hpp"
-#include <sys/select.h>
 
 Cube::Cube(SAppContext &context, Floor::Type  blockType, Coordinate cord)
     : type(blockType), coordinate(cord)
@@ -102,16 +101,6 @@ bool Cube::HandleCollision(const irr::core::aabbox3d<irr::f32> &object)
 irr::scene::IAnimatedMeshSceneNode *Cube::getbody()
 {
     return body;
-}
-
-bool Cube::isVisible() const
-{
-    return _visible;
-}
-
-void Cube::setVisible(bool enable)
-{
-    _visible = enable;
 }
 
 Coordinate Cube::getCoordinates()

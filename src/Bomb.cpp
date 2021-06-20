@@ -5,8 +5,8 @@
 ** Bomb.cpp
 */
 
-#include <Bomb.hpp>
 #include <Explosion.hpp>
+#include <Bomb.hpp>
 
 
 Bomb::Bomb(SAppContext &ctx, Audio *sounds, Character *player) : _player(player)
@@ -66,7 +66,7 @@ void Bomb::initExplosion(std::vector<float> surround)
 void Bomb::stopExplosion()
 {
     for (auto it : this->_explosions) {
-        it->_particleSystemSceneNode->setVisible(false);
+        it->getParticleSceneNode()->setVisible(false);
         delete it;
     }
     this->_explosions.clear();
@@ -159,3 +159,20 @@ MyList<Explosion *> Bomb::getExplosions()
 {
     return _explosions;
 }
+
+irr::scene::IAnimatedMeshSceneNode *Bomb::getBody()
+{
+    return body;
+}
+
+Timer Bomb::getTimer()
+{
+    return timer;
+}
+
+bool Bomb::getExploded()
+{
+    return _exploded;
+}
+
+

@@ -27,11 +27,9 @@ public:
     Coordinate getMaxCoordinates();
     Map getMap();
     void setMap(Coordinate coord, Floor::Type type);
-    void eraseCubes(const MyList<MyList<Cube *>::iterator>& eares);
 
 private:
     void initializeMap(Map &map);
-    irr::scene::IAnimatedMeshSceneNode *createCube(Floor::Type type, Coordinate coord);
 
 private:
     /* general */
@@ -40,18 +38,8 @@ private:
     irr::video::IVideoDriver *driver;
     Coordinate maxCoordinates;
 
-    /* list of wooden blocks (that can be destroyed) */
-    // @todo replace this with a class that contains more information about the
-    // block so we can load diff texture and check if you can move through this
-    // at any time or is there a powerup underneath, this Class should have an
-    // addCollision(just like the VisualMap class) method to make collision
-    // between this box and the player possible.
     MyList<Cube *> blocks;
-    int _size;
 
-    /* collision */
-    /* this one is just a collection of multiple selectors to act as one big
-     * selector */
     irr::scene::IMetaTriangleSelector *metaSelector;
     Map *map;
 };
