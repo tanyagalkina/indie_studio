@@ -47,26 +47,10 @@ void Floor::show_map()
 
 void Floor::set_teleport()
 {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distr(1, 4);
-    int my_random = distr(gen);
-    switch (my_random)
-    {
-        case (1):
-            _template[_height / 2][1] = '+'; //X
-            break;
-        case (2):
-            _template[(_height) / 2][_width - 2] =  '+';
-            break;
-        case (3):
-            _template[1][(_width) / 2] = '+';
-            break;
-        case (4):
-            _template[_height - 2][_width / 2] = '+';
-            break;
-    }
-
+    _template[_height / 2][1] = '+'; //X
+    _template[(_height) / 2][_width - 2] =  '+';
+    _template[1][(_width) / 2] = '+';
+    _template[_height - 2][_width / 2] = '+';
     build_available_square_list();
 }
 
