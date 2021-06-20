@@ -188,7 +188,7 @@ std::vector<float> Game::getFireSurround( MyList<Cube *> map, irr::core::vector3
     while (up < 0.5) {
 
         Coord.first = pos.X;
-        Coord.second = pos.Z - tanya;
+        Coord.second = pos.Z + tanya;
         //std::vector<std::pair<int, int>>::iterator it;
         if (std::find(wallsCoord.begin(), wallsCoord.end(), Coord) != wallsCoord.end())
         {
@@ -242,7 +242,7 @@ std::vector<float> Game::getFireSurround( MyList<Cube *> map, irr::core::vector3
     while (down > -0.5) {
 
         Coord.first = pos.X;
-        Coord.second = pos.Z + 50;
+        Coord.second = pos.Z - 50;
         if (std::find(wallsCoord.begin(), wallsCoord.end(), Coord) != wallsCoord.end())
         {
 
@@ -284,7 +284,7 @@ std::vector<float> Game::getSurround(irr::core::vector3d<irr::f32> pos, Characte
         if (map[i]->getType() == 2) {
             irr::core::vector3d<irr::f32> cubePos = map[i]->getbody()->getPosition();
             ///if the wall is one or two squres higher
-            if ((cubePos.Z == pos.Z - 50 || cubePos.Z == pos.Z - 100) \
+            if ((cubePos.Z == pos.Z + 50 || cubePos.Z == pos.Z + 100) \
             && cubePos.X == pos.X) {
                 up = 0.1f;
             }
@@ -294,8 +294,10 @@ std::vector<float> Game::getSurround(irr::core::vector3d<irr::f32> pos, Characte
                 right = 0.1f;
             }
             /// if the wall is lower
-            if ((cubePos.Z == pos.Z + 50 || cubePos.Z == pos.Z + 100) \
-            && cubePos.X == pos.X)
+            if (cubePos.X == pos.X && \
+            (cubePos.Z == pos.Z - 50 || cubePos.Z == pos.Z - 100))
+            //if ((cubePos.Z == pos.Z - 50 || cubePos.Z == pos.Z - 100) \
+            //&& cubePos.X == pos.X)
                 down = -0.1f;
 
             ///if the wall is on the left
