@@ -69,13 +69,13 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::
 
     menu->addCheckBox(irr::core::rect<irr::s32>(begin_x, size_y * 5,
                                                 begin_x + size_x * 0.02,size_y * 5.4 + size_x * 0.02),
-                      GUI_RADIO_PLAYER1, context.muteMusic);
+                      GUI_RADIO_PLAYER1, false);
     menu->addLabel(GUI_RADIO_PLAYER1, irr::core::position2d<irr::s32>
         (begin_x * 1.2, size_y * 5));
 
     menu->addCheckBox(irr::core::rect<irr::s32>(begin_x * 3, size_y * 5,
                                                 begin_x * 3 + size_x * 0.02, size_y * 5.4 + size_x * 0.02),
-                      GUI_RADIO_PLAYER2, context.muteSound);
+                      GUI_RADIO_PLAYER2, false);
     menu->addLabel(GUI_RADIO_PLAYER2, irr::core::position2d<irr::s32>
         (begin_x * 3.2, size_y * 5));
 
@@ -84,19 +84,19 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::
 
     menu->addCheckBox(irr::core::rect<irr::s32>(begin_x * 1, size_y * 10,
                                                 begin_x * 1 + size_x * 0.02, size_y * 10.4 + size_x * 0.02),
-                      GUI_RADIO_SMALL, context.muteSound);
+                      GUI_RADIO_SMALL, false);
     menu->addLabel(GUI_RADIO_SMALL, irr::core::position2d<irr::s32>
         (begin_x * 1.2, size_y * 10));
 
     menu->addCheckBox(irr::core::rect<irr::s32>(begin_x * 2.2, size_y * 10,
                                                 begin_x * 2.2 + size_x * 0.02, size_y * 10.4 + size_x * 0.02),
-                      GUI_RADIO_MEDIUM, context.muteSound);
+                      GUI_RADIO_MEDIUM, false);
     menu->addLabel(GUI_RADIO_MEDIUM, irr::core::position2d<irr::s32>
         (begin_x * 2.4, size_y * 10));
 
     menu->addCheckBox(irr::core::rect<irr::s32>(begin_x * 3.4, size_y * 10,
                                                 begin_x * 3.4 + size_x * 0.02, size_y * 10.4 + size_x * 0.02),
-                      GUI_RADIO_LARGE, context.muteSound);
+                      GUI_RADIO_LARGE, false);
     menu->addLabel(GUI_RADIO_LARGE, irr::core::position2d<irr::s32>
         (begin_x * 3.6, size_y * 10));
 

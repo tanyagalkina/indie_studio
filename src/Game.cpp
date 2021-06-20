@@ -589,6 +589,9 @@ bool Game::HandleExplosion()
                         {
                             randomPowerUpSpawn(box->getbody()->getPosition().X,
                                                box->getbody()->getPosition().Z);
+                            _map->setMap(box->getbody()->getPosition().X,
+                                         box->getbody()->getPosition().Z,
+                                         Floor::Type::EMPTY);
                             box->getbody()->setPosition(irr::core::vector3df(-5000));
 //                            box->getbody()->setVisible(false);
                         }
