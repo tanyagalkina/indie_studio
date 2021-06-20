@@ -10,7 +10,6 @@
 
 #include "AppContext.hpp"
 #include "ICollidable.hpp"
-//#include "Error.hpp"
 #include "Player.hpp"
 #include "Audio.hpp"
 #include "Explosion.hpp"
@@ -24,12 +23,12 @@ private:
     Character *_player;
     irr::core::vector3df _position;
     MyList<Explosion*> _explosions; // 4x in each direction
+    bool _exploded = false;
+    Timer timer = Timer(3000);
 public:
     explicit Bomb(SAppContext &ctx, Audio *sounds, Character *player);
     ~Bomb() override = default;
     [[nodiscard]] Character *getPLayer() const;
-    bool over = false;
-    Timer timer = Timer(3000);
     void drop();
     void initExplosion(std::vector<float> surround);
     void stopExplosion();
@@ -37,7 +36,11 @@ public:
     bool HandleCollision(Character &player) final;
     bool beShureCollision(const irr::core::vector3df& pos);
     MyList<Explosion*> getExplosions();
-    bool _exploded = false;
+    irr::scene::IAnimatedMeshSceneNode *getBody();
+
+    Timer getTimer();
+
+    bool getExploded();
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_BOMB_HPP

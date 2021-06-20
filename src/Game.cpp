@@ -150,7 +150,7 @@ bool Game::isDropPossible(Character *player)
 
     for (it = _bombs.begin(); it != _bombs.end(); it++)
     {
-        if ((*it)->body->getPosition() == position)
+        if ((*it)->getBody()->getPosition() == position)
             return false;
     }
     return true;
@@ -319,10 +319,11 @@ void Game::getExplosions() {
     auto it = _bombs.begin();
 
     while (it != _bombs.end()) {
-        if (!(*it)->_exploded && (*it)->timer.isFinished()) {
-            (*it)->initExplosion(getSurround((*it)->body->getAbsolutePosition(), (*it)->getPLayer()));
+        if (!(*it)->getExploded() && (*it)->getTimer().isFinished()) {
+            (*it)->initExplosion(getSurround((*it)->getBody()->getAbsolutePosition(), (*it)->getPLayer
+            ()));
             _sounds->explode();
-        } else if ((*it)->_exploded && (*it)->timer.isFinished()) {
+        } else if ((*it)->getExploded() && (*it)->getTimer().isFinished()) {
             (*it)->stopExplosion();
             delete _bombs[it - _bombs.begin()];
             it = _bombs.erase(it);
@@ -366,7 +367,7 @@ void Game::showMenu(GameState state, Menu *menu)
     while (_context.device->run() && _context.state == state)
     {
         _driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
-        menu->_guienv->drawAll();
+        menu->getGuiEnv()->drawAll();
         _driver->endScene();
     }
 }
@@ -385,7 +386,7 @@ void Game::updateMenu()
         }
         case GameState::New: {
             Menu *menu = build_new_menu(_context, _imageList, _driver);
-            auto *reciever = new NewMenuEventReceiver(_context, menu->_elementList);
+            auto *reciever = new NewMenuEventReceiver(_context, menu->getElementList());
             _context.device->setEventReceiver(reciever);
             showMenu(GameState::New, menu);
             delete reciever;
@@ -566,7 +567,7 @@ bool Game::HandleExplosion()
             for (auto &player : _players)
             {
                 if (player->checkCollision(
-                    expo->_particleSystemSceneNode->getTransformedBoundingBox()))
+                    expo->getParticleSceneNode()->getTransformedBoundingBox()))
                 {
                     if (bomb->beShureCollision(player->getBody()->getPosition())) {
                         if (player->isAlive()) {
@@ -582,10 +583,10 @@ bool Game::HandleExplosion()
                 if (box->getbody()->isVisible())
                 {
                     if (box->HandleCollision(
-                        expo->_particleSystemSceneNode->getTransformedBoundingBox()))
+                        expo->getParticleSceneNode()->getTransformedBoundingBox()))
                     {
                         if (bomb->beShureCollision(box->getbody()->getPosition()) &&
-                            bomb->_exploded)
+                            bomb->getExploded())
                         {
                             randomPowerUpSpawn(box->getbody()->getPosition().X,
                                                box->getbody()->getPosition().Z);

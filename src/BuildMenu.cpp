@@ -27,9 +27,9 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::
 
     Menu *menu = new Menu(context, imageList, driver);
 
-    irr::video::ITexture *backgroundTexture = menu->_driver->
+    irr::video::ITexture *backgroundTexture = menu->getDriver()->
         getTexture("./media/background.jpg");
-    menu->_guienv->addImage(backgroundTexture, irr::core::position2d<irr::s32>
+    menu->getGuiEnv()->addImage(backgroundTexture, irr::core::position2d<irr::s32>
         (0, 0));
 
     menu->addLabel(GUI_TEXT_HEADLINE, irr::core::position2d<irr::s32>
@@ -253,9 +253,9 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::
 
     Menu *menu = new Menu(context, imageList, driver);
 
-    irr::video::ITexture *backgroundTexture = menu->_driver->
+    irr::video::ITexture *backgroundTexture = menu->getDriver()->
         getTexture("./media/background.jpg");
-    menu->_guienv->addImage(backgroundTexture, irr::core::position2d<irr::s32>
+    menu->getGuiEnv()->addImage(backgroundTexture, irr::core::position2d<irr::s32>
         (0, 0));
 
     switch (winner) {

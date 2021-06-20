@@ -130,9 +130,6 @@
 		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/BombUp.hpp">
 			<Option target="bomberman"/>
 		</Unit>
-		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/Bomberman.hpp">
-			<Option target="bomberman"/>
-		</Unit>
 		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/Character.hpp">
 			<Option target="bomberman"/>
 		</Unit>
@@ -170,6 +167,9 @@
 			<Option target="bomberman"/>
 		</Unit>
 		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/Player.hpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/PlayerEventHandling.hpp">
 			<Option target="bomberman"/>
 		</Unit>
 		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/include/PowerUp.hpp">
@@ -247,6 +247,9 @@
 		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/Player.cpp">
 			<Option target="bomberman"/>
 		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/PlayerEventHandling.cpp">
+			<Option target="bomberman"/>
+		</Unit>
 		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/PowerUp.cpp">
 			<Option target="bomberman"/>
 		</Unit>
@@ -260,6 +263,9 @@
 			<Option target="bomberman"/>
 		</Unit>
 		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/Speedup.cpp">
+			<Option target="bomberman"/>
+		</Unit>
+		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/Timer.cpp">
 			<Option target="bomberman"/>
 		</Unit>
 		<Unit filename="/home/CookiieZ/Epitech/tek2/indie/B-YEP-400-BER-4-1-indiestudio-karl-erik.stoerzel/src/VisualMap.cpp">

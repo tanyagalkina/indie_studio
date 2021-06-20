@@ -36,3 +36,8 @@ Explosion::Explosion(irr::core::vector3df const &position, irr::core::vector3df 
 Explosion::~Explosion() {
     _particleSystemSceneNode->remove();
 }
+
+irr::scene::IParticleSystemSceneNode * Explosion::getParticleSceneNode()
+{
+    return _particleSystemSceneNode;
+}

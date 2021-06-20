@@ -16,36 +16,7 @@
 #include "Timer.hpp"
 #include "PowerUpEnum.hpp"
 #include "IXML.hpp"
-
-class GameEventReceiver : public irr::IEventReceiver
-{
-public:
-	virtual bool OnEvent(const irr::SEvent& event)
-	{
-		if (event.EventType == irr::EET_KEY_INPUT_EVENT)
-			KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
-		return false;
-	}
-
-	virtual bool IsKeyDown(irr::EKEY_CODE keyCode) const
-	{
-		return KeyIsDown[keyCode];
-	}
-
-	void setIsKeyDown(irr::EKEY_CODE keyCode, bool value)
-	{
-        KeyIsDown[keyCode] = value;
-    }
-
-	GameEventReceiver()
-	{
-		for (irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; i++)
-			KeyIsDown[i] = false;
-	}
-
-private:
-	bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
-};
+#include "PlayerEventHandling.hpp"
 
 /* up, right, down, left, bomb */
 static const irr::EKEY_CODE keyCodes[2][5] = {
@@ -60,11 +31,7 @@ public:
     Player(SAppContext &ctx, VisualMap &map, const int &playerIdx = 0);
     virtual ~Player();
     bool update(GameEventReceiver &receiver) final;
-    //int calcMiddle(int coordinate);
     std::string serialize() final;
-    //int bombsMax = 2;
-    void upgradeBombsMax();
-    //bool getUnlimitedBombs() const;
 
 private:
     enum keyDirection {
@@ -80,9 +47,6 @@ private:
     bool dropBomb(GameEventReceiver &receiver) final;
 
 private:
-
-//    std::vector<Bomb> bombs; // @todo put this into the overall game class with all bombs on the field
-
     MyList<std::pair<Timer, PowerUpType>> powerUpTimers;
 };
 

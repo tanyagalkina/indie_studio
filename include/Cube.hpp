@@ -25,9 +25,6 @@ public:
     irr::scene::IAnimatedMeshSceneNode *getbody();
     Floor::Type getType() const;
     Coordinate getCoordinates();
-
-    bool isVisible() const;
-    void setVisible(bool enable);
 private:
     Floor::Type type;
     Coordinate coordinate;

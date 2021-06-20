@@ -34,7 +34,7 @@ public:
     bool checkCollision(const irr::core::aabbox3d<irr::f32>& object) const;
 
     virtual bool update(GameEventReceiver &receiver) = 0;
-    virtual std::string serialize() override;
+    std::string serialize() override;
     void deserialize(std::string xmlCode) final;
 
 private:
