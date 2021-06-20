@@ -113,11 +113,11 @@ void VisualMap::eraseCubes(const MyList<MyList<Cube *>::iterator>& eares)
 void VisualMap::setMap(int x, int y, Floor::Type newType)
 {
     x = abs((x + 300) / 50);
-    y = abs((y - 350) / 50);
+    y = abs((y - 300) / 50);
 
-    for (auto [type, coord] : *map) {
-        if (coord.x == x && coord.y == y) {
-            type = newType;
+    for (auto &it : *map) {
+        if (it.second.x == x && it.second.y == y) {
+            it.first = newType;
             return;
         }
     }

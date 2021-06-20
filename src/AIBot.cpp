@@ -127,11 +127,11 @@ void AIBot::move(GameEventReceiver &receiver)
             next.Z += blockSize;
             break;
         case 1: //right
-            this->body->setRotation(irr::core::vector3df(0, 90, 0));
+            this->body->setRotation(irr::core::vector3df(0, 0, 0));
             next.X += blockSize;
             break;
         case 2: //down
-            this->body->setRotation(irr::core::vector3df(0, 0, 0));
+            this->body->setRotation(irr::core::vector3df(0, 90, 0));
             next.Z -= blockSize;
             break;
         case 3: //left
@@ -147,7 +147,7 @@ void AIBot::move(GameEventReceiver &receiver)
         moveIdx++;
     }
     if (type == Floor::Type::BOX) {
-        dropBomb(receiver);
+        //dropBomb(receiver);
     } else {
         shouldDropBomb = false;
     }

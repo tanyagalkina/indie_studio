@@ -584,14 +584,15 @@ bool Game::HandleExplosion()
                     if (box->HandleCollision(
                         expo->_particleSystemSceneNode->getTransformedBoundingBox()))
                     {
-                        if (bomb->beShureCollision(_players[0], box->getbody()->getPosition()) &&
+                        if (bomb->beShureCollision(box->getbody()->getPosition()) &&
                             bomb->_exploded)
                         {
                             randomPowerUpSpawn(box->getbody()->getPosition().X,
                                                box->getbody()->getPosition().Z);
-                            _map->setMap(box->getbody()->getPosition().X,
-                                         box->getbody()->getPosition().Z,
-                                         Floor::Type::EMPTY);
+                            _map->setMap(_players[0]->calcMiddle(box->getbody()
+                            ->getPosition().X), _players[0]->calcMiddle
+                            (box->getbody()->getPosition().Z),
+                            Floor::Type::EMPTY);
                             box->getbody()->setPosition(irr::core::vector3df(-5000));
 //                            box->getbody()->setVisible(false);
                         }
