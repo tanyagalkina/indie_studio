@@ -69,10 +69,8 @@ bool AIBot::customMove(irr::core::vector3df target)
 
 Floor::Type AIBot::checkNextMove(irr::core::vector3df &target)
 {
-    int x = abs((target.X + 300) / 50);
-    int y = abs((target.Z - 350) / 50);
-
-    //printf("x: %d, y: %d\n", x, y);
+    int x = round(abs((target.X + 300) / 50));
+    int y = round(abs((target.Z - 300) / 50));
 
     auto currentMap = map->getMap();
 
@@ -89,37 +87,37 @@ Floor::Type AIBot::checkNextMove(irr::core::vector3df &target)
 void AIBot::move(GameEventReceiver &receiver)
 {
     auto next = this->body->getPosition();
-    int blockSize = 50;
+    int blockSize = 25;
 
     //std::cout << "X: " << next.X << " Z: " << next.Z << std::endl;
     //
     std::cout << lastSteps.size() << std::endl;
 
-    if (goingBack == 0 && lastSteps.size() != 0 && lastSteps.top() != next) {
-        lastSteps.push(next);
-    }
-    if (goingBack != 0 && lastSteps.size() > 2) {
-        lastSteps.pop();
+    //if (goingBack == 0 && lastSteps.size() != 0 && lastSteps.top() != next) {
+        //lastSteps.push(next);
+    //}
+    //if (goingBack != 0 && lastSteps.size() > 2) {
+        //lastSteps.pop();
 
-        auto last = lastSteps.top();
+        //auto last = lastSteps.top();
 
-        if (last.Z < next.Z) {
-            this->body->setRotation(irr::core::vector3df(0, 90, 0));
-        }
-        if (last.Z > next.Z) {
-            this->body->setRotation(irr::core::vector3df(0, 180, 0));
-        }
-        if (last.X < next.X) {
-            this->body->setRotation(irr::core::vector3df(0, 270, 0));
-        }
-        if (last.X > next.X) {
-            this->body->setRotation(irr::core::vector3df(0, 0, 0));
-        }
+        //if (last.Z < next.Z) {
+            //this->body->setRotation(irr::core::vector3df(0, 90, 0));
+        //}
+        //if (last.Z > next.Z) {
+            //this->body->setRotation(irr::core::vector3df(0, 180, 0));
+        //}
+        //if (last.X < next.X) {
+            //this->body->setRotation(irr::core::vector3df(0, 270, 0));
+        //}
+        //if (last.X > next.X) {
+            //this->body->setRotation(irr::core::vector3df(0, 0, 0));
+        //}
 
-        customMove(last);
-        lastSteps.pop();
-        return;
-    }
+        //customMove(last);
+        //lastSteps.pop();
+        //return;
+    //}
 
 
     //printf("current\t%d - %d\n", abs((int)(next.X + 300) / 50), abs((int)(next.Z - 350) / 50));
