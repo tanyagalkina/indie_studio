@@ -31,7 +31,7 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::
         getTexture("./media/background.jpg");
     menu->_guienv->addImage(backgroundTexture, irr::core::position2d<irr::s32>
         (0, 0));
-    d
+
     menu->addLabel(GUI_TEXT_HEADLINE, irr::core::position2d<irr::s32>
         (begin_x * 1.375, size_y));
 
