@@ -196,7 +196,7 @@ std::vector<float> Game::getFireSurround( MyList<Cube *> map, irr::core::vector3
         }
         else
         {
-            up = up  + 0.01;
+            up = up  + 0.1f;
             tanya += 50;
         }
     }
@@ -214,7 +214,7 @@ std::vector<float> Game::getFireSurround( MyList<Cube *> map, irr::core::vector3
         }
         else
         {
-            left = left  - 0.01;
+            left = left  - 0.1f;
             tanya += 50;
         }
     }
@@ -232,7 +232,7 @@ std::vector<float> Game::getFireSurround( MyList<Cube *> map, irr::core::vector3
         }
         else
         {
-            right = right  + 0.01;
+            right = right  + 0.1f;
             tanya += 50;
         }
     }
@@ -242,7 +242,7 @@ std::vector<float> Game::getFireSurround( MyList<Cube *> map, irr::core::vector3
     while (down > -0.5) {
 
         Coord.first = pos.X;
-        Coord.second = pos.Z - 50;
+        Coord.second = pos.Z - tanya;
         if (std::find(wallsCoord.begin(), wallsCoord.end(), Coord) != wallsCoord.end())
         {
 
@@ -250,10 +250,11 @@ std::vector<float> Game::getFireSurround( MyList<Cube *> map, irr::core::vector3
         }
         else
         {
-            down = down  - 0.01;
+            down = down  - 0.1f;
             tanya += 50;
         }
     }
+
 
     surround.push_back(up);
     surround.push_back(right);
