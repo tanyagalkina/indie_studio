@@ -372,6 +372,10 @@ void Game::updateMenu()
 {
     switch (_context.state) {
         case GameState::Menu: {
+            if (!_context.needGame) {
+                unload();
+                _context.needGame = true;
+            }
             Menu *menu = build_main_menu(_context, _imageList, _driver);
             auto *reciever = new MainMenuEventReceiver(_context);
             _context.device->setEventReceiver(reciever);
@@ -630,8 +634,10 @@ bool Game::checkSaveOrLoad()
     if (_context.needLoad) {
         if (load(_context.saveState))
             _context.needLoad = false;
-        else
+        else {
+            _context.needLoad = false;
             return false;
+        }
     }
     return true;
 }
