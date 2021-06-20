@@ -222,11 +222,13 @@ void Game::getExplosions() {
 Game::~Game()
 {
     //_context.device->drop();
-    delete _map;
-    delete _gameReceiver;
-    delete _driver;
-    delete _powerUpHandler;
-    delete _floor;
+    if (!_context.needGame) {
+        delete _map;
+        delete _gameReceiver;
+        delete _driver;
+        delete _powerUpHandler;
+        delete _floor;
+    }
     delete _sounds;
 }
 
@@ -534,7 +536,6 @@ void Game::checkLevel()
         else
             _winner = 0;
         unload();
-        _context.needGame = true;
     }
         //nextLevel();
 }
@@ -584,10 +585,13 @@ void Game::unload()
     _mapTemplate.clear();
     delete _powerUpHandler;
     _mapTemplate = _floor->getTemplate();
+    delete _gameReceiver;
+    _gameReceiver = new GameEventReceiver();
     //_map = new VisualMap(_context, _mapTemplate, _size);
     _powerUpHandler = new PowerUpHandler(_context, _sounds);
     /*for (int i = 0; i < _playerNumber; i++)
         _players[i].push_back(new Player(_context, *_map, i));
     for (int i = 0; i < _botNumber; i++)
         _players.push_back(new AIBot(_context, *_map, i));*/
+    _context.needGame = true;
 }
