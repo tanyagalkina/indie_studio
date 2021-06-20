@@ -19,7 +19,7 @@ AIBot::~AIBot()
 
 bool AIBot::dropBomb(GameEventReceiver &receiver)
 {
-    shouldDropBomb = true;
+//    shouldDropBomb = true;
     goingBack = 10;
     return true;
 }

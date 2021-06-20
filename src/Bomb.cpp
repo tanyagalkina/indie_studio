@@ -97,60 +97,61 @@ bool Bomb::beShureCollision(const irr::core::vector3df& pos)
     auto bombX = _player->calcMiddle(body->getPosition().X);
     auto bombZ = _player->calcMiddle(body->getPosition().Z);
 
-//    float up = _surround[0];
-//    float right = _surround[1];
-//    float down = _surround[2];
-//    float left = _surround[3];
-//
-//    int tanya = 0;
-//    while (up > 0.1) {
-//
-//        if (bombX == colX && (bombZ == (colZ - tanya)))
-//            return true;
-//        else {
-//            up -= 0.01;
-//            tanya += 50;
-//        }
-//    }
-//    tanya = 0;
-//
-//    while (left < -0.1) {
-//        if (bombZ == colZ && (bombX == (colX - tanya)))
-//            return true;
-//        else {
-//            left += 0.01;
-//            tanya += 50;
-//        }
-//    }
-//    tanya = 0;
-//
-//    while (down < -0.1) {
-//        if (bombX == colX && (bombZ == (colZ + tanya)))
-//            return true;
-//        else {
-//            down += 0.01;
-//            tanya += 50;
-//        }
-//    }
-//    tanya = 0;
-//    std::cout << right << std::endl;
-//    while (right > 0.1) {
-//        std::cout << bombZ << " - " << colZ << " - " << tanya << std::endl;
-//        if (bombZ == colZ && (bombX == (colX + tanya)))
-//            return true;
-//        else {
-//            right -= 0.01;
-//            tanya += 50;
-//        }
-//    }
+    float up = _surround[0];
+    float right = _surround[1];
+    float down = _surround[2];
+    float left = _surround[3];
 
-    if ((bombX == colX && (bombZ == colZ
-                           || bombZ == colZ - 50 || bombZ == colZ - 100
-                           || bombZ == colZ+ 50 || bombZ == colZ + 100) ||
-         (bombZ == colZ && (bombX == colX
-                            || bombX == colX - 50 || bombX == colX - 100
-                            || bombX == colX + 50 || bombX == colX + 100))))
-        return true;
+    int tanya = 0;
+    while (up > 0.1) {
+
+        if (bombX == colX && (bombZ - tanya == colZ))
+            return true;
+        else {
+            up -= 0.1;
+            tanya += 50;
+        }
+    }
+    tanya = 0;
+
+    while (left < -0.1) {
+        if (bombZ == colZ && (bombX - tanya == colX))
+            return true;
+        else {
+            left += 0.1;
+            tanya += 50;
+        }
+    }
+    tanya = 0;
+
+    while (down < -0.1) {
+        if (bombX == colX && (bombZ + tanya == colZ))
+            return true;
+        else {
+            down += 0.1;
+            tanya += 50;
+        }
+    }
+    tanya = 50;
+    while (right > 0.1) {
+        if (bombZ == colZ)
+        {
+            std::cout << bombX << " - " << colX << " - " << tanya <<" - " << colX + tanya <<
+            std::endl;
+            if (bombX + tanya == colX)
+            return true;
+        }
+            right -= 0.1;
+            tanya += 50;
+    }
+
+//    if ((bombX == colX && (bombZ == colZ
+//                           || bombZ == colZ - 50 || bombZ == colZ - 100
+//                           || bombZ == colZ+ 50 || bombZ == colZ + 100) ||
+//         (bombZ == colZ && (bombX == colX
+//                            || bombX == colX - 50 || bombX == colX - 100
+//                            || bombX == colX + 50 || bombX == colX + 100))))
+//        return true;
     return false;
 }
 
