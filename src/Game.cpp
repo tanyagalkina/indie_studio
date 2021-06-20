@@ -336,7 +336,7 @@ void Game::createGame()
     _floor = new Floor(1, _playerNumber, _size * 5, _size * 5);
     _mapTemplate = _floor->getTemplate();
     createMap();
-    _powerUpHandler = new PowerUpHandler(_context);
+    _powerUpHandler = new PowerUpHandler(_context, _sounds);
     int i;
     for (i = 0; i < _playerNumber; i++)
         _players.push_back(new Player(_context, *_map, i));
@@ -384,7 +384,7 @@ bool Game::load(int n)
     _mapTemplate = _floor->getTemplate();
     _map = new VisualMap(_context, _mapTemplate, _size);
 
-    _powerUpHandler = new PowerUpHandler(_context);
+    _powerUpHandler = new PowerUpHandler(_context, _sounds);
 
     std::string node = sh.GetNextKey();
     while (!node.empty())
@@ -446,8 +446,6 @@ bool Game::HandleExplosion()
                     if (bomb->beShureCollision(player, player->getBody()->getPosition())) {
                         if (player->isAlive()) {
                             _sounds->allah();
-                            //_sounds->explode();
-                            //std::cout << "ALLAH!!!\n";
                             player->kill();
                         }
                     }
@@ -508,7 +506,7 @@ void Game::nextLevel()
     _floor->nextLevel();
     _mapTemplate = _floor->getTemplate();
     _map = new VisualMap(_context, _mapTemplate, _size);
-    _powerUpHandler = new PowerUpHandler(_context);
+    _powerUpHandler = new PowerUpHandler(_context, _sounds);
     for (int i = 0; i < _playerNumber; i++)
         _players.push_back(new Player(_context, *_map, i));
     for (int i = 0; i < (4 - _playerNumber); i++)
@@ -584,7 +582,7 @@ void Game::unload()
     delete _powerUpHandler;
     _mapTemplate = _floor->getTemplate();
     //_map = new VisualMap(_context, _mapTemplate, _size);
-    _powerUpHandler = new PowerUpHandler(_context);
+    _powerUpHandler = new PowerUpHandler(_context, _sounds);
     /*for (int i = 0; i < _playerNumber; i++)
         _players[i].push_back(new Player(_context, *_map, i));
     for (int i = 0; i < _botNumber; i++)

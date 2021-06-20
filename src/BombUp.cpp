@@ -7,8 +7,8 @@
 
 #include "BombUp.hpp"
 
-BombUp::BombUp(SAppContext &sac) : PowerUp(sac, "./media/asset/powerup/powerUpP.obj",
-"./media/asset/pillier/Texture_pillier_Selfillum_Orange.png")
+BombUp::BombUp(SAppContext &sac, Audio *s) : PowerUp(sac, "./media/asset/powerup/powerUpP.obj",
+"./media/asset/pillier/Texture_pillier_Selfillum_Orange.png", s)
 {
     this->body->setMaterialTexture(
         1,driver->getTexture("./media/asset/pillier/Texture_pillier_alpha_Orange.png"));

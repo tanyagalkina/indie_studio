@@ -61,13 +61,13 @@ void PowerUpHandler::addPowerUp(PowerUpType type, float x, float z)
     switch (type)
     {
         case PowerUpType::SpeedUp_t:
-            item = new SpeedUp(*appContext);
+            item = new SpeedUp(*appContext, _sounds);
             break;
         case PowerUpType::FireUp_t:
-            item = new FireUp(*appContext);
+            item = new FireUp(*appContext, _sounds);
             break;
         case PowerUpType::BombUp_t:
-            item = new BombUp(*appContext);
+            item = new BombUp(*appContext, _sounds);
             break;
         default:
             break;

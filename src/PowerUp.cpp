@@ -9,9 +9,9 @@
 #include <PowerUp.hpp>
 
 PowerUp::PowerUp(SAppContext &ctx, const irr::core::string<irr::fschar_t> &meshPath,
-                 const irr::core::string<irr::fschar_t> &texturePath)
+                 const irr::core::string<irr::fschar_t> &texturePath, Audio *s)
 {
-
+    _sounds = s;
     context = &ctx;
     this->smgr = context->device->getSceneManager();
     this->driver = context->device->getVideoDriver();
@@ -79,6 +79,9 @@ bool PowerUp::HandleCollision(Character &player)
         this->body->getTransformedBoundingBox()))
     {
         this->body->setVisible(false);
+        ///how can we do different sounds according to the type of the powerUp???
+        ///override this func??
+        _sounds->powerUp();
         std::cout << "hit" << std::endl;
         return true;
     }

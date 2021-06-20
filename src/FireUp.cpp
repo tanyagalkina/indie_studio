@@ -7,9 +7,9 @@
 
 #include "FireUp.hpp"
 
-FireUp::FireUp(SAppContext &sac) : PowerUp(sac, "./media/asset/powerup/powerUpP.obj",
+FireUp::FireUp(SAppContext &sac, Audio *s) : PowerUp(sac, "./media/asset/powerup/powerUpP.obj",
                                            "./media/asset/pillier/Texture_pillier_Selfillum_Purple"
-                                           ".png")
+                                           ".png", s)
 {
     this->body->setMaterialTexture(
         1,driver->getTexture("./media/asset/pillier/Texture_pillier_alpha_Purple.png"));

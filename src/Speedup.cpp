@@ -12,7 +12,7 @@ std::tuple<Timer, PowerUpType, Character *> SpeedUp::getTimerTypeAndPlayer(Chara
     return std::make_tuple(Timer(15000), PowerUpType::SpeedUp_t, &player);
 }
 
-SpeedUp::SpeedUp(SAppContext &sac) : PowerUp(sac, "media/boot.3ds", "media/sydney.bmp")
+SpeedUp::SpeedUp(SAppContext &sac, Audio *s) : PowerUp(sac, "media/boot.3ds", "media/sydney.bmp", s)
 {
     this->body->setScale(irr::core::vector3df(0.07, 0.07, 0.07));
 }
