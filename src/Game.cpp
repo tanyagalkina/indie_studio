@@ -584,7 +584,7 @@ bool Game::HandleExplosion()
                     if (box->HandleCollision(
                         expo->_particleSystemSceneNode->getTransformedBoundingBox()))
                     {
-                        if (bomb->beShureCollision(_players[0], box->getbody()->getPosition()) &&
+                        if (bomb->beShureCollision(box->getbody()->getPosition()) &&
                             bomb->_exploded)
                         {
                             randomPowerUpSpawn(box->getbody()->getPosition().X,
