@@ -26,6 +26,7 @@ public:
     virtual std::tuple<Timer, PowerUpType, Character *> getTimerTypeAndPlayer(Character& player)
     = 0;
     bool HandleCollision(Character &player) override;
+    void virtual BluRrr() = 0;
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_POWERUP_HPP
