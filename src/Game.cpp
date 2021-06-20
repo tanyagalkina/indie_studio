@@ -539,7 +539,7 @@ bool Game::load(int n)
 void Game::randomPowerUpSpawn(float x, float z)
 {
     srand(time(NULL));
-    int i = rand() % 3;
+    int i = rand() % 6;
     if (i == 0)
     {
         _powerUpHandler->addPowerUp(SpeedUp_t, x, z);
@@ -568,7 +568,7 @@ bool Game::HandleExplosion()
                 if (player->checkCollision(
                     expo->_particleSystemSceneNode->getTransformedBoundingBox()))
                 {
-                    if (bomb->beShureCollision(player, player->getBody()->getPosition())) {
+                    if (bomb->beShureCollision(player->getBody()->getPosition())) {
                         if (player->isAlive()) {
                             _sounds->allah();
                             player->kill();

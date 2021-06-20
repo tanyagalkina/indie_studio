@@ -89,13 +89,13 @@ bool Bomb::HandleCollision(Character &player)
     return false;
 }
 
-bool Bomb::beShureCollision(Character *player, const irr::core::vector3df& pos)
+bool Bomb::beShureCollision(const irr::core::vector3df& pos)
 {
     //_explosions
-    auto playerX = player->calcMiddle(pos.X);
-    auto playerZ = player->calcMiddle(pos.Z);
-    auto bombX = player->calcMiddle(body->getPosition().X);
-    auto bombZ = player->calcMiddle(body->getPosition().Z);
+    auto colX = _player->calcMiddle(pos.X);
+    auto colZ = _player->calcMiddle(pos.Z);
+    auto bombX = _player->calcMiddle(body->getPosition().X);
+    auto bombZ = _player->calcMiddle(body->getPosition().Z);
 
     float up = _surround[0];
     float right = _surround[1];
@@ -105,7 +105,7 @@ bool Bomb::beShureCollision(Character *player, const irr::core::vector3df& pos)
     int tanya = 0;
     while (up > 0.1) {
 
-        if (bombX == playerX && (bombZ == (playerZ - tanya)))
+        if (bombX == colX && (bombZ == (colZ - tanya)))
             return true;
         else {
             up -= 0.01;
@@ -115,7 +115,7 @@ bool Bomb::beShureCollision(Character *player, const irr::core::vector3df& pos)
     tanya = 0;
 
     while (left < -0.1) {
-        if (bombZ == playerZ && (bombX == (playerX - tanya)))
+        if (bombZ == colZ && (bombX == (colX - tanya)))
             return true;
         else {
             left += 0.01;
@@ -125,7 +125,7 @@ bool Bomb::beShureCollision(Character *player, const irr::core::vector3df& pos)
     tanya = 0;
 
     while (down < -0.1) {
-        if (bombX == playerX && (bombZ == (playerZ + tanya)))
+        if (bombX == colX && (bombZ == (colZ + tanya)))
             return true;
         else {
             down += 0.01;
@@ -133,8 +133,10 @@ bool Bomb::beShureCollision(Character *player, const irr::core::vector3df& pos)
         }
     }
     tanya = 0;
+    std::cout << right << std::endl;
     while (right > 0.1) {
-        if (bombZ == playerZ && (bombX == (playerX + tanya)))
+        std::cout << bombZ << " - " << colZ << " - " << tanya << std::endl;
+        if (bombZ == colZ && (bombX == (colX + tanya)))
             return true;
         else {
             right -= 0.01;
@@ -142,13 +144,13 @@ bool Bomb::beShureCollision(Character *player, const irr::core::vector3df& pos)
         }
     }
 
-    /*if ((bombX == playerX && (bombZ == playerZ
-                           || bombZ == playerZ - 50 || bombZ == playerZ - 100
-                           || bombZ == playerZ+ 50 || bombZ == playerZ + 100) ||
-         (bombZ == playerZ && (bombX == playerX
-                            || bombX == playerX - 50 || bombX == playerX - 100
-                            || bombX == playerX + 50 || bombX == playerX + 100))))
-        return true;*/
+//    if ((bombX == colX && (bombZ == colZ
+//                           || bombZ == colZ - 50 || bombZ == colZ - 100
+//                           || bombZ == colZ+ 50 || bombZ == colZ + 100) ||
+//         (bombZ == colZ && (bombX == colX
+//                            || bombX == colX - 50 || bombX == colX - 100
+//                            || bombX == colX + 50 || bombX == colX + 100))))
+//        return true;
     return false;
 }
 
