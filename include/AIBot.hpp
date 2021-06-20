@@ -20,13 +20,18 @@ private:
     bool customMove(irr::core::vector3df target);
     bool dropBomb(GameEventReceiver &receiver) final;
     void checkNextMove(irr::core::vector3df &target, GameEventReceiver &receiver);
-
+    void checkTurn();
+    void checkRandomTurn(irr::core::vector3df &target, GameEventReceiver &receiver);
+    Floor::Type getNext();
+    Floor::Type getBehind();
 private:
     int moveIdx;
     bool shouldDropBomb;
     std::stack<irr::core::vector3df> lastSteps;
+    Coordinate next;
+    Coordinate current;
+    Coordinate lastCurrent;
     int goingBack;
-    Floor::Type _lastType;
 };
 
 #endif //AI_BOT_HPP_
