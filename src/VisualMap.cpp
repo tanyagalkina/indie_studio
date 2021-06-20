@@ -42,8 +42,6 @@ VisualMap::VisualMap(SAppContext &ctx, Map &_map, int size)
     this->smgr = context->device->getSceneManager();
     this->driver = context->device->getVideoDriver();
 
-    //if (!this->smgr->loadScene("media/map.irr"))
-        //AssetLoadErrorMac("Can't load 'media/map.irr'");
     if (!this->smgr->loadScene("media/skybox.irr"))
         AssetLoadErrorMac("Can't load 'media/skybox.irr'");
 

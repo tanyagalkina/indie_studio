@@ -470,7 +470,7 @@ void Game::createGame()
         _players.push_back(new Player(_context, *_map, i));
     for (int j = i; j < (4 - _playerNumber) + i; j++)
         _players.push_back(new AIBot(_context, *_map, j));
-    //w_players.push_back(new AIBot(_context, *_map, 1));
+    //wd_players.push_back(new AIBot(_context, *_map, 1));
     _bombs.clear();
     _context.needGame = false;
 }
