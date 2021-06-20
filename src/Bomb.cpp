@@ -45,13 +45,13 @@ Character *Bomb::getPLayer() const
     return _player;
 }
 
-void Bomb::initExplosion()
+void Bomb::initExplosion(std::vector<float> surround)
 {
     this->_exploded = true;
-    irr::core::vector3df up = irr::core::vector3df(0.0f, 0.0f, 0.3f);
-    irr::core::vector3df right = irr::core::vector3df(0.3f, 0.0f, 0.0f);
-    irr::core::vector3df down = irr::core::vector3df(0.0f, 0.0f, -0.3f);
-    irr::core::vector3df left = irr::core::vector3df(-0.3f, 0.0f, 0.0f);
+    irr::core::vector3df up = irr::core::vector3df(0.0f, 0.0f, surround[0]); ///surround[0]
+    irr::core::vector3df right = irr::core::vector3df(surround[1], 0.0f, 0.0f); ///surround[1]
+    irr::core::vector3df down = irr::core::vector3df(0.0f, 0.0f, surround[2]); ///surround[2]
+    irr::core::vector3df left = irr::core::vector3df(surround[3], 0.0f, 0.0f); ///surround[3]
     this->_explosions.push_back(new Explosion(this->_position, up, this->context->device));
     this->_explosions.push_back(new Explosion(this->_position, right, this->context->device));
     this->_explosions.push_back(new Explosion(this->_position, down, this->context->device));

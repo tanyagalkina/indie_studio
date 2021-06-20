@@ -36,6 +36,13 @@ Cube::Cube(SAppContext &context, Floor::Type  blockType, Coordinate cord)
     this->body->setTriangleSelector(selector);
 }
 
+
+Floor::Type Cube::getType() const
+{
+    return type;
+}
+
+
 void Cube::addCollision(irr::scene::IAnimatedMeshSceneNode *_body)
 {
     auto anim = smgr->createCollisionResponseAnimator(selector, _body,

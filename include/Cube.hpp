@@ -23,6 +23,7 @@ public:
     void deserialize(std::string xmlCode) final;
     bool HandleCollision(const irr::core::aabbox3d<irr::f32>& object);
     irr::scene::IAnimatedMeshSceneNode *getbody();
+    Floor::Type getType() const;
 
     bool isVisible() const;
     void setVisible(bool enable);

@@ -29,7 +29,7 @@ public:
     bool over = false;
     Timer timer = Timer(3000);
     void drop();
-    void initExplosion();
+    void initExplosion(std::vector<float> surround);
     void stopExplosion();
     void setPosition(float x, float z) final;
     bool HandleCollision(Character &player) final;

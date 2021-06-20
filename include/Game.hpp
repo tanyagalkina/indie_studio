@@ -50,6 +50,7 @@ public:
 private:
     static SAppContext createContext();
     bool HandleExplosion();
+    std::vector<float> getSurround(irr::core::vector3d<irr::f32> pos) const;
 
     void createMap();
     void getExplosions();

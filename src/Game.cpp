@@ -8,6 +8,7 @@
 #include "../include/Game.hpp"
 
 #include <utility>
+#include <iostream>
 #include "AIBot.hpp"
 
 Game::Game()
@@ -117,9 +118,6 @@ void Game::play()
     }
 }
 
-///func should check if there is already a Bomb at the same position
-///returns true if the position is free
-///this is a hack the real check to come
 bool Game::isDropPossible(Character *player)
 {
     auto it = _bombs.begin();
@@ -148,12 +146,62 @@ bool Game::isDropPossible(Character *player)
     return true;
 }
 
+
+std::vector<float> Game::getSurround(irr::core::vector3d<irr::f32> pos) const
+{
+
+    std::vector<float> surround;
+    float up = 0.3f;
+    float right = 0.3f;
+    float down = -0.3f;
+    float left = -0.3f;
+
+    MyList<Cube *> map = _map->getBlocks();
+
+
+    for (int i = 0; i < map.size(); ++i)
+
+    {
+        if (map[i]->getType() == 3) {
+            irr::core::vector3d<irr::f32> cubePos = map[i]->getbody()->getPosition();
+            ///if the wall is one or two squres higher
+            if ((cubePos.Z == pos.Z - 50 || cubePos.Z == pos.Z - 100) \
+            && cubePos.X == pos.X) {
+                up = 0.1f;
+            }
+            ///if the wall is to the right
+            if ((cubePos.X == pos.X + 50 || cubePos.X == pos.X + 100) \
+            && cubePos.Z == pos.Z) {
+                right = 0.1f;
+            }
+            /// if the wall is lower
+            if ((cubePos.Z == pos.Z + 50 || cubePos.Z == pos.Z + 100) \
+            && cubePos.X == pos.X)
+                down = -0.1f;
+
+            ///if the wall is on the left
+            if ((cubePos.X == pos.X - 50 || cubePos.X == pos.X - 100) \
+            && cubePos.Z == pos.Z)
+                left = -0.1f;
+        }
+
+    }
+
+    surround.push_back(up);
+    surround.push_back(right);
+    surround.push_back(down);
+    surround.push_back(left);
+
+    return surround;
+
+}
+
 void Game::getExplosions() {
     auto it = _bombs.begin();
 
     while (it != _bombs.end()) {
         if (!(*it)->_exploded && (*it)->timer.isFinished()) {
-            (*it)->initExplosion();
+            (*it)->initExplosion(getSurround((*it)->body->getAbsolutePosition()));
             _sounds->explode();
         } else if ((*it)->_exploded && (*it)->timer.isFinished()) {
             (*it)->stopExplosion();

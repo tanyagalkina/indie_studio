@@ -17,6 +17,7 @@ Explosion::Explosion(irr::core::vector3df const &position, irr::core::vector3df 
                     direction,
                     2080, 2100,
                     irr::video::SColor(0, 255, 255, 255), irr::video::SColor(0, 255, 255, 255),
+                    ///200, 200 damit es kürzer
                     500, 500,
                     0,
                     irr::core::dimension2df(8.0f, 8.0f),irr::core::dimension2df(14.0f, 14.0f));
