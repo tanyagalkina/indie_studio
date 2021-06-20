@@ -145,10 +145,10 @@ void AIBot::move(GameEventReceiver &receiver)
 
     auto type = checkNextMove(next);
 
-    if (type == Floor::Type::WALL || type == Floor::Type::TELEPORT) {
+    if (type == Floor::Type::WALL) {
         moveIdx++;
     }
-    if (type == Floor::Type::BOX || type == Floor::Type::TILE || type == Floor::Type::PLAYER) {
+    if (type == Floor::Type::BOX) {
         dropBomb(receiver);
     } else {
         shouldDropBomb = false;

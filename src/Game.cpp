@@ -345,7 +345,7 @@ void Game::createGame()
 {
     _size = _context.mapSize;
     _playerNumber = _context.playerNbr;
-    _floor = new Floor(1, _playerNumber, _size * 5, _size * 5);
+    _floor = new Floor(9, _playerNumber, _size * 5, _size * 5);
     _mapTemplate = _floor->getTemplate();
     createMap();
     _powerUpHandler = new PowerUpHandler(_context, _sounds);
@@ -471,7 +471,8 @@ bool Game::HandleExplosion()
                     if (box->HandleCollision(
                         expo->_particleSystemSceneNode->getTransformedBoundingBox()))
                     {
-                        if (bomb->beShureCollision(_players[0], box->getbody()->getPosition()))
+                        if (bomb->beShureCollision(_players[0], box->getbody()->getPosition()) &&
+                            bomb->_exploded)
                         {
                             randomPowerUpSpawn(box->getbody()->getPosition().X,
                                                box->getbody()->getPosition().Z);

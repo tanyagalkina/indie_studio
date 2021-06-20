@@ -26,7 +26,7 @@ Cube::Cube(SAppContext &context, Floor::Type  blockType, Coordinate cord)
     this->body->setMaterialTexture(0, driver->getTexture(texturePath));
     this->body->setScale(irr::core::vector3df(cubeSize));
 
-    bool isGroundLevel = type == Floor::Type::TILE || type == Floor::Type::EMPTY || type == Floor::Type::PLAYER;
+    bool isGroundLevel = type == Floor::Type::EMPTY;
     if (isGroundLevel)
         this->body->setPosition(irr::core::vector3df(-300 + x * cubeSize, -10, 300 - y * cubeSize));
     else

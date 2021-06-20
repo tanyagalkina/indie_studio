@@ -23,10 +23,6 @@ char get_char(Floor::Type teip)
             return 'B';
         case (Floor:: Type::EMPTY):
             return ' ';
-        case (Floor::Type::TELEPORT):
-            return 'X';
-        case (Floor::Type::PLAYER):
-            return 'P';
 
         default:
             return '.';
