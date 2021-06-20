@@ -15,7 +15,7 @@ class Menu
 {
 public:
     Menu(SAppContext context, const std::vector<std::pair<Buttons,
-         irr::video::ITexture *>> &imageList);
+         irr::video::ITexture *>> &imageList, irr::video::IVideoDriver *driver);
     ~Menu() = default;
     void addLabel(int i, const irr::core::position2d<irr::s32>& pos);
     void addButton(const irr::core::rect<irr::s32>& pos, int btn_enum, const
@@ -26,24 +26,26 @@ public:
 
     irr::gui::IGUIEnvironment *_guienv;
     std::vector<irr::gui::IGUIElement *> _elementList;
+    irr::video::IVideoDriver *_driver;
 private:
     std::vector<std::pair<Buttons, irr::video::ITexture *>> _imageList;
 };
 
 Menu *build_main_menu(SAppContext context, const std::vector<std::pair<Buttons,
-    irr::video::ITexture *>> &_imageList);
+    irr::video::ITexture *>> &_imageList, irr::video::IVideoDriver *driver);
 Menu *build_new_menu(SAppContext context, const std::vector<std::pair<Buttons,
-    irr::video::ITexture *>> &imageList);
+    irr::video::ITexture *>> &imageList, irr::video::IVideoDriver *driver);
 Menu *build_load_menu(SAppContext context, const std::vector<std::pair<Buttons,
-    irr::video::ITexture *>> &imageList);
+    irr::video::ITexture *>> &imageList, irr::video::IVideoDriver *driver);
 Menu *build_settings_menu(SAppContext context, const
-    std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList);
+    std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::IVideoDriver *driver);
 Menu *build_pause_menu(SAppContext context, const
-    std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList);
+    std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::IVideoDriver *driver);
 Menu *build_save_menu(SAppContext context, const
-    std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList);
+    std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::IVideoDriver *driver);
 Menu *build_game_over_menu(SAppContext context, const
-std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, int winner);
+std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList,
+irr::video::IVideoDriver *driver, int winner);
 
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_MENU_HPP

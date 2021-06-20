@@ -260,7 +260,7 @@ void Game::updateMenu()
 {
     switch (_context.state) {
         case GameState::Menu: {
-            Menu *menu = build_main_menu(_context, _imageList);
+            Menu *menu = build_main_menu(_context, _imageList, _driver);
             auto *reciever = new MainMenuEventReceiver(_context);
             _context.device->setEventReceiver(reciever);
             showMenu(GameState::Menu, menu);
@@ -269,7 +269,7 @@ void Game::updateMenu()
             delete menu;
         }
         case GameState::New: {
-            Menu *menu = build_new_menu(_context, _imageList);
+            Menu *menu = build_new_menu(_context, _imageList, _driver);
             auto *reciever = new NewMenuEventReceiver(_context, menu->_elementList);
             _context.device->setEventReceiver(reciever);
             showMenu(GameState::New, menu);
@@ -278,7 +278,7 @@ void Game::updateMenu()
             delete menu;
         }
         case GameState::Save: {
-            Menu *menu = build_save_menu(_context, _imageList);
+            Menu *menu = build_save_menu(_context, _imageList, _driver);
             auto *reciever = new SaveMenuEventReceiver(_context);
             _context.device->setEventReceiver(reciever);
             showMenu(GameState::Save, menu);
@@ -287,7 +287,7 @@ void Game::updateMenu()
             delete menu;
         }
         case GameState::Load: {
-            Menu *menu = build_load_menu(_context, _imageList);
+            Menu *menu = build_load_menu(_context, _imageList, _driver);
             auto *reciever = new LoadMenuEventReceiver(_context);
             _context.device->setEventReceiver(reciever);
             showMenu(GameState::Load, menu);
@@ -296,7 +296,7 @@ void Game::updateMenu()
             delete menu;
         }
         case GameState::Settings: {
-            Menu *menu = build_settings_menu(_context, _imageList);
+            Menu *menu = build_settings_menu(_context, _imageList, _driver);
             auto *reciever = new SettingsMenuEventReceiver(_context, _sounds);
             _context.device->setEventReceiver(reciever);
             showMenu(GameState::Settings, menu);
@@ -305,7 +305,7 @@ void Game::updateMenu()
             delete menu;
         }
         case GameState::PauseMenu: {
-            Menu *menu = build_pause_menu(_context, _imageList);
+            Menu *menu = build_pause_menu(_context, _imageList, _driver);
             auto *reciever = new PauseMenuEventReceiver(_context);
             _context.device->setEventReceiver(reciever);
             showMenu(GameState::PauseMenu, menu);
@@ -314,7 +314,8 @@ void Game::updateMenu()
             delete menu;
         }
         case GameState::GameOver: {
-            Menu *menu = build_game_over_menu(_context, _imageList, _winner);
+            Menu *menu = build_game_over_menu(_context, _imageList, _driver,
+                                              _winner);
             auto *reciever = new GameOverMenuEventReceiver(_context);
             _context.device->setEventReceiver(reciever);
             showMenu(GameState::GameOver, menu);
