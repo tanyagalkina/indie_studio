@@ -533,6 +533,8 @@ void Game::checkLevel()
             _winner = 2;
         else
             _winner = 0;
+        unload();
+        _context.needGame = true;
     }
         //nextLevel();
 }
