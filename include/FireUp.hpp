@@ -15,6 +15,9 @@ class FireUp : public PowerUp
 public:
     explicit FireUp(SAppContext &sac, Audio *s);
     std::tuple<Timer, PowerUpType, Character *> getTimerTypeAndPlayer(Character& player) final;
+    void BluRrr(){
+        _sounds->powerUp2();
+    }
 
 };
 

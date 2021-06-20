@@ -15,6 +15,9 @@ class BombUp : public PowerUp
 public:
     explicit BombUp(SAppContext &sac, Audio *s);
     std::tuple<Timer, PowerUpType, Character*> getTimerTypeAndPlayer(Character& player) final;
+    void BluRrr(){
+        _sounds->powerUp();
+    }
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_BOMBUP_HPP
