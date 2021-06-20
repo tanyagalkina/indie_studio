@@ -49,6 +49,10 @@ void Game::createMap()
         std::cerr << e.getMessage() << std::endl;
         exit(84);
     }
+    MyList<Cube *> map = _map->getBlocks();
+    for (int i = 0; i < map.size(); ++i) {
+        std::cout << map[i]->getType();
+    }
 }
 
 SAppContext Game::createContext()
@@ -153,7 +157,115 @@ bool Game::isDropPossible(Character *player)
 }
 
 
-std::vector<float> Game::getSurround(irr::core::vector3d<irr::f32> pos) const
+std::vector<float> Game::getFireSurround( MyList<Cube *> map, irr::core::vector3d<irr::f32> pos
+) const
+{
+    std::vector<float> surround;
+    float up = 0.1f;
+    float right = 0.1f;
+    float down = -0.1f;
+    float left = -0.1f;
+
+    std::list<std::string>::iterator it;
+
+    std::pair<int, int> Coord;
+    std::vector<std::pair<int, int>> wallsCoord;
+    MyList<Cube *> _walls;
+        for (int i = 0; i < map.size(); ++i) {
+            if (map[i]->getType() == 2)
+
+            _walls.push_back(map[i]);
+
+        }
+    for (int i = 0; i < _walls.size(); ++i) {
+        irr::core::vector3d<irr::f32> cubePos = _walls[i]->getbody()->getPosition();
+        Coord.first = cubePos.X;
+        Coord.second = cubePos.Z;
+        wallsCoord.push_back(Coord);
+    }
+
+    int tanya = 50;
+    while (up < 0.5) {
+
+        Coord.first = pos.X;
+        Coord.second = pos.Z - tanya;
+        //std::vector<std::pair<int, int>>::iterator it;
+        if (std::find(wallsCoord.begin(), wallsCoord.end(), Coord) != wallsCoord.end())
+        {
+            break;
+        }
+        else
+        {
+            up = up  + 0.01;
+            tanya += 50;
+        }
+    }
+    tanya = 50;
+
+    while (left > -0.5) {
+
+
+        Coord.first = pos.X - tanya;
+        Coord.second = pos.Z;
+        if (std::find(wallsCoord.begin(), wallsCoord.end(), Coord) != wallsCoord.end())
+        {
+
+            break;
+        }
+        else
+        {
+            left = left  - 0.01;
+            tanya += 50;
+        }
+    }
+
+    tanya = 50;
+
+    while (right < 0.5) {
+
+        Coord.first = pos.X + tanya;
+        Coord.second = pos.Z;
+        if (std::find(wallsCoord.begin(), wallsCoord.end(), Coord) != wallsCoord.end())
+        {
+
+            break;
+        }
+        else
+        {
+            right = right  + 0.01;
+            tanya += 50;
+        }
+    }
+
+    tanya = 50;
+
+    while (down > -0.5) {
+
+        Coord.first = pos.X;
+        Coord.second = pos.Z + 50;
+        if (std::find(wallsCoord.begin(), wallsCoord.end(), Coord) != wallsCoord.end())
+        {
+
+            break;
+        }
+        else
+        {
+            down = down  - 0.01;
+            tanya += 50;
+        }
+    }
+
+    surround.push_back(up);
+    surround.push_back(right);
+    surround.push_back(down);
+    surround.push_back(left);
+
+    return surround;
+
+}
+
+
+std::vector<float> Game::getSurround(irr::core::vector3d<irr::f32> pos, Character *player) const
 {
 
     std::vector<float> surround;
@@ -163,7 +275,8 @@ std::vector<float> Game::getSurround(irr::core::vector3d<irr::f32> pos) const
     float left = -0.3f;
 
     MyList<Cube *> map = _map->getBlocks();
-
+    if (player->getFireUp())
+         return getFireSurround(map, pos);
 
     for (int i = 0; i < map.size(); ++i)
 
@@ -207,7 +320,7 @@ void Game::getExplosions() {
 
     while (it != _bombs.end()) {
         if (!(*it)->_exploded && (*it)->timer.isFinished()) {
-            (*it)->initExplosion(getSurround((*it)->body->getAbsolutePosition()));
+            (*it)->initExplosion(getSurround((*it)->body->getAbsolutePosition(), (*it)->getPLayer()));
             _sounds->explode();
         } else if ((*it)->_exploded && (*it)->timer.isFinished()) {
             (*it)->stopExplosion();

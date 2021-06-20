@@ -51,7 +51,10 @@ private:
     bool checkSaveOrLoad();
     static SAppContext createContext();
     bool HandleExplosion();
-    std::vector<float> getSurround(irr::core::vector3d<irr::f32> pos) const;
+    std::vector<float> getSurround(irr::core::vector3d<irr::f32> pos, Character *player) const;
+    std::vector<float> getFireSurround( MyList<Cube *> map, irr::core::vector3d<irr::f32> pos
+    ) const;
+
 
     void createMap();
     void getExplosions();
