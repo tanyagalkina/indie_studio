@@ -16,7 +16,7 @@ public:
     explicit SpeedUp(SAppContext &sac, Audio *s);
     std::tuple<Timer, PowerUpType, Character *> getTimerTypeAndPlayer(Character& player) final;
     void BluRrr(){
-        _sounds->powerUp2();
+        _sounds->powerUp3();
     }
 };
 
