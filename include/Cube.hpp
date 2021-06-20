@@ -4,7 +4,7 @@
 #include "IXML.hpp"
 //                     meshPath       texturePath
 static const std::pair<irr::io::path, irr::io::path>  assetPath[7] = {
-    std::make_pair("media/WoodenBox.3ds", "media/marmor2.png"), // Empty
+    std::make_pair("media/WoodenBox.3ds", "media/maroccan3.png"), // Empty
     std::make_pair("media/WoodenBox.3ds", "media/marmor.png"), // Box
     //std::make_pair("media/WoodenBox.3ds", "media/textures/grass.png"), // Tile
     std::make_pair("media/WoodenBox.3ds", "media/marmor4.png"), // Wall
