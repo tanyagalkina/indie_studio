@@ -22,13 +22,6 @@ Game::Game()
     _gameReceiver = new GameEventReceiver();
     _context.device->setEventReceiver(_gameReceiver);
     _winner = 0;
-    //_powerUpHandler = new PowerUpHandler(_context);
-    //Character *p = new Player(_context, *_map);
-    //Character *p2 = new AIBot(_context, *_map, 1);
-    //_players.push_back(p);
-    //_players.push_back(p2);
-    //_bombs.clear();
-    //_menu = new Menu(_context);
 
     for (int i = 0; i < TEXTPATHSLENGTH; i += 1) {
         std::pair<Buttons, irr::video::ITexture *> tmp;

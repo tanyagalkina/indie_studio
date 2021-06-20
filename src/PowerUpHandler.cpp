@@ -22,6 +22,7 @@ void PowerUpHandler::loop(MyList<Character *>& players)
                 std::get<0>(pu).startTimer();
                 currentPowerUps.push_back(pu);
                 erasablePowerUps.push_back(it);
+                break;
             }
         }
     }
@@ -89,4 +90,10 @@ void PowerUpHandler::handlePlayerItems(PowerUpType type, Character *playerRef)
         default:
             break;
     }
+}
+
+PowerUpHandler::~PowerUpHandler()
+{
+    allPowerUps.clear();
+    currentPowerUps.clear();
 }
