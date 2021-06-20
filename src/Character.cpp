@@ -118,6 +118,11 @@ void Character::kill()
     bombsMax = 0;
 }
 
+bool Character::getFireUp() const
+{
+    return fireUp;
+}
+
 void Character::revive()
 {
     alive = true;

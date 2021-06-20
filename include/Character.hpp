@@ -28,6 +28,7 @@ public:
     void setExtraSpeed(irr::f32 newExtraSpeed);
     irr::scene::IAnimatedMeshSceneNode *getBody();
     bool getUnlimitedBombs() const;
+    bool getFireUp() const;
     int getBombsMax();
     int calcMiddle(int coordinate);
     bool checkCollision(const irr::core::aabbox3d<irr::f32>& object) const;
