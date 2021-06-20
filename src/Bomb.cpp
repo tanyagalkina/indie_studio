@@ -136,8 +136,6 @@ bool Bomb::beShureCollision(const irr::core::vector3df& pos)
     while (right > 0.1) {
         if (bombZ == colZ)
         {
-            std::cout << bombX << " - " << colX << " - " << tanya <<" - " << colX + tanya <<
-            std::endl;
             if (bombX + tanya == colX)
             return true;
         }
