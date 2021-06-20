@@ -14,33 +14,53 @@ private:
     sf::Sound exploSound;
     sf::SoundBuffer backBuffer;
     sf::Sound backSound;
+    sf::SoundBuffer backBuffer2;
+    sf::Sound backSound2;
+    sf::SoundBuffer allahBuffer;
+    sf::Sound allahSound;
+
 public:
     Audio()
     {
-        exploBuffer.loadFromFile("media/sounds/explosion.ogg");
+        exploBuffer.loadFromFile("media/sounds/explos.ogg");
         exploSound.setBuffer(exploBuffer);
-        exploSound.setVolume(20);
+        exploSound.setVolume(18);
         backBuffer.loadFromFile("media/sounds/arabic.ogg");
         backSound.setBuffer(backBuffer);
+        backBuffer2.loadFromFile("media/sounds/arabic2.ogg");
+        backSound2.setBuffer(backBuffer2);
         backSound.setLoop(true);
         backSound.setVolume(5);
+        backSound2.setVolume(10);
+        backSound.setLoop(true);
+        allahBuffer.loadFromFile("media/sounds/allah.ogg");
+        allahSound.setBuffer(allahBuffer);
+        allahSound.setVolume(10);
 
     }
 
     void MuteMusic(bool mute)
     {
-        if (mute)
+        if (mute) {
             backSound.setVolume(0);
-        else
-            backSound.setVolume(20);
+            backSound2.setVolume(0);
+        }
+        else {
+            backSound.setVolume(5);
+            backSound2.setVolume(10);
+        }
     }
 
     void MuteSound(bool mute)
     {
-        if (mute)
+        if (mute) {
             exploSound.setVolume(0);
-        else
-            exploSound.setVolume(5);
+            allahSound.setVolume(0);
+        }
+        else {
+            exploSound.setVolume(18);
+            allahSound.setVolume(10);
+        }
     }
 
     void explode()
@@ -50,6 +70,16 @@ public:
     void backMusic()
     {
         backSound.play();
+    }
+
+    void allah()
+    {
+        allahSound.play();
+    }
+
+    void backMusic2()
+    {
+        backSound2.play();
     }
 };
 

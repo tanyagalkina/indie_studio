@@ -78,7 +78,7 @@ SAppContext Game::createContext()
 
 void Game::play()
 {
-    _sounds->backMusic();
+    _sounds->backMusic2();
     while (_context.device->run()) {
         if (_context.state != GameState::Game) {
             this->updateMenu();
@@ -443,8 +443,14 @@ bool Game::HandleExplosion()
                 if (player->checkCollision(
                     expo->_particleSystemSceneNode->getTransformedBoundingBox()))
                 {
-                    if (bomb->beShureCollision(player, player->getBody()->getPosition()))
-                        player->kill();
+                    if (bomb->beShureCollision(player, player->getBody()->getPosition())) {
+                        if (player->isAlive()) {
+                            _sounds->allah();
+                            //_sounds->explode();
+                            //std::cout << "ALLAH!!!\n";
+                            player->kill();
+                        }
+                    }
                 }
             }
             auto blocks = _map->getBlocks();
