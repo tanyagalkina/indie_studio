@@ -16,6 +16,7 @@ enum Buttons {
     GUI_BUTTON_NEW,
     GUI_BUTTON_LOAD,
     GUI_BUTTON_SETTINGS,
+    GUI_BUTTON_HOWTOPLAY,
     GUI_BUTTON_QUIT,
     GUI_BUTTON_BACK,
     GUI_BUTTON_MAINMENU,
@@ -48,15 +49,25 @@ enum Buttons {
     GUI_TEXT_PLAYER1,
     GUI_TEXT_PLAYER2,
     GUI_TEXT_AI,
+    // How to Play
+    GUI_TEXT_HTPHEADLINE,
+    GUI_TEXT_HTPEXPLAIN,
+    GUI_TEXT_HTPMOVEMENT,
+    GUI_TEXT_HTPPLACEBOMB,
+    GUI_TEXT_HTPPOWERUPS,
+    GUI_TEXT_HTPSPEEDUP,
+    GUI_TEXT_HTPBOMBSUP,
+    GUI_TEXT_HTPFIREUP,
 };
 
-#define TEXTPATHSLENGTH 30
+#define TEXTPATHSLENGTH 39
 
-const irr::io::path textPaths[30] {
+const irr::io::path textPaths[39] {
     "./media/menu/BestBomberman.png",
     "./media/menu/NewGame.png",
     "./media/menu/LoadGame.png",
     "./media/menu/Settings.png",
+    "./media/menu/HowToPlay.png",
     "./media/menu/Quit.png",
     "./media/menu/Back.png",
     "./media/menu/MainMenu.png",
@@ -83,6 +94,14 @@ const irr::io::path textPaths[30] {
     "./media/menu/Player1Wins.png",
     "./media/menu/Player2Wins.png",
     "./media/menu/AIWins.png",
+    "./media/menu/HowToPlayHeadline.png",
+    "./media/menu/HowToPlayExplanation.png",
+    "./media/menu/HowToPlayMovement.png",
+    "./media/menu/HowToPlayPlaceBomb.png",
+    "./media/menu/HowToPlayPowerUps.png",
+    "./media/menu/HowToPlaySpeedUp.png",
+    "./media/menu/HowToPlayBombUp.png",
+    "./media/menu/HowToPlayFireUp.png",
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_BUTTON_ENUM_HPP

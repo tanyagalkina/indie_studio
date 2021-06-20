@@ -306,6 +306,15 @@ void Game::updateMenu()
             menu->clearGUI();
             delete menu;
         }
+        case GameState::HowToPlay: {
+            Menu *menu = build_how_to_play_menu(_context, _imageList, _driver);
+            auto *reciever = new HowToPlayMenuEventReceiver(_context);
+            _context.device->setEventReceiver(reciever);
+            showMenu(GameState::HowToPlay, menu);
+            delete reciever;
+            menu->clearGUI();
+            delete menu;
+        }
         case GameState::PauseMenu: {
             Menu *menu = build_pause_menu(_context, _imageList, _driver);
             auto *reciever = new PauseMenuEventReceiver(_context);

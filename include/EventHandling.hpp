@@ -92,5 +92,14 @@ public:
     virtual bool OnEvent(const irr::SEvent &event);
 };
 
+class HowToPlayMenuEventReceiver : public irr::IEventReceiver
+{
+private:
+    SAppContext &_context;
+public:
+    HowToPlayMenuEventReceiver(SAppContext &context) : _context(context){}
+
+    virtual bool OnEvent(const irr::SEvent &event);
+};
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_EVENTHANDLING_HPP

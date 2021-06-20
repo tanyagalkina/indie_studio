@@ -35,11 +35,15 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::
     menu->addLabel(GUI_TEXT_HEADLINE, irr::core::position2d<irr::s32>
         (begin_x * 1.375, size_y));
 
-    menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 7, begin_x
-        + size_x, size_y * 9), GUI_BUTTON_NEW, L"Create New Game");
+    menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 4, begin_x
+        + size_x, size_y * 6), GUI_BUTTON_NEW, L"Create New Game");
+
+    menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 7,
+        begin_x + size_x,size_y * 9), GUI_BUTTON_LOAD, L"Load Previous Game");
 
     menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 10,
-        begin_x + size_x,size_y * 12), GUI_BUTTON_LOAD, L"Load Previous Game");
+                                              begin_x + size_x, size_y * 12),
+                    GUI_BUTTON_HOWTOPLAY,L"Open How to Play Menu");
 
     menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 13,
         begin_x + size_x, size_y * 15),GUI_BUTTON_SETTINGS,L"Open Settings Menu");
@@ -278,6 +282,48 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::
     menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 14,
                                               begin_x + size_x,size_y * 16),
                     GUI_BUTTON_QUIT, L"Exit Program");
+
+    return menu;
+}
+
+Menu *build_how_to_play_menu(SAppContext context, const
+std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::IVideoDriver *driver)
+{
+    irr::core::dimension2d<irr::u32> dimensions =
+        context.device->getVideoDriver()->getScreenSize();
+    int size_y = (int)(dimensions.Height * 0.05);
+    int size_x = (int)(dimensions.Width * 0.6);
+    int begin_x = (int)(dimensions.Width * 0.2);
+
+    Menu *menu = new Menu(context, imageList, driver);
+
+    menu->addLabel(GUI_TEXT_HTPHEADLINE, irr::core::position2d<irr::s32>
+        (begin_x * 1.8, size_y));
+
+    menu->addLabel(GUI_TEXT_HTPEXPLAIN, irr::core::position2d<irr::s32>
+        (begin_x * 1, size_y * 3));
+
+    menu->addLabel(GUI_TEXT_HTPMOVEMENT, irr::core::position2d<irr::s32>
+        (begin_x * 1, size_y * 5));
+
+    menu->addLabel(GUI_TEXT_HTPPLACEBOMB, irr::core::position2d<irr::s32>
+        (begin_x * 1, size_y * 7));
+
+    menu->addLabel(GUI_TEXT_HTPPOWERUPS, irr::core::position2d<irr::s32>
+        (begin_x * 1, size_y * 9));
+
+    menu->addLabel(GUI_TEXT_HTPSPEEDUP, irr::core::position2d<irr::s32>
+        (begin_x * 1, size_y * 11));
+
+    menu->addLabel(GUI_TEXT_HTPBOMBSUP, irr::core::position2d<irr::s32>
+        (begin_x * 1, size_y * 13));
+
+    menu->addLabel(GUI_TEXT_HTPFIREUP, irr::core::position2d<irr::s32>
+        (begin_x * 1, size_y * 15));
+
+    menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 17,
+                                              begin_x + size_x,size_y * 19),
+                    GUI_BUTTON_BACK, L"Back to Main Menu");
 
     return menu;
 }

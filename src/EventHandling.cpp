@@ -32,6 +32,9 @@ bool MainMenuEventReceiver::OnEvent(const irr::SEvent &event)
                     case GUI_BUTTON_SETTINGS:
                         _context.state = GameState::Settings;
                         return true;
+                    case GUI_BUTTON_HOWTOPLAY:
+                        _context.state = GameState::HowToPlay;
+                        return true;
                     default:
                         break;
                 }
@@ -321,6 +324,32 @@ bool GameOverMenuEventReceiver::OnEvent(const irr::SEvent &event)
                         return true;
                     case GUI_BUTTON_QUIT:
                         _context.device->closeDevice();
+                        return true;
+                    default:
+                        break;
+                }
+            default:
+                break;
+        }
+    }
+    return false;
+}
+
+bool HowToPlayMenuEventReceiver::OnEvent(const irr::SEvent &event)
+{
+    if (event.EventType == irr::EET_GUI_EVENT)
+    {
+        irr::s32 id = event.GUIEvent.Caller->getID();
+
+        switch (event.GUIEvent.EventType)
+        {
+            case irr::gui::EGET_SCROLL_BAR_CHANGED:
+                break;
+            case irr::gui::EGET_BUTTON_CLICKED:
+                switch (id)
+                {
+                    case GUI_BUTTON_BACK:
+                        _context.state = GameState::Menu;
                         return true;
                     default:
                         break;
