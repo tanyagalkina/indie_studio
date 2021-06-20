@@ -6,11 +6,14 @@
 AIBot::AIBot(SAppContext &ctx, VisualMap &map, const int &playerIdx)
     : Character(ctx, map, playerIdx)
 {
-    moveIdx = 0;
+    moveIdx = 4;
     goingBack = 0;
     shouldDropBomb = false;
     bombsMax = 1;
     lastSteps.push(this->body->getPosition());
+    next =  {0, 0};
+    current = {0, 0};
+    lastCurrent = {0, 0};
 }
 
 AIBot::~AIBot()
@@ -19,7 +22,7 @@ AIBot::~AIBot()
 
 bool AIBot::dropBomb(GameEventReceiver &receiver)
 {
-//    shouldDropBomb = true;
+    shouldDropBomb = true;
     goingBack = 10;
     return true;
 }
@@ -49,7 +52,6 @@ bool AIBot::customMove(irr::core::vector3df target)
     auto dir = target - currentPos;
 
     if (goingBack != 0 && target.getDistanceFrom(currentPos) < 10) {
-        std::cout << "Reducing this shit" << std::endl;
         goingBack--;
     }
 
@@ -69,39 +71,29 @@ bool AIBot::customMove(irr::core::vector3df target)
 
 void AIBot::checkNextMove(irr::core::vector3df &target, GameEventReceiver &receiver)
 {
-    int x = round(abs((target.X + 300) / 50));
-    int y = round(abs((target.Z - 300) / 50));
-
     auto currentMap = map->getMap();
 
     for (auto [type, coord] : currentMap) {
-        if (coord.x == x && coord.y == y) {
+        if (coord.x == next.x && coord.y == next.y) {
             if (type == Floor::Type::WALL) {
-                if (_lastType != Floor::EMPTY)
-                    moveIdx += 2;
-                else
-                    moveIdx++;
+                checkTurn();
             }
             if (type == Floor::Type::BOX) {
                 dropBomb(receiver);
-                if (_lastType != Floor::EMPTY)
-                    moveIdx += 2;
-                else
-                    moveIdx++;
+                checkTurn();
             } else {
                 shouldDropBomb = false;
             }
             if (type == Floor::Type::EMPTY) {
                 customMove(target);
             }
-            _lastType = type;
         }
     }
 }
 
 void AIBot::move(GameEventReceiver &receiver)
 {
-    auto next = this->body->getPosition();
+    auto target = this->body->getPosition();
     int blockSize = 25;
 
     //std::cout << "X: " << next.X << " Z: " << next.Z << std::endl;
@@ -132,24 +124,327 @@ void AIBot::move(GameEventReceiver &receiver)
     //}
     //printf("current\t%d - %d\n", abs((int)(next.X + 300) / 50), abs((int)(next.Z - 350) / 50));
 
+
+    current.x = round(abs((target.X + 300) / 50));
+    current.y = round(abs((target.Z - 300) / 50));
     switch (moveIdx % 4) {
         case 0: //UP
             this->body->setRotation(irr::core::vector3df(0, 270, 0));
-            next.Z += blockSize;
+            target.Z += blockSize;
             break;
         case 1: //right
             this->body->setRotation(irr::core::vector3df(0, 0, 0));
-            next.X += blockSize;
+            target.X += blockSize;
             break;
         case 2: //down
             this->body->setRotation(irr::core::vector3df(0, 90, 0));
-            next.Z -= blockSize;
+            target.Z -= blockSize;
             break;
         case 3: //left
             this->body->setRotation(irr::core::vector3df(0, 180, 0));
-            next.X -= blockSize;
+            target.X -= blockSize;
             break;
     }
     changeMovementState();
-    checkNextMove(next, receiver);
+    next.x = round(abs((target.X + 300) / 50));
+    next.y = round(abs((target.Z - 300) / 50));
+    checkNextMove(target, receiver);
+    //if (current.x != next.x && current.y != next.y && lastMoveIdx == moveIdx)
+    checkRandomTurn(target, receiver);
 }
+
+void AIBot::checkRandomTurn(irr::core::vector3df &target, GameEventReceiver
+&receiver)
+{
+    auto currentMap = map->getMap();
+
+    srand(time(NULL));
+    int i = rand() % 6;
+    if (getNext() == Floor::EMPTY && getBehind() == Floor::EMPTY) {
+        switch (moveIdx % 4) {
+        case 0: //UP
+            for (auto[type, coord] : currentMap) {
+                if (coord.x == next.x + 1 &&
+                    coord.y == next.y + 1) {
+                    if (type == Floor::EMPTY && i > 2) {
+                        moveIdx++;
+                        break;
+                    }
+                }
+                if (coord.x == next.x - 1 &&
+                    coord.y == next.y + 1) {
+                    if (type == Floor::EMPTY && i > 2) {
+                        moveIdx--;
+                        break;
+                    }
+                }
+            }
+            break;
+        case 1: //right
+            for (auto[type, coord] : currentMap) {
+                if (coord.x == next.x - 1 &&
+                    coord.y == next.y + 1) {
+                    if (type == Floor::EMPTY && i > 2) {
+                        moveIdx++;
+                        break;
+                    }
+                }
+                if (coord.x == next.x - 1 &&
+                    coord.y == next.y - 1) {
+                    if (type == Floor::EMPTY && i > 2) {
+                        moveIdx--;
+                        break;
+                    }
+                }
+            }
+            break;
+        case 2: //down
+            for (auto[type, coord] : currentMap) {
+                if (coord.x == next.x - 1 &&
+                    coord.y == next.y - 1) {
+                    if (type == Floor::EMPTY && i > 2) {
+                        moveIdx++;
+                        break;
+                    }
+                }
+                if (coord.x == next.x + 1 &&
+                    coord.y == next.y - 1) {
+                    if (type == Floor::EMPTY && i > 2) {
+                        moveIdx--;
+                        break;
+                    }
+                }
+            }
+            break;
+        case 3: //left
+            for (auto[type, coord] : currentMap) {
+                if (coord.x == next.x + 1 &&
+                    coord.y == next.y - 1) {
+                    if (type == Floor::EMPTY && i > 2) {
+                        moveIdx++;
+                        break;
+                    }
+                }
+                if (coord.x == next.x + 1 &&
+                    coord.y == next.y + 1) {
+                    if (type == Floor::EMPTY && i > 2) {
+                        moveIdx--;
+                        break;
+                    }
+                }
+            }
+            break;
+        }
+    }
+}
+
+Floor::Type AIBot::getNext()
+{
+    auto currentMap = map->getMap();
+
+    for (auto [type, coord] : currentMap) {
+        switch (moveIdx % 4) {
+            case 0: //UP
+                if (coord.x == current.x && coord.y == current.y - 1)
+                    return type;
+            case 1: //right
+                if (coord.x == current.x + 1 && coord.y == current.y)
+                    return type;
+            case 2: //down
+                if (coord.x == current.x && coord.y == current.y + 1)
+                    return type;
+            case 3: //left
+                if (coord.x == current.x - 1 && coord.y == current.y)
+                    return type;
+        }
+    }
+    return Floor::EMPTY;
+}
+
+Floor::Type AIBot::getBehind()
+{
+    auto currentMap = map->getMap();
+
+    for (auto [type, coord] : currentMap) {
+        switch (moveIdx % 4) {
+            case 0: //UP
+                if (coord.x == current.x + 1 && coord.y == current.y + 1)
+                    return type;
+            case 1: //right
+                if (coord.x == current.x - 1 && coord.y == current.y)
+                    return type;
+            case 2: //down
+                if (coord.x == current.x && coord.y == current.y - 1)
+                    return type;
+            case 3: //left
+                if (coord.x == current.x + 1 && coord.y == current.y)
+                    return type;
+        }
+    }
+    return Floor::EMPTY;
+}
+
+void AIBot::checkTurn()
+{
+    auto currentMap = map->getMap();
+
+    switch (moveIdx % 4) {
+        case 0: //UP
+            for (auto[type, coord] : currentMap) {
+                if (coord.x == next.x + 1 &&
+                    coord.y == next.y + 1) {
+                    if (type == Floor::EMPTY) {
+                        moveIdx++;
+                        return;
+                    }
+                }
+                if (coord.x == next.x - 1 &&
+                    coord.y == next.y + 1) {
+                    if (type == Floor::EMPTY) {
+                        moveIdx--;
+                        return;
+                    }
+                }
+            }
+            moveIdx += 2;
+            break;
+        case 1: //right
+            for (auto[type, coord] : currentMap) {
+                if (coord.x == next.x - 1 &&
+                    coord.y == next.y + 1) {
+                    if (type == Floor::EMPTY) {
+                        moveIdx++;
+                        return;
+                    }
+                }
+                if (coord.x == next.x - 1 &&
+                    coord.y == next.y - 1) {
+                    if (type == Floor::EMPTY) {
+                        moveIdx--;
+                        return;
+                    }
+                }
+            }
+            moveIdx += 2;
+            break;
+        case 2: //down
+            for (auto[type, coord] : currentMap) {
+                if (coord.x == next.x - 1 &&
+                    coord.y == next.y - 1) {
+                    if (type == Floor::EMPTY) {
+                        moveIdx++;
+                        return;
+                    }
+                }
+                if (coord.x == next.x + 1 &&
+                    coord.y == next.y - 1) {
+                    if (type == Floor::EMPTY) {
+                        moveIdx--;
+                        return;
+                    }
+                }
+            }
+            moveIdx += 2;
+            break;
+        case 3: //left
+            for (auto[type, coord] : currentMap) {
+                if (coord.x == next.x + 1 &&
+                    coord.y == next.y - 1) {
+                    if (type == Floor::EMPTY) {
+                        moveIdx++;
+                        return;
+                    }
+                }
+                if (coord.x == next.x + 1 &&
+                    coord.y == next.y + 1) {
+                    if (type == Floor::EMPTY) {
+                        moveIdx--;
+                        return;
+                    }
+                }
+            }
+            moveIdx += 2;
+            break;
+    }
+}
+
+/*    auto currentMap = map->getMap();
+
+    switch (moveIdx % 4) {
+        case 0: //UP
+            for (auto[type, coord] : currentMap) {
+                if (coord.x == current.x + 1 &&
+                    coord.y == current.y) {
+                    if (type == Floor::EMPTY) {
+                        moveIdx++;
+                        return;
+                    }
+                }
+                if (coord.x == current.x - 1 &&
+                    coord.y == current.y) {
+                    if (type == Floor::EMPTY) {
+                        moveIdx--;
+                        return;
+                    }
+                }
+            }
+            moveIdx += 2;
+            break;
+        case 1: //right
+            for (auto[type, coord] : currentMap) {
+                if (coord.x == current.x &&
+                    coord.y == current.y + 1) {
+                    if (type == Floor::EMPTY) {
+                        moveIdx++;
+                        return;
+                    }
+                }
+                if (coord.x == current.x &&
+                    coord.y == current.y - 1) {
+                    if (type == Floor::EMPTY) {
+                        moveIdx--;
+                        return;
+                    }
+                }
+            }
+            moveIdx += 2;
+            break;
+        case 2: //down
+            for (auto[type, coord] : currentMap) {
+                if (coord.x == current.x - 1 &&
+                    coord.y == current.y) {
+                    if (type == Floor::EMPTY) {
+                        moveIdx++;
+                        return;
+                    }
+                }
+                if (coord.x == current.x + 1 &&
+                    coord.y == current.y) {
+                    if (type == Floor::EMPTY) {
+                        moveIdx--;
+                        return;
+                    }
+                }
+            }
+            moveIdx += 2;
+            break;
+        case 3: //left
+            for (auto[type, coord] : currentMap) {
+                if (coord.x == current.x - 1 &&
+                    coord.y == current.y) {
+                    if (type == Floor::EMPTY) {
+                        moveIdx++;
+                        return;
+                    }
+                }
+                if (coord.x == current.x + 1 &&
+                    coord.y == current.y) {
+                    if (type == Floor::EMPTY) {
+                        moveIdx--;
+                        return;
+                    }
+                }
+            }
+            moveIdx += 2;
+            break;
+    }*/
