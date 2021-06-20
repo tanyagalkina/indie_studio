@@ -17,6 +17,7 @@ enum class GameState {
     Save,
     Load,
     Settings,
+    HowToPlay,
     Game,
     GameOver,
 };

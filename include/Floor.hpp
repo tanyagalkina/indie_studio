@@ -26,23 +26,16 @@ public:
     {
         EMPTY = 0,
         BOX,
-        TILE,
         WALL,
-        WALL_BOSS,
-        BOSS,
-        PLAYER,
-        BOMB,
-        MONSTER,
-        POWER_UP,
-        TELEPORT
     };
+
 public:
     static std::string getStringFromType(Type t);
     static Type getTypeFromString(std::string str);
     Floor(int level, int player_nb, int width, int height);
     Floor(std::string xmlFloor, const std::string& xmlMap);
-    MyList<std::pair<Type, Coordinate>> getTemplate(); //only for debugging
-    void show_map(); //only for debugging
+    MyList<std::pair<Type, Coordinate>> getTemplate();
+    void show_map();
     void deserialize(std::string xmlCode) final;
     std::string serialize() final;
     static MyList<std::pair<Type, Coordinate>> deserializeMap(const std::string& mapXML);
@@ -55,7 +48,6 @@ private:
     void set_obstacle_number_for_the_level();
     void set_teleport();
     void set_monster_nb();
-    void put_players();
     void put_obstacles(char obstacle_abbrev_letter, int nb_obstacles);
     void create_map();
     void check_and_fit_in_sizes();

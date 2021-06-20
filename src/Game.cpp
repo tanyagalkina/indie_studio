@@ -335,11 +335,13 @@ void Game::getExplosions() {
 Game::~Game()
 {
     //_context.device->drop();
-    delete _map;
-    delete _gameReceiver;
-    delete _driver;
-    delete _powerUpHandler;
-    delete _floor;
+    if (!_context.needGame) {
+        delete _map;
+        delete _gameReceiver;
+        delete _driver;
+        delete _powerUpHandler;
+        delete _floor;
+    }
     delete _sounds;
 }
 
@@ -417,6 +419,15 @@ void Game::updateMenu()
             menu->clearGUI();
             delete menu;
         }
+        case GameState::HowToPlay: {
+            Menu *menu = build_how_to_play_menu(_context, _imageList, _driver);
+            auto *reciever = new HowToPlayMenuEventReceiver(_context);
+            _context.device->setEventReceiver(reciever);
+            showMenu(GameState::HowToPlay, menu);
+            delete reciever;
+            menu->clearGUI();
+            delete menu;
+        }
         case GameState::PauseMenu: {
             Menu *menu = build_pause_menu(_context, _imageList, _driver);
             auto *reciever = new PauseMenuEventReceiver(_context);
@@ -447,7 +458,7 @@ void Game::createGame()
 {
     _size = _context.mapSize;
     _playerNumber = _context.playerNbr;
-    _floor = new Floor(1, _playerNumber, _size * 5, _size * 5);
+    _floor = new Floor(9, _playerNumber, _size * 5, _size * 5);
     _mapTemplate = _floor->getTemplate();
     createMap();
     _powerUpHandler = new PowerUpHandler(_context, _sounds);
@@ -573,7 +584,8 @@ bool Game::HandleExplosion()
                     if (box->HandleCollision(
                         expo->_particleSystemSceneNode->getTransformedBoundingBox()))
                     {
-                        if (bomb->beShureCollision(_players[0], box->getbody()->getPosition()))
+                        if (bomb->beShureCollision(_players[0], box->getbody()->getPosition()) &&
+                            bomb->_exploded)
                         {
                             randomPowerUpSpawn(box->getbody()->getPosition().X,
                                                box->getbody()->getPosition().Z);
@@ -647,7 +659,6 @@ void Game::checkLevel()
         else
             _winner = 0;
         unload();
-        _context.needGame = true;
     }
         //nextLevel();
 }
@@ -697,10 +708,13 @@ void Game::unload()
     _mapTemplate.clear();
     delete _powerUpHandler;
     _mapTemplate = _floor->getTemplate();
+    delete _gameReceiver;
+    _gameReceiver = new GameEventReceiver();
     //_map = new VisualMap(_context, _mapTemplate, _size);
     _powerUpHandler = new PowerUpHandler(_context, _sounds);
     /*for (int i = 0; i < _playerNumber; i++)
         _players[i].push_back(new Player(_context, *_map, i));
     for (int i = 0; i < _botNumber; i++)
         _players.push_back(new AIBot(_context, *_map, i));*/
+    _context.needGame = true;
 }

@@ -8,12 +8,10 @@
 
 void Floor::set_monster_nb()
 {
-    if (_level >= 5 && _level <= 9)
+    if (_level >= 1 && _level <= 10)
+        _nb_monsters = 1;
+    if (_level >= 10 && _level <= 19)
         _nb_monsters = 2;
-    if (_level >= 11 && _level <= 14)
-        _nb_monsters = 3;
-    if (_level >= 15 && _level <= 19)
-        _nb_monsters = 4;
 }
 
 void Floor::set_obstacle_number_for_the_level()
@@ -49,66 +47,16 @@ void Floor::show_map()
 
 void Floor::set_teleport()
 {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distr(1, 4);
-    int my_random = distr(gen);
-    switch (my_random)
-    {
-        case (1):
-            _template[_height / 2][1] = 'X';
-            break;
-        case (2):
-            _template[(_height) / 2][_width - 2] =  'X';
-            break;
-        case (3):
-            _template[1][(_width) / 2] = 'X';
-            break;
-        case (4):
-            _template[_height - 2][_width / 2] = 'X';
-            break;
-    }
-
+    _template[_height / 2][1] = '+'; //X
+    _template[(_height) / 2][_width - 2] =  '+';
+    _template[1][(_width) / 2] = '+';
+    _template[_height - 2][_width / 2] = '+';
     build_available_square_list();
 }
 
-void Floor::put_players()
-{
-    switch (_player_nb)
-    {
-        case (1):
-            _template[1][1] = 'P';
-            break;
-        case (2):
-            _template[1][1] = 'P';
-            _template[1][_width - 2] = 'P';
 
-            break;
-        case (3):
-            _template[1][1] = 'P';
-            _template[1][_width - 2] = 'P';
-            _template[_height - 2][1] = 'P';
-            break;
-        case (4):
-            _template[1][1] = 'P';
-            _template[1][_width - 2] = 'P';
-            _template[_height - 2][1] = 'P';
-            _template[_height -2] [_width -2] = 'P';
-            break;
-    }
-
-}
-
-///return _map will return a List of pairs <Coordinate, Type>
-///MyList<std::string> Floor::getTemplate()
 MyList<std::pair<Floor::Type, Coordinate>> Floor::getTemplate()
 {
-    /*MyList<std::string> output;
-    for (std::vector<std::string>::const_iterator i = _template.begin(); i != _template.end(); ++i)
-        output.push_back(*i);
-    return output;*/
-
-    ///_map is a list of pairs<Coordinate, Floor::Type>
     return _map;
 }
 
@@ -134,16 +82,9 @@ void Floor::generate_template()
     }
     set_teleport();
     build_available_square_list();
-    if (_level == 10)
-        put_obstacles('B', 1);
-    else if (_level == 20)
-        put_obstacles('B', 2);
-    else {
-        put_obstacles('+', _nb_boxes);
-        put_obstacles('M', _nb_monsters);
-        put_obstacles('*', _nb_tiles);
-    }
-    put_players();
+    put_obstacles('+', _nb_boxes);
+    put_obstacles('+', _nb_monsters); //M
+    put_obstacles('+', _nb_tiles); //*
     create_map();
 }
 
@@ -155,35 +96,11 @@ void Floor::create_map() {
             Floor::Type type = Floor::Type::EMPTY;
             char c = _template[y][x];
             if (c == '#') {
-                if (_level == 10 || _level == 20)
-                    type = Floor::Type::WALL_BOSS;
-                else
-                    type = Floor::Type::WALL;
-            }
-            if (c == 'B') {
-                type = Floor::Type::BOSS;
+                type = Floor::Type::WALL;
             }
             if (c == '+') {
                 type = Floor::Type::BOX;
             }
-            if (c == '*') {
-                type = Floor::Type::TILE;
-            }
-            if (c == 'B') {
-                type = Floor::Type::BOMB;
-            }
-            if (c == 'U') {
-                type = Floor::Type::POWER_UP;
-            }
-            if (c == 'M') {
-                type = Floor::Type::MONSTER;
-            }
-            if (c == 'P') {
-                type = Floor::Type::PLAYER;
-            }
-            if (c == 'X')
-                type = Floor::Type::TELEPORT;
-
             cord.x = x;
             cord.y = y;
             _map.push_back(std::make_pair(type, cord));
@@ -214,32 +131,8 @@ void Floor::create_template_from_map() {
             case Floor::Type::WALL:
                 c = '#';
                 break;
-            case Floor::Type::WALL_BOSS:
-                c = '#';
-                break;
-            case Floor::Type::BOSS:
-                c = 'B';
-                break;
             case Floor::Type::BOX:
                 c = '+';
-                break;
-            case Floor::Type::TILE:
-                c = '*';
-                break;
-            case Floor::Type::BOMB:
-                c = 'B';
-                break;
-            case Floor::Type::POWER_UP:
-                c = 'U';
-                break;
-            case Floor::Type::MONSTER:
-                c = 'M';
-                break;
-            case Floor::Type::PLAYER:
-                c = 'P';
-                break;
-            case Floor::Type::TELEPORT:
-                c = 'X';
                 break;
             default:
                 break;
@@ -310,15 +203,7 @@ std::string Floor::getStringFromType(Floor::Type t)
     const std::map<Type, std::string> TypeStrings {
         {Type::EMPTY, "EMPTY"},
         {Type::BOX, "BOX"},
-        {Type::TILE, "TILE"},
         {Type::WALL, "WALL"},
-        {Type::WALL_BOSS, "WALL_BOSS"},
-        {Type::BOSS, "BOSS"},
-        {Type::PLAYER, "PLAYER"},
-        {Type::BOMB, "BOMB"},
-        {Type::MONSTER, "MONSTER"},
-        {Type::POWER_UP, "POWER_UP"},
-        {Type::TELEPORT, "TELEPORT"},
     };
     auto it = TypeStrings.find(t);
     return it == TypeStrings.end() ? "Out of range" : it->second;
@@ -329,15 +214,7 @@ Floor::Type Floor::getTypeFromString(std::string str)
     const std::map<std::string, Type> TypeStrings {
         {"EMPTY",        Type::EMPTY},
         {"BOX",          Type::BOX},
-        {"TILE",         Type::TILE},
         {"WALL",         Type::WALL},
-        {"WALL_BOSS",    Type::WALL_BOSS},
-        {"BOSS",         Type::BOSS},
-        {"PLAYER",       Type::PLAYER},
-        {"BOMB",         Type::BOMB},
-        {"MONSTER",      Type::MONSTER},
-        {"POWER_UP",     Type::POWER_UP},
-        {"TELEPORT",     Type::TELEPORT},
     };
     auto it = TypeStrings.find(str.substr(0, str.size() - 1));
     return it->second;
@@ -416,7 +293,7 @@ MyList<std::pair<Floor::Type, Coordinate>> Floor::deserializeMap(const std::stri
         Coordinate cor
         {
             (int)(x + 300) / 50,
-            (int)(z-300) / -50
+            (int)(z - 300) / -50
         };
         if (x != -5000)
         {
