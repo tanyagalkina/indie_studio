@@ -248,6 +248,12 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::
     int begin_x = (int)(dimensions.Width * 0.2);
 
     Menu *menu = new Menu(context, imageList, driver);
+
+    irr::video::ITexture *backgroundTexture = menu->_driver->
+        getTexture("./media/background.jpg");
+    menu->_guienv->addImage(backgroundTexture, irr::core::position2d<irr::s32>
+        (0, 0));
+
     switch (winner) {
         case 1:
             menu->addLabel(GUI_TEXT_PLAYER1, irr::core::position2d<irr::s32>
