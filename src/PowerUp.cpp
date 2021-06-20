@@ -79,9 +79,6 @@ bool PowerUp::HandleCollision(Character &player)
         this->body->getTransformedBoundingBox()))
     {
         this->body->setVisible(false);
-        ///how can we do different sounds according to the type of the powerUp???
-        ///override this func??
-        ///_sounds->powerUp2();
         this->BluRrr();
         std::cout << "hit" << std::endl;
         return true;

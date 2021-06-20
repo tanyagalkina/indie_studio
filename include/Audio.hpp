@@ -22,6 +22,9 @@ private:
     sf::Sound powerUpSound;
     sf::SoundBuffer powerUpBuffer2;
     sf::Sound powerUpSound2;
+    sf::SoundBuffer powerUpBuffer3;
+    sf::Sound powerUpSound3;
+
 
 public:
     Audio()
@@ -41,11 +44,14 @@ public:
         allahSound.setBuffer(allahBuffer);
         allahSound.setVolume(10);
         powerUpBuffer.loadFromFile("media/sounds/magic.ogg");
-        powerUpBuffer2.loadFromFile("media/sounds/fairy.ogg");
+        powerUpBuffer2.loadFromFile("media/sounds/fairy2.ogg");
         powerUpSound2.setBuffer(powerUpBuffer2);
         powerUpSound2.setVolume(30);
         powerUpSound.setBuffer(powerUpBuffer);
         powerUpSound.setVolume(30);
+        powerUpBuffer3.loadFromFile("media/sounds/aura.ogg");
+        powerUpSound3.setBuffer(powerUpBuffer3);
+        powerUpSound3.setVolume(30);
 
     }
 
@@ -68,13 +74,16 @@ public:
             allahSound.setVolume(0);
             powerUpSound.setVolume(0);
             powerUpSound2.setVolume(0);
+            powerUpSound3.setVolume(0);
         }
         else {
             exploSound.setVolume(18);
             allahSound.setVolume(10);
             powerUpSound.setVolume(30);
-            powerUpSound2.setVolume(40);
+            powerUpSound2.setVolume(30);
+            powerUpSound3.setVolume(30);
         }
+
     }
 
     void explode()
@@ -104,6 +113,10 @@ public:
     void powerUp2()
     {
         powerUpSound2.play();
+    }
+    void powerUp3()
+    {
+        powerUpSound3.play();
     }
 };
 
