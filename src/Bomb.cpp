@@ -5,8 +5,8 @@
 ** Bomb.cpp
 */
 
-#include <bomb.hpp>
 #include <Explosion.hpp>
+#include <Bomb.hpp>
 
 
 Bomb::Bomb(SAppContext &ctx, Audio *sounds, Character *player) : _player(player)
