@@ -142,18 +142,22 @@ bool LoadMenuEventReceiver::OnEvent(const irr::SEvent &event)
                     case GUI_BUTTON_SAVE1:
                         _context.needLoad = true;
                         _context.saveState = 1;
+                        _context.state = GameState::Game;
                         return true;
                     case GUI_BUTTON_SAVE2:
                         _context.needLoad = true;
                         _context.saveState = 2;
+                        _context.state = GameState::Game;
                         return true;
                     case GUI_BUTTON_SAVE3:
                         _context.needLoad = true;
                         _context.saveState = 3;
+                        _context.state = GameState::Game;
                         return true;
                     case GUI_BUTTON_SAVE4:
                         _context.needLoad = true;
                         _context.saveState = 4;
+                        _context.state = GameState::Game;
                         return true;
                     case GUI_BUTTON_BACK:
                         if (_context.isPaused)

@@ -21,7 +21,7 @@ Game::Game()
     _driver = _context.device->getVideoDriver();
     _gameReceiver = new GameEventReceiver();
     _context.device->setEventReceiver(_gameReceiver);
-
+    _winner = 0;
     //_powerUpHandler = new PowerUpHandler(_context);
     //Character *p = new Player(_context, *_map);
     //Character *p2 = new AIBot(_context, *_map, 1);
@@ -69,7 +69,7 @@ SAppContext Game::createContext()
     context.saveState = 0;
     context.needSave = false;
     context.needLoad = false;
-    context.needGame = false;
+    context.needGame = true;
     context.playerNbr = 0;
     context.mapSize = 0;
     return context;
@@ -80,7 +80,14 @@ void Game::play()
 {
     _sounds->backMusic();
     while (_context.device->run()) {
-        this->updateMenu();
+        if (_context.state != GameState::Game) {
+            this->updateMenu();
+            continue;
+        }
+        if (!checkSaveOrLoad()) {
+            _context.state = GameState::Load;
+            continue;
+        }
 
         if (_context.needGame) {
             if (_context.mapSize != 0 && _context.playerNbr != 0)
@@ -114,7 +121,6 @@ void Game::play()
         _map->display();
         _driver->endScene();
         checkLevel();
-        checkSaveOrLoad();
     }
 }
 
@@ -307,6 +313,15 @@ void Game::updateMenu()
             menu->clearGUI();
             delete menu;
         }
+        case GameState::GameOver: {
+            Menu *menu = build_game_over_menu(_context, _imageList, _winner);
+            auto *reciever = new GameOverMenuEventReceiver(_context);
+            _context.device->setEventReceiver(reciever);
+            showMenu(GameState::GameOver, menu);
+            delete reciever;
+            menu->clearGUI();
+            delete menu;
+        }
         default:
             _context.device->setEventReceiver(_gameReceiver);
             break;
@@ -331,7 +346,7 @@ void Game::createGame()
     _context.needGame = false;
 }
 
-void Game::load(int n)
+bool Game::load(int n)
 {
     std::ifstream file("./games/save" + std::to_string(n) + ".xml");
     std::stringstream ss;
@@ -352,9 +367,10 @@ void Game::load(int n)
         file.close();
     } else {
         std::cerr << "Could not open File from save state " << n << std::endl;
-        return;
+        return false;
     }
-    unload();
+    if (!_context.needGame)
+        unload();
     std::string code = ss.str();
     SerializeHelper sh(code, true);
 
@@ -391,6 +407,8 @@ void Game::load(int n)
          }
         node = sh.GetNextKey();
     }
+    _context.needGame = false;
+    return true;
 }
 
 void Game::randomPowerUpSpawn(float x, float z)
@@ -499,20 +517,35 @@ void Game::checkLevel()
         if (player->isAlive())
             i++;
     }
-    if (i < 2)
-        nextLevel();
+    if (i < 2 ||
+        (!_players[0]->isAlive() && _playerNumber == 1) ||
+        (!_players[0]->isAlive() && !_players[1]->isAlive() &&
+        _playerNumber == 2)) {
+        _context.state = GameState::GameOver;
+        if (_players[0]->isAlive())
+            _winner = 1;
+        else if (_players[1]->isAlive() && _playerNumber == 2)
+            _winner = 2;
+        else
+            _winner = 0;
+    }
+        //nextLevel();
 }
 
-void Game::checkSaveOrLoad()
+bool Game::checkSaveOrLoad()
 {
     if (_context.needSave) {
         safe(_context.saveState);
         _context.needSave = false;
+        return true;
     }
     if (_context.needLoad) {
-        load(_context.saveState);
-        _context.needLoad = false;
+        if (load(_context.saveState))
+            _context.needLoad = false;
+        else
+            return false;
     }
+    return true;
 }
 
 void Game::unload()

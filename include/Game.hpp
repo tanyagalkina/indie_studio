@@ -35,6 +35,7 @@ private:
     Audio *_sounds = new Audio;
     int _playerNumber;
     std::vector<std::pair<Buttons, irr::video::ITexture *>> _imageList;
+    int _winner;
 
 public:
     Game();
@@ -44,10 +45,10 @@ public:
     void showMenu(GameState state, Menu *menu);
     void safe(int n);
     void createGame();
-    void load(int n);
+    bool load(int n);
     void unload();
-    void checkSaveOrLoad();
 private:
+    bool checkSaveOrLoad();
     static SAppContext createContext();
     bool HandleExplosion();
     std::vector<float> getSurround(irr::core::vector3d<irr::f32> pos) const;
