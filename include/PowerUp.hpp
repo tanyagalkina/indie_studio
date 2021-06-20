@@ -10,15 +10,18 @@
 
 #include "ICollidable.hpp"
 #include "Error.hpp"
+#include "Audio.hpp"
 
 class PowerUp : public ICollidable
 {
-protected:
+    protected:
     bool isExisting = true;
+    Audio *_sounds;
+
 public:
     ~PowerUp() override;
     explicit PowerUp(SAppContext &ctx, const irr::core::string<irr::fschar_t>& meshPath, const
-    irr::core::string<irr::fschar_t> &texturePath);
+    irr::core::string<irr::fschar_t> &texturePath, Audio *s);
     void setPosition(float x, float z) final;
     virtual std::tuple<Timer, PowerUpType, Character *> getTimerTypeAndPlayer(Character& player)
     = 0;

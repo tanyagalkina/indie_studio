@@ -13,7 +13,7 @@
 class BombUp : public PowerUp
 {
 public:
-    explicit BombUp(SAppContext &sac);
+    explicit BombUp(SAppContext &sac, Audio *s);
     std::tuple<Timer, PowerUpType, Character*> getTimerTypeAndPlayer(Character& player) final;
 };
 

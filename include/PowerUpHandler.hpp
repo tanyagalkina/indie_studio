@@ -20,11 +20,13 @@ private:
     SAppContext *appContext;
     MyList<std::tuple<Timer, PowerUpType, Character *>> currentPowerUps;
     MyList<PowerUp *> allPowerUps;
+    Audio *_sounds;
 
     static void handlePlayerItems(PowerUpType type, Character *);
 
 public:
-    explicit PowerUpHandler(SAppContext &ctx) : appContext(&ctx){}
+    explicit PowerUpHandler(SAppContext &ctx, Audio *s) : appContext(&ctx), _sounds(s){
+    }
     void loop(MyList<Character *>& players);
     void addPowerUp(PowerUpType, float x, float z);
 };

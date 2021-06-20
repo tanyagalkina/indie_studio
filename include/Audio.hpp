@@ -18,6 +18,8 @@ private:
     sf::Sound backSound2;
     sf::SoundBuffer allahBuffer;
     sf::Sound allahSound;
+    sf::SoundBuffer powerUpBuffer;
+    sf::Sound powerUpSound;
 
 public:
     Audio()
@@ -32,10 +34,13 @@ public:
         backSound.setLoop(true);
         backSound.setVolume(5);
         backSound2.setVolume(10);
-        backSound.setLoop(true);
+        backSound2.setLoop(true);
         allahBuffer.loadFromFile("media/sounds/allah.ogg");
         allahSound.setBuffer(allahBuffer);
         allahSound.setVolume(10);
+        powerUpBuffer.loadFromFile("media/sounds/magic.ogg");
+        powerUpSound.setBuffer(powerUpBuffer);
+        powerUpSound.setVolume(30);
 
     }
 
@@ -56,10 +61,12 @@ public:
         if (mute) {
             exploSound.setVolume(0);
             allahSound.setVolume(0);
+            powerUpSound.setVolume(0);
         }
         else {
             exploSound.setVolume(18);
             allahSound.setVolume(10);
+            powerUpSound.setVolume(20);
         }
     }
 
@@ -80,6 +87,11 @@ public:
     void backMusic2()
     {
         backSound2.play();
+    }
+
+    void powerUp()
+    {
+        powerUpSound.play();
     }
 };
 

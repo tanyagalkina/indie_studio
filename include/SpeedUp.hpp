@@ -13,7 +13,7 @@
 class SpeedUp : public PowerUp
 {
 public:
-    explicit SpeedUp(SAppContext &sac);
+    explicit SpeedUp(SAppContext &sac, Audio *s);
     std::tuple<Timer, PowerUpType, Character *> getTimerTypeAndPlayer(Character& player) final;
 };
 
