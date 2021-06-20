@@ -281,7 +281,7 @@ std::vector<float> Game::getSurround(irr::core::vector3d<irr::f32> pos, Characte
     for (int i = 0; i < map.size(); ++i)
 
     {
-        if (map[i]->getType() == 3) {
+        if (map[i]->getType() == 2) {
             irr::core::vector3d<irr::f32> cubePos = map[i]->getbody()->getPosition();
             ///if the wall is one or two squres higher
             if ((cubePos.Z == pos.Z - 50 || cubePos.Z == pos.Z - 100) \

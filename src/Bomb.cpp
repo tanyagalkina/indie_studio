@@ -48,6 +48,7 @@ Character *Bomb::getPLayer() const
 void Bomb::initExplosion(std::vector<float> surround)
 {
     this->_exploded = true;
+    _surround = surround;
     irr::core::vector3df up = irr::core::vector3df(0.0f, 0.0f, surround[0]); ///surround[0]
     irr::core::vector3df right = irr::core::vector3df(surround[1], 0.0f, 0.0f); ///surround[1]
     irr::core::vector3df down = irr::core::vector3df(0.0f, 0.0f, surround[2]); ///surround[2]
@@ -90,6 +91,7 @@ bool Bomb::HandleCollision(Character &player)
 
 bool Bomb::beShureCollision(Character *player, const irr::core::vector3df& pos)
 {
+    //_explosions
     auto posx = player->calcMiddle(pos.X);
     auto posz = player->calcMiddle(pos.Z);
     auto posxB = player->calcMiddle(body->getPosition().X);
