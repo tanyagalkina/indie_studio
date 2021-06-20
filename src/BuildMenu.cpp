@@ -17,7 +17,7 @@
 
 
 Menu *build_main_menu(SAppContext context, const
-std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
+std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::IVideoDriver *driver)
 {
     irr::core::dimension2d<irr::u32> dimensions =
         context.device->getVideoDriver()->getScreenSize();
@@ -25,7 +25,13 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
     int size_x = (int)(dimensions.Width * 0.6);
     int begin_x = (int)(dimensions.Width * 0.2);
 
-    Menu *menu = new Menu(context, imageList);
+    Menu *menu = new Menu(context, imageList, driver);
+
+    irr::video::ITexture *backgroundTexture = menu->_driver->
+        getTexture("./media/background.jpg");
+    menu->_guienv->addImage(backgroundTexture, irr::core::position2d<irr::s32>
+        (0, 0));
+    d
     menu->addLabel(GUI_TEXT_HEADLINE, irr::core::position2d<irr::s32>
         (begin_x * 1.375, size_y));
 
@@ -45,7 +51,7 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
 }
 
 Menu *build_new_menu(SAppContext context, const
-std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
+std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::IVideoDriver *driver)
 {
     irr::core::dimension2d<irr::u32> dimensions =
         context.device->getVideoDriver()->getScreenSize();
@@ -53,7 +59,7 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
     int size_x = (int)(dimensions.Width * 0.6);
     int begin_x = (int)(dimensions.Width * 0.2);
 
-    Menu *menu = new Menu(context, imageList);
+    Menu *menu = new Menu(context, imageList, driver);
     menu->addLabel(GUI_TEXT_NEWGAME, irr::core::position2d<irr::s32>
         (begin_x * 1.9, size_y));
 
@@ -100,7 +106,7 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
 }
 
 Menu *build_save_menu(SAppContext context, const
-std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
+std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::IVideoDriver *driver)
 {
     irr::core::dimension2d<irr::u32> dimensions =
         context.device->getVideoDriver()->getScreenSize();
@@ -108,7 +114,7 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
     int size_x = (int)(dimensions.Width * 0.6);
     int begin_x = (int)(dimensions.Width * 0.2);
 
-    Menu *menu = new Menu(context, imageList);
+    Menu *menu = new Menu(context, imageList, driver);
     menu->addLabel(GUI_TEXT_SAVEGAME, irr::core::position2d<irr::s32>
         (begin_x * 1.85, size_y));
 
@@ -134,7 +140,7 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
 }
 
 Menu *build_load_menu(SAppContext context, const
-std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
+std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::IVideoDriver *driver)
 {
     irr::core::dimension2d<irr::u32> dimensions =
         context.device->getVideoDriver()->getScreenSize();
@@ -142,7 +148,7 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
     int size_x = (int)(dimensions.Width * 0.6);
     int begin_x = (int)(dimensions.Width * 0.2);
 
-    Menu *menu = new Menu(context, imageList);
+    Menu *menu = new Menu(context, imageList, driver);
     menu->addLabel(GUI_TEXT_LOADGAME, irr::core::position2d<irr::s32>
         (begin_x * 1.85, size_y));
 
@@ -168,7 +174,7 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
 }
 
 Menu *build_settings_menu(SAppContext context, const
-std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
+std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::IVideoDriver *driver)
 {
     irr::core::dimension2d<irr::u32> dimensions =
         context.device->getVideoDriver()->getScreenSize();
@@ -176,7 +182,7 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
     int size_x = (int)(dimensions.Width * 0.6);
     int begin_x = (int)(dimensions.Width * 0.2);
 
-    Menu *menu = new Menu(context, imageList);
+    Menu *menu = new Menu(context, imageList, driver);
     menu->addLabel(GUI_TEXT_SETTINGS, irr::core::position2d<irr::s32>
         (begin_x * 1.9, size_y));
 
@@ -199,7 +205,7 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
 }
 
 Menu *build_pause_menu(SAppContext context, const
-std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
+std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::IVideoDriver *driver)
 {
     irr::core::dimension2d<irr::u32> dimensions =
         context.device->getVideoDriver()->getScreenSize();
@@ -207,7 +213,7 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
     int size_x = (int)(dimensions.Width * 0.6);
     int begin_x = (int)(dimensions.Width * 0.2);
 
-    Menu *menu = new Menu(context, imageList);
+    Menu *menu = new Menu(context, imageList, driver);
     menu->addLabel(GUI_TEXT_PAUSED, irr::core::position2d<irr::s32>
         (begin_x * 1.8, size_y));
 
@@ -233,7 +239,7 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList)
 }
 
 Menu *build_game_over_menu(SAppContext context, const
-std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, int winner)
+std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::IVideoDriver *driver, int winner)
 {
     irr::core::dimension2d<irr::u32> dimensions =
         context.device->getVideoDriver()->getScreenSize();
@@ -241,7 +247,7 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, int winner)
     int size_x = (int)(dimensions.Width * 0.6);
     int begin_x = (int)(dimensions.Width * 0.2);
 
-    Menu *menu = new Menu(context, imageList);
+    Menu *menu = new Menu(context, imageList, driver);
     switch (winner) {
         case 1:
             menu->addLabel(GUI_TEXT_PLAYER1, irr::core::position2d<irr::s32>

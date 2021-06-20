@@ -14,10 +14,11 @@
 #include "PowerUpHandler.hpp"
 
 Menu::Menu(SAppContext context, const std::vector<std::pair<Buttons,
-           irr::video::ITexture *>> &imageList)
+           irr::video::ITexture *>> &imageList, irr::video::IVideoDriver
+           *driver)
 {
     _guienv = context.device->getGUIEnvironment();
-
+    _driver = driver;
     irr::gui::IGUISkin* skin = _guienv->getSkin();
     irr::gui::IGUIFont* font = _guienv->getFont("media/fonthaettenschweiler.bmp");
     if (font)
