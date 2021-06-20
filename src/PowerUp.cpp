@@ -46,8 +46,12 @@ void PowerUp::setPosition(float x, float z)
 
 bool PowerUp::HandleCollision(Character &player)
 {
-    if (player.getBody()->getTransformedBoundingBox().intersectsWithBox(
-        this->body->getTransformedBoundingBox()))
+    int playX = player.calcMiddle(player.getBody()->getPosition().X);
+    int playz = player.calcMiddle(player.getBody()->getPosition().Z);
+    int colX = player.calcMiddle(body->getPosition().X);
+    int colz = player.calcMiddle(body->getPosition().Z);
+
+    if (playX == colX && playz == colz)
     {
         this->body->setVisible(false);
         this->BluRrr();
