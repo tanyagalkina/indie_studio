@@ -25,8 +25,9 @@ private:
     static void handlePlayerItems(PowerUpType type, Character *);
 
 public:
-    explicit PowerUpHandler(SAppContext &ctx, Audio *s) : appContext(&ctx), _sounds(s){
-    }
+    explicit PowerUpHandler(SAppContext &ctx, Audio *s) : appContext(&ctx), _sounds(s)
+    {}
+    ~PowerUpHandler();
     void loop(MyList<Character *>& players);
     void addPowerUp(PowerUpType, float x, float z);
 };
