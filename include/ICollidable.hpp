@@ -17,9 +17,9 @@ protected:
     irr::scene::ISceneManager *smgr;
     irr::video::IVideoDriver *driver;
     irr::scene::ITriangleSelector *selector;
+    irr::scene::IAnimatedMeshSceneNode *body;
 
 public:
-    irr::scene::IAnimatedMeshSceneNode *body;
     virtual ~ICollidable() = default;
     virtual void setPosition(float x, float y) = 0;
     virtual bool HandleCollision(Character &player) = 0;

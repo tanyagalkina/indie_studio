@@ -23,12 +23,16 @@ public:
     void addCheckBox(const irr::core::rect<irr::s32>& pos, int box_enum, bool
     value);
     void clearGUI();
+    irr::video::IVideoDriver *getDriver();
+    irr::gui::IGUIEnvironment *getGuiEnv();
 
+    std::vector<irr::gui::IGUIElement *> getElementList();
+
+private:
+    std::vector<std::pair<Buttons, irr::video::ITexture *>> _imageList;
     irr::gui::IGUIEnvironment *_guienv;
     std::vector<irr::gui::IGUIElement *> _elementList;
     irr::video::IVideoDriver *_driver;
-private:
-    std::vector<std::pair<Buttons, irr::video::ITexture *>> _imageList;
 };
 
 Menu *build_main_menu(SAppContext context, const std::vector<std::pair<Buttons,

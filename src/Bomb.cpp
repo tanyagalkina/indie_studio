@@ -66,7 +66,7 @@ void Bomb::initExplosion(std::vector<float> surround)
 void Bomb::stopExplosion()
 {
     for (auto it : this->_explosions) {
-        it->_particleSystemSceneNode->setVisible(false);
+        it->getParticleSceneNode()->setVisible(false);
         delete it;
     }
     this->_explosions.clear();
@@ -105,7 +105,7 @@ bool Bomb::beShureCollision(const irr::core::vector3df& pos)
     int tanya = 0;
     while (up > 0.1) {
 
-        if (bombX == colX && (bombZ - tanya == colZ))
+        if (bombX == colX && (bombZ + tanya == colZ))
             return true;
         else {
             up -= 0.1;
@@ -125,7 +125,7 @@ bool Bomb::beShureCollision(const irr::core::vector3df& pos)
     tanya = 0;
 
     while (down < -0.1) {
-        if (bombX == colX && (bombZ + tanya == colZ))
+        if (bombX == colX && (bombZ - tanya == colZ))
             return true;
         else {
             down += 0.1;
@@ -159,3 +159,20 @@ MyList<Explosion *> Bomb::getExplosions()
 {
     return _explosions;
 }
+
+irr::scene::IAnimatedMeshSceneNode *Bomb::getBody()
+{
+    return body;
+}
+
+Timer Bomb::getTimer()
+{
+    return timer;
+}
+
+bool Bomb::getExploded()
+{
+    return _exploded;
+}
+
+

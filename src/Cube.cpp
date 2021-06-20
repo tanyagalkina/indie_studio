@@ -103,16 +103,6 @@ irr::scene::IAnimatedMeshSceneNode *Cube::getbody()
     return body;
 }
 
-bool Cube::isVisible() const
-{
-    return _visible;
-}
-
-void Cube::setVisible(bool enable)
-{
-    _visible = enable;
-}
-
 Coordinate Cube::getCoordinates()
 {
     return coordinate;

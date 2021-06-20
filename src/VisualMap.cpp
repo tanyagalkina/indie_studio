@@ -47,7 +47,6 @@ VisualMap::VisualMap(SAppContext &ctx, Map &_map, int size)
     if (!this->smgr->loadScene("media/skybox.irr"))
         AssetLoadErrorMac("Can't load 'media/skybox.irr'");
 
-    _size = size;
     if (size == 1)
         this->smgr->addCameraSceneNode(NULL, irr::core::vector3df(70, 375, -240),
             irr::core::vector3df(70, 0, -75));
@@ -104,11 +103,6 @@ std::string VisualMap::serialize()
     return sh.getXML();
 }
 
-void VisualMap::eraseCubes(const MyList<MyList<Cube *>::iterator>& eares)
-{
-    for (auto &it : eares)
-        blocks.erase(it);
-}
 
 void VisualMap::setMap(Coordinate coord, Floor::Type newType)
 {

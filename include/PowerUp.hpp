@@ -15,7 +15,6 @@
 class PowerUp : public ICollidable
 {
     protected:
-    bool isExisting = true;
     Audio *_sounds;
 
 public:

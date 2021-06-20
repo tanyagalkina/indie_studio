@@ -14,6 +14,7 @@
 
 class IXML
 {
+public:
     virtual std::string serialize() = 0;
     virtual void deserialize(std::string xmlCode) = 0;
 };

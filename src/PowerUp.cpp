@@ -22,41 +22,12 @@ PowerUp::PowerUp(SAppContext &ctx, const irr::core::string<irr::fschar_t> &meshP
         AssetLoadErrorMac("loading mesh");
     if ((this->body = smgr->addAnimatedMeshSceneNode(mesh)) == NULL)
         SceneErrorMac("adding scene node");
-
-    //this->body = smgr->addAnimatedMeshSceneNode(smgr->getMesh("./media/asset/powerup/powerUpP.obj"));
-    ////this->body = smgr->addAnimatedMeshSceneNode(smgr->getMesh("media/boot.3ds"));
-
     this->body->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     auto *texture = driver->getTexture(texturePath);
 
-    //if (texture == NULL)
-        //std::cout << "--------------------------__" << std::endl;
     this->body->setMaterialTexture(0, texture);
-    //this->body->setScale(irr::core::vector3df(.04));
-    //this->body->setPosition(irr::core::vector3df(-300, 30, 300));
     this->body->addAnimator(smgr->createRotationAnimator(irr::core::vector3df(0, 1, 0)));
 
-    //
-//    irr::scene::IAnimatedMesh *mesh;
-//    if ((mesh = smgr->getMesh("meshPath")) == NULL) {
-//        AssetLoadErrorMac("Can't load mesh");
-//    }
-//    if ((this->body = smgr->addAnimatedMeshSceneNode(mesh)) == NULL) {
-//        SceneErrorMac("Could not add AnimatedMeshSceneNode");
-//    }
-//    std::cout << "here" << std::endl;
-//    //        this->body->setMD2Animation(currentMovementState);
-//    this->body->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-//    this->body->setMaterialTexture(1, driver->getTexture(texturePath));
-//    this->body->setMaterialTexture(0, driver->getTexture(
-//        "./media/textures/textures/swiatlo1obj_1001_BaseColor.jpg"
-//        ));
-//    this->body->setMaterialTexture(2, driver->getTexture(
-//        "./media/textures/textures/swiatlo1obj_1001_Emissive.jpg"
-//    ));
-//    this->body->setMaterialTexture(3, driver->getTexture(
-//        "./media/textures/textures/swiatlo1obj_1001_Roughness.jpg"
-//    ));
 
     /* lift the player up a bit */
     auto pos = this->body->getPosition();
@@ -88,5 +59,4 @@ bool PowerUp::HandleCollision(Character &player)
 
 PowerUp::~PowerUp()
 {
-//    body->drop();
 }

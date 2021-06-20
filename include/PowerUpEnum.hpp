@@ -12,8 +12,7 @@ enum PowerUpType
 {
     SpeedUp_t = 90,
     BombUp_t,
-    FireUp_t,
-    WallPass
+    FireUp_t
 };
 
 #endif //B_YEP_400_BER_4_1_INDIESTUDIO_KARL_ERIK_STOERZEL_POWERUPENUM_HPP
