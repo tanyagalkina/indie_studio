@@ -24,6 +24,7 @@ public:
     bool HandleCollision(const irr::core::aabbox3d<irr::f32>& object);
     irr::scene::IAnimatedMeshSceneNode *getbody();
     Floor::Type getType() const;
+    Coordinate getCoordinates();
 
     bool isVisible() const;
     void setVisible(bool enable);
