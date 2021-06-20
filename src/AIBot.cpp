@@ -67,7 +67,7 @@ bool AIBot::customMove(irr::core::vector3df target)
     return false;
 }
 
-Floor::Type AIBot::checkNextMove(irr::core::vector3df &target)
+void AIBot::checkNextMove(irr::core::vector3df &target, GameEventReceiver &receiver)
 {
     int x = round(abs((target.X + 300) / 50));
     int y = round(abs((target.Z - 300) / 50));
@@ -76,12 +76,27 @@ Floor::Type AIBot::checkNextMove(irr::core::vector3df &target)
 
     for (auto [type, coord] : currentMap) {
         if (coord.x == x && coord.y == y) {
-            //printf("next\t%d - %d -> %d\n", coord.x, coord.y, (int)type);
-            return type;
+            if (type == Floor::Type::WALL) {
+                if (_lastType != Floor::EMPTY)
+                    moveIdx += 2;
+                else
+                    moveIdx++;
+            }
+            if (type == Floor::Type::BOX) {
+                dropBomb(receiver);
+                if (_lastType != Floor::EMPTY)
+                    moveIdx += 2;
+                else
+                    moveIdx++;
+            } else {
+                shouldDropBomb = false;
+            }
+            if (type == Floor::Type::EMPTY) {
+                customMove(target);
+            }
+            _lastType = type;
         }
     }
-    std::cout << "here" << std::endl;
-    return Floor::Type::EMPTY;
 }
 
 void AIBot::move(GameEventReceiver &receiver)
@@ -90,9 +105,6 @@ void AIBot::move(GameEventReceiver &receiver)
     int blockSize = 25;
 
     //std::cout << "X: " << next.X << " Z: " << next.Z << std::endl;
-    //
-    std::cout << lastSteps.size() << std::endl;
-
     //if (goingBack == 0 && lastSteps.size() != 0 && lastSteps.top() != next) {
         //lastSteps.push(next);
     //}
@@ -118,9 +130,8 @@ void AIBot::move(GameEventReceiver &receiver)
         //lastSteps.pop();
         //return;
     //}
-
-
     //printf("current\t%d - %d\n", abs((int)(next.X + 300) / 50), abs((int)(next.Z - 350) / 50));
+
     switch (moveIdx % 4) {
         case 0: //UP
             this->body->setRotation(irr::core::vector3df(0, 270, 0));
@@ -140,19 +151,5 @@ void AIBot::move(GameEventReceiver &receiver)
             break;
     }
     changeMovementState();
-
-    auto type = checkNextMove(next);
-
-    if (type == Floor::Type::WALL) {
-        moveIdx++;
-    }
-    if (type == Floor::Type::BOX) {
-        //dropBomb(receiver);
-    } else {
-        shouldDropBomb = false;
-    }
-    if (type == Floor::Type::EMPTY) {
-        customMove(next);
-    }
-    return;
+    checkNextMove(next, receiver);
 }
