@@ -5,7 +5,7 @@
 ** Bomb.cpp
 */
 
-#include <Bomb.hpp>
+#include <bomb.hpp>
 #include <Explosion.hpp>
 
 

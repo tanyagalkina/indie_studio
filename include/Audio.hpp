@@ -6,7 +6,6 @@
 #define BOMBERMAN_AUDIO_HPP
 
 #include <SFML/Audio.hpp>
-#include <SFML/Audio.h>
 
 class Audio {
 private:

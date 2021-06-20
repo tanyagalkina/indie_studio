@@ -1,6 +1,5 @@
 #include "Cube.hpp"
 #include "Floor.hpp"
-#include <sys/select.h>
 
 Cube::Cube(SAppContext &context, Floor::Type  blockType, Coordinate cord)
     : type(blockType), coordinate(cord)
