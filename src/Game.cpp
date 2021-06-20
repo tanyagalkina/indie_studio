@@ -43,9 +43,6 @@ void Game::createMap()
         exit(84);
     }
     MyList<Cube *> map = _map->getBlocks();
-    for (int i = 0; i < map.size(); ++i) {
-        std::cout << map[i]->getType();
-    }
 }
 
 SAppContext Game::createContext()
