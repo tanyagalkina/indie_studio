@@ -92,17 +92,63 @@ bool Bomb::HandleCollision(Character &player)
 bool Bomb::beShureCollision(Character *player, const irr::core::vector3df& pos)
 {
     //_explosions
-    auto posx = player->calcMiddle(pos.X);
-    auto posz = player->calcMiddle(pos.Z);
-    auto posxB = player->calcMiddle(body->getPosition().X);
-    auto poszB = player->calcMiddle(body->getPosition().Z);
-    if ((posxB == posx && (poszB == posz
-                           || poszB == posz - 50 || poszB == posz - 100
-                           || poszB == posz + 50 || poszB == posz + 100) ||
-         (poszB == posz && (posxB == posx
-                            || posxB == posx - 50 || posxB == posx - 100
-                            || posxB == posx + 50 || poszB == posx + 100))))
-        return true;
+    auto playerX = player->calcMiddle(pos.X);
+    auto playerZ = player->calcMiddle(pos.Z);
+    auto bombX = player->calcMiddle(body->getPosition().X);
+    auto bombZ = player->calcMiddle(body->getPosition().Z);
+
+    float up = _surround[0];
+    float right = _surround[1];
+    float down = _surround[2];
+    float left = _surround[3];
+
+    int tanya = 0;
+    while (up > 0.1) {
+
+        if (bombX == playerX && (bombZ == (playerZ - tanya)))
+            return true;
+        else {
+            up -= 0.01;
+            tanya += 50;
+        }
+    }
+    tanya = 0;
+
+    while (left < -0.1) {
+        if (bombZ == playerZ && (bombX == (playerX - tanya)))
+            return true;
+        else {
+            left += 0.01;
+            tanya += 50;
+        }
+    }
+    tanya = 0;
+
+    while (down < -0.1) {
+        if (bombX == playerX && (bombZ == (playerZ + tanya)))
+            return true;
+        else {
+            down += 0.01;
+            tanya += 50;
+        }
+    }
+    tanya = 0;
+    while (right > 0.1) {
+        if (bombZ == playerZ && (bombX == (playerX + tanya)))
+            return true;
+        else {
+            right -= 0.01;
+            tanya += 50;
+        }
+    }
+
+    /*if ((bombX == playerX && (bombZ == playerZ
+                           || bombZ == playerZ - 50 || bombZ == playerZ - 100
+                           || bombZ == playerZ+ 50 || bombZ == playerZ + 100) ||
+         (bombZ == playerZ && (bombX == playerX
+                            || bombX == playerX - 50 || bombX == playerX - 100
+                            || bombX == playerX + 50 || bombX == playerX + 100))))
+        return true;*/
     return false;
 }
 

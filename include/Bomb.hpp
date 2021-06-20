@@ -18,6 +18,7 @@
 class Bomb : public ICollidable
 {
 private:
+
     std::vector<float> _surround;
     Audio* _sounds;
     Character *_player;
