@@ -455,7 +455,6 @@ void Game::updateMenu()
             _context.device->setEventReceiver(_gameReceiver);
             break;
     }
-
 }
 
 void Game::createGame()
@@ -471,7 +470,6 @@ void Game::createGame()
         _players.push_back(new Player(_context, *_map, i));
     for (int j = i; j < (4 - _playerNumber) + i; j++)
         _players.push_back(new AIBot(_context, *_map, j));
-    //wd_players.push_back(new AIBot(_context, *_map, 1));
     _bombs.clear();
     _context.needGame = false;
 }
@@ -606,45 +604,6 @@ bool Game::HandleExplosion()
     return true;
 }
 
-void Game::nextLevel()
-{
-    _context.device->closeDevice();
-    _context.device->run();
-    _context.device->drop();
-    irr::video::E_DRIVER_TYPE driver_type = irr::video::EDT_OPENGL;
-    irr::IrrlichtDevice *device = irr::createDevice(driver_type,
-                                                    irr::core::dimension2d<irr::u32>(1920, 1080),
-                                                    16, false, false, false, nullptr);
-    device->setWindowCaption(L"Best Bomberman");
-    device->setResizable(true);
-    _context.device = device;
-    _context.state = GameState::Game;
-    _context.counter = 0;
-    _driver = _context.device->getVideoDriver();
-
-    _imageList.clear();
-    for (int i = 0; i < TEXTPATHSLENGTH; i += 1) {
-        std::pair<Buttons, irr::video::ITexture *> tmp;
-        tmp.first = static_cast<Buttons>(i + 100);
-        tmp.second = _driver->getTexture(textPaths[i]);
-        _imageList.push_back(tmp);
-    }
-
-    _players.clear();
-    _bombs.clear();
-    delete _map;
-    _mapTemplate.clear();
-    delete _powerUpHandler;
-    _floor->nextLevel();
-    _mapTemplate = _floor->getTemplate();
-    _map = new VisualMap(_context, _mapTemplate, _size);
-    _powerUpHandler = new PowerUpHandler(_context, _sounds);
-    for (int i = 0; i < _playerNumber; i++)
-        _players.push_back(new Player(_context, *_map, i));
-    for (int i = 0; i < (4 - _playerNumber); i++)
-        _players.push_back(new AIBot(_context, *_map, i));
-}
-
 void Game::checkLevel()
 {
     int i = 0;
@@ -666,7 +625,6 @@ void Game::checkLevel()
             _winner = 0;
         unload();
     }
-        //nextLevel();
 }
 
 bool Game::checkSaveOrLoad()
@@ -716,11 +674,7 @@ void Game::unload()
     _mapTemplate = _floor->getTemplate();
     delete _gameReceiver;
     _gameReceiver = new GameEventReceiver();
-    //_map = new VisualMap(_context, _mapTemplate, _size);
-    _powerUpHandler = new PowerUpHandler(_context, _sounds);
-    /*for (int i = 0; i < _playerNumber; i++)
-        _players[i].push_back(new Player(_context, *_map, i));
-    for (int i = 0; i < _botNumber; i++)
-        _players.push_back(new AIBot(_context, *_map, i));*/
+    _context.device->setEventReceiver(_gameReceiver);
+    //_powerUpHandler = new PowerUpHandler(_context, _sounds);
     _context.needGame = true;
 }

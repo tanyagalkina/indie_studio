@@ -83,7 +83,6 @@ bool Bomb::HandleCollision(Character &player)
 {
     if (player.getBody()->getTransformedBoundingBox().intersectsWithBox(this->body->getTransformedBoundingBox())) {
         this->body->setVisible(false);
-        std::cout << "hit" << std::endl;
         return true;
     }
     return false;

@@ -51,7 +51,6 @@ bool PowerUp::HandleCollision(Character &player)
     {
         this->body->setVisible(false);
         this->BluRrr();
-        std::cout << "hit" << std::endl;
         return true;
     }
     return false;
