@@ -78,10 +78,6 @@ void Game::play()
             this->updateMenu();
             continue;
         }
-        if (!checkSaveOrLoad()) {
-            _context.state = GameState::Load;
-            continue;
-        }
 
         if (_context.needGame) {
             if (_context.mapSize != 0 && _context.playerNbr != 0)
@@ -380,6 +376,7 @@ void Game::updateMenu()
             delete reciever;
             menu->clearGUI();
             delete menu;
+            break;
         }
         case GameState::New: {
             Menu *menu = build_new_menu(_context, _imageList, _driver);
@@ -389,6 +386,7 @@ void Game::updateMenu()
             delete reciever;
             menu->clearGUI();
             delete menu;
+            break;
         }
         case GameState::Save: {
             Menu *menu = build_save_menu(_context, _imageList, _driver);
@@ -397,7 +395,10 @@ void Game::updateMenu()
             showMenu(GameState::Save, menu);
             delete reciever;
             menu->clearGUI();
-            delete menu;
+            delete menu;d
+            if (!checkSaveOrLoad())
+                _context.state = GameState::Load;
+            break;
         }
         case GameState::Load: {
             Menu *menu = build_load_menu(_context, _imageList, _driver);
@@ -407,6 +408,9 @@ void Game::updateMenu()
             delete reciever;
             menu->clearGUI();
             delete menu;
+            if (!checkSaveOrLoad())
+                _context.state = GameState::Load;
+            break;
         }
         case GameState::Settings: {
             Menu *menu = build_settings_menu(_context, _imageList, _driver);
@@ -416,6 +420,7 @@ void Game::updateMenu()
             delete reciever;
             menu->clearGUI();
             delete menu;
+            break;
         }
         case GameState::HowToPlay: {
             Menu *menu = build_how_to_play_menu(_context, _imageList, _driver);
@@ -434,6 +439,7 @@ void Game::updateMenu()
             delete reciever;
             menu->clearGUI();
             delete menu;
+            break;
         }
         case GameState::GameOver: {
             Menu *menu = build_game_over_menu(_context, _imageList, _driver,
@@ -444,11 +450,12 @@ void Game::updateMenu()
             delete reciever;
             menu->clearGUI();
             delete menu;
+            break;
         }
         default:
-            _context.device->setEventReceiver(_gameReceiver);
             break;
     }
+    _context.device->setEventReceiver(_gameReceiver);
 }
 
 void Game::createGame()
