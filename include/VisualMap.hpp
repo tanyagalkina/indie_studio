@@ -26,7 +26,7 @@ public:
     std::string serialize() final;
     Coordinate getMaxCoordinates();
     Map getMap();
-    void setMap(int x, int y, Floor::Type type);
+    void setMap(Coordinate coord, Floor::Type type);
     void eraseCubes(const MyList<MyList<Cube *>::iterator>& eares);
 
 private:

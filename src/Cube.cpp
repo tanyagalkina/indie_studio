@@ -113,3 +113,8 @@ void Cube::setVisible(bool enable)
 {
     _visible = enable;
 }
+
+Coordinate Cube::getCoordinates()
+{
+    return coordinate;
+}
