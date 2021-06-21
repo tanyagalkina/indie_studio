@@ -2,6 +2,7 @@
 #include "Character.hpp"
 #include "Floor.hpp"
 #include "vector3d.h"
+#include "Timer.hpp"
 
 AIBot::AIBot(SAppContext &ctx, VisualMap &map, const int &playerIdx)
     : Character(ctx, map, playerIdx)
@@ -14,6 +15,7 @@ AIBot::AIBot(SAppContext &ctx, VisualMap &map, const int &playerIdx)
     next =  {0, 0};
     current = {0, 0};
     lastCurrent = {0, 0};
+    timer.startTimer();
 }
 
 AIBot::~AIBot()
@@ -120,7 +122,8 @@ void AIBot::move(GameEventReceiver &receiver)
     next.x = round(abs((target.X + 300) / 50));
     next.y = round(abs((target.Z - 300) / 50));
     checkNextMove(target, receiver);
-    checkRandomTurn(target, receiver);
+    if (timer.isFinished())
+        checkRandomTurn(target, receiver);
 }
 
 void AIBot::checkRandomTurn(irr::core::vector3df &target, GameEventReceiver
@@ -129,8 +132,10 @@ void AIBot::checkRandomTurn(irr::core::vector3df &target, GameEventReceiver
     auto currentMap = map->getMap();
 
     srand(time(NULL));
-    int i = rand() % 6;
+    int i = rand() % 12;
     if (getNext() == Floor::EMPTY && getBehind() == Floor::EMPTY) {
+        timer = Timer(1000);
+        timer.startTimer();
         switch (moveIdx % 4) {
         case 0: //UP
             for (auto[type, coord] : currentMap) {

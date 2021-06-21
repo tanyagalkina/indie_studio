@@ -3,6 +3,7 @@
 
 #include "AppContext.hpp"
 #include "Character.hpp"
+#include "Timer.hpp"
 #include <functional>
 #include <stack>
 
@@ -32,6 +33,7 @@ private:
     Coordinate current;
     Coordinate lastCurrent;
     int goingBack;
+    Timer timer = Timer(0);
 };
 
 #endif //AI_BOT_HPP_
