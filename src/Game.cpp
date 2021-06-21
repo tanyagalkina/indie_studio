@@ -395,7 +395,7 @@ void Game::updateMenu()
             showMenu(GameState::Save, menu);
             delete reciever;
             menu->clearGUI();
-            delete menu;d
+            delete menu;
             if (!checkSaveOrLoad())
                 _context.state = GameState::Load;
             break;
