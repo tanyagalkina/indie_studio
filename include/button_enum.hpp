@@ -22,6 +22,8 @@ enum Buttons {
     GUI_BUTTON_MAINMENU,
     // Settings
     GUI_TEXT_SETTINGS,
+    GUI_RADIO_MUSIC1,
+    GUI_RADIO_MUSIC2,
     GUI_CHECK_MUSIC,
     GUI_CHECK_SOUND,
     // New Game
@@ -60,9 +62,9 @@ enum Buttons {
     GUI_TEXT_HTPFIREUP,
 };
 
-#define TEXTPATHSLENGTH 39
+#define TEXTPATHSLENGTH 41
 
-const irr::io::path textPaths[39] {
+const irr::io::path textPaths[41] {
     "./media/menu/BestBomberman.png",
     "./media/menu/NewGame.png",
     "./media/menu/LoadGame.png",
@@ -72,6 +74,8 @@ const irr::io::path textPaths[39] {
     "./media/menu/Back.png",
     "./media/menu/MainMenu.png",
     "./media/menu/SettingsHeadline.png",
+    "./media/menu/Music1.png",
+    "./media/menu/Music2.png",
     "./media/menu/MuteMusic.png",
     "./media/menu/MuteSounds.png",
     "./media/menu/NewGameHeadline.png",

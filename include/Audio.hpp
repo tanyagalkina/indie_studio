@@ -95,6 +95,11 @@ public:
         backSound.play();
     }
 
+    void stopBackMusic()
+    {
+        backSound.stop();
+    }
+
     void allah()
     {
         allahSound.play();
@@ -103,6 +108,11 @@ public:
     void backMusic2()
     {
         backSound2.play();
+    }
+
+    void stopBackMusic2()
+    {
+        backSound2.stop();
     }
 
     void powerUp()

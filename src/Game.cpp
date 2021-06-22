@@ -72,7 +72,7 @@ SAppContext Game::createContext()
 
 void Game::play()
 {
-    _sounds->backMusic2();
+    _sounds->backMusic();
     while (_context.device->run()) {
         if (_context.state != GameState::Game) {
             this->updateMenu();
@@ -414,7 +414,8 @@ void Game::updateMenu()
         }
         case GameState::Settings: {
             Menu *menu = build_settings_menu(_context, _imageList, _driver);
-            auto *reciever = new SettingsMenuEventReceiver(_context, _sounds);
+            auto *reciever = new SettingsMenuEventReceiver(_context, _sounds,
+                                                           menu->getElementList());
             _context.device->setEventReceiver(reciever);
             showMenu(GameState::Settings, menu);
             delete reciever;

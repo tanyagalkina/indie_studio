@@ -202,6 +202,12 @@ bool SettingsMenuEventReceiver::OnEvent(const irr::SEvent &event)
                 }
             case irr::gui::EGET_CHECKBOX_CHANGED:
                 switch (id) {
+                    case GUI_RADIO_MUSIC1:
+                        updateMusic(GUI_RADIO_MUSIC1);
+                        return true;
+                    case GUI_RADIO_MUSIC2:
+                        updateMusic(GUI_RADIO_MUSIC2);
+                        return true;
                     case GUI_CHECK_MUSIC:
                         _context.muteMusic = !_context.muteMusic;
                         _sounds->MuteMusic(_context.muteMusic);
@@ -218,6 +224,24 @@ bool SettingsMenuEventReceiver::OnEvent(const irr::SEvent &event)
         }
     }
     return false;
+}
+
+void SettingsMenuEventReceiver::updateMusic(int id)
+{
+    for (int i = 0; i < _elemList.size(); i += 1) {
+        if (_elemList[i]->getID() == GUI_RADIO_MUSIC1 ||
+        _elemList[i]->getID() == GUI_RADIO_MUSIC2)
+            ((irr::gui::IGUICheckBox *)_elemList[i])->setChecked(false);
+        if (_elemList[i]->getID() == id)
+            ((irr::gui::IGUICheckBox *)_elemList[i])->setChecked(true);
+    }
+    if (id == GUI_RADIO_MUSIC1) {
+        _sounds->stopBackMusic2();
+        _sounds->backMusic();
+    } else {
+        _sounds->stopBackMusic();
+        _sounds->backMusic2();
+    }
 }
 
 bool PauseMenuEventReceiver::OnEvent(const irr::SEvent &event)

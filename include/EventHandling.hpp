@@ -54,9 +54,15 @@ class SettingsMenuEventReceiver : public irr::IEventReceiver
 private:
     SAppContext &_context;
     Audio *_sounds;
+    std::vector<irr::gui::IGUIElement *> _elemList;
+
 public:
-    SettingsMenuEventReceiver(SAppContext &context, Audio *sounds) : _context
-    (context), _sounds(sounds){}
+    SettingsMenuEventReceiver(SAppContext &context, Audio *sounds,
+                              std::vector<irr::gui::IGUIElement *> elemList) :
+                              _context(context), _sounds(sounds), _elemList
+                              (elemList){}
+
+    void updateMusic(int id);
 
     virtual bool OnEvent(const irr::SEvent &event);
 };

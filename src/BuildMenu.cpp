@@ -190,17 +190,29 @@ std::vector<std::pair<Buttons, irr::video::ITexture *>> &imageList, irr::video::
     menu->addLabel(GUI_TEXT_SETTINGS, irr::core::position2d<irr::s32>
         (begin_x * 1.9, size_y));
 
-    menu->addCheckBox(irr::core::rect<irr::s32>(begin_x * 1.25, size_y * 7,
-        begin_x * 1.25 + size_x * 0.02,size_y * 7.4 + size_x * 0.02),
+    menu->addCheckBox(irr::core::rect<irr::s32>(begin_x, size_y * 5,
+                                                begin_x + size_x * 0.02,size_y * 5.4 + size_x * 0.02),
+                      GUI_RADIO_MUSIC1, true);
+    menu->addLabel(GUI_RADIO_MUSIC1, irr::core::position2d<irr::s32>
+        (begin_x * 1.2, size_y * 5));
+
+    menu->addCheckBox(irr::core::rect<irr::s32>(begin_x * 3, size_y * 5,
+                                                begin_x * 3 + size_x * 0.02, size_y * 5.4 + size_x * 0.02),
+                      GUI_RADIO_MUSIC2, false);
+    menu->addLabel(GUI_RADIO_MUSIC2, irr::core::position2d<irr::s32>
+        (begin_x * 3.2, size_y * 5));
+
+    menu->addCheckBox(irr::core::rect<irr::s32>(begin_x * 1.25, size_y * 8,
+        begin_x * 1.25 + size_x * 0.02,size_y * 8.4 + size_x * 0.02),
         GUI_CHECK_MUSIC, context.muteMusic);
     menu->addLabel(GUI_CHECK_MUSIC, irr::core::position2d<irr::s32>
-        (begin_x * 1.5, size_y * 7));
+        (begin_x * 1.5, size_y * 8));
 
-    menu->addCheckBox(irr::core::rect<irr::s32>(begin_x * 1.25, size_y * 9,
-        begin_x * 1.25 + size_x * 0.02, size_y * 9.4 + size_x * 0.02),
+    menu->addCheckBox(irr::core::rect<irr::s32>(begin_x * 1.25, size_y * 10,
+        begin_x * 1.25 + size_x * 0.02, size_y * 10.4 + size_x * 0.02),
         GUI_CHECK_SOUND, context.muteSound);
     menu->addLabel(GUI_CHECK_SOUND, irr::core::position2d<irr::s32>
-        (begin_x * 1.5, size_y * 9));
+        (begin_x * 1.5, size_y * 10));
 
     menu->addButton(irr::core::rect<irr::s32>(begin_x, size_y * 17,
         begin_x + size_x,size_y * 19), GUI_BUTTON_BACK, L"Go back");
